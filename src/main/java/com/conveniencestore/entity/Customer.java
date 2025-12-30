@@ -7,7 +7,7 @@ import lombok.Setter;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
-import com.conveniencestore.DTO.CustomerTier;
+import com.conveniencestore.constant.CustomerTier;
 
 @Entity
 @Table(

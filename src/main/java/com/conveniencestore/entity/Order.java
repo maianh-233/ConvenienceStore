@@ -8,7 +8,7 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 
-import com.conveniencestore.DTO.OrderStatus;
+import com.conveniencestore.constant.OrderStatus;
 
 @Entity
 @Table(

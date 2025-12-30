@@ -1,4 +1,4 @@
-package com.conveniencestore.DTO;
+package com.conveniencestore.constant;
 
 /**
  * Enum thể hiện trạng thái của đơn hàng

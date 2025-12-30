@@ -7,8 +7,8 @@ import lombok.Setter;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
-import com.conveniencestore.DTO.PaymentMethod;
-import com.conveniencestore.DTO.PaymentStatus;
+import com.conveniencestore.constant.PaymentMethod;
+import com.conveniencestore.constant.PaymentStatus;
 
 @Entity
 @Table(
