@@ -41,6 +41,8 @@ public class Supplier {
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 
+    private int isDeleted = 0; // 0 = chưa xóa, 1 = đã xóa
+
     /* =================== QUAN HỆ VỚI PRODUCT =================== */
     @OneToMany(mappedBy = "supplier", fetch = FetchType.LAZY)
     private List<Product> products; // Danh sách sản phẩm từ nhà cung cấp này

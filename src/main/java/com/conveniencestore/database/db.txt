@@ -44,20 +44,23 @@ CREATE TABLE customers (
 
     fullName VARCHAR(150) NOT NULL COMMENT 'Họ và tên khách hàng',
     dateOfBirth DATE DEFAULT NULL COMMENT 'Ngày sinh',
-    
+
     email VARCHAR(255) UNIQUE COMMENT 'Email liên hệ (duy nhất)',
     phone VARCHAR(50) UNIQUE COMMENT 'Số điện thoại (duy nhất)',
-    
+
     address VARCHAR(500) DEFAULT NULL COMMENT 'Địa chỉ đầy đủ',
     identityNumber VARCHAR(50) DEFAULT NULL COMMENT 'Căn cước / CMND',
     gender TINYINT DEFAULT 0 COMMENT 'Giới tính: 0=Nam, 1=Nữ',
 
-    tier VARCHAR(20) DEFAULT 'REGULAR' COMMENT 'Hạng khách: REGULAR, VIP, PREMIUM',
+    tier ENUM('REGULAR','VIP','PREMIUM') DEFAULT 'REGULAR' COMMENT 'Hạng khách: REGULAR, VIP, PREMIUM',
     points INT DEFAULT 0 COMMENT 'Điểm tích lũy của khách hàng',
 
-    createdAt DATETIME DEFAULT CURRENT_TIMESTAMP COMMENT 'Thời điểm thêm khách hàng',
-    updatedAt DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT 'Thời điểm cập nhật gần nhất'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='Bảng lưu thông tin khách hàng cửa hàng';
+    password VARCHAR(255) DEFAULT NULL COMMENT 'Mật khẩu (nên lưu hashed)',
+
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP COMMENT 'Thời điểm thêm khách hàng',
+    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT 'Thời điểm cập nhật gần nhất'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='Bảng lưu thông tin khách hàng';
+
 
 -- ================== Bảng units ==================
 CREATE TABLE units (
@@ -146,58 +149,59 @@ CREATE UNIQUE INDEX ux_inventory_product ON inventory(product_id);
 -- ================== Bảng orders ==================
 CREATE TABLE orders (
     id BIGINT AUTO_INCREMENT PRIMARY KEY COMMENT 'ID đơn hàng, tự tăng',
-    
+
     order_number VARCHAR(100) NOT NULL UNIQUE COMMENT 'Mã đơn hàng, duy nhất',
-    
+
     customer_id BIGINT DEFAULT NULL COMMENT 'Khóa ngoại tham chiếu Customer',
     staff_id BIGINT DEFAULT NULL COMMENT 'Khóa ngoại tham chiếu User (nhân viên bán)',
-    
-    status VARCHAR(50) DEFAULT 'pending' COMMENT 'Trạng thái đơn hàng: pending, paid, shipped...',
-    
+
+    status ENUM('PENDING','PROCESSING','SHIPPED','DELIVERED','CANCELLED') DEFAULT 'PENDING' COMMENT 'Trạng thái đơn hàng',
+
     subtotal DECIMAL(12,2) NOT NULL DEFAULT 0 COMMENT 'Tổng tiền trước giảm giá',
     discount DECIMAL(12,2) NOT NULL DEFAULT 0 COMMENT 'Giảm giá',
     total_amount DECIMAL(12,2) NOT NULL DEFAULT 0 COMMENT 'Tổng tiền thanh toán',
-    
+
     promotion_id BIGINT DEFAULT NULL COMMENT 'Khuyến mãi áp dụng (nếu có)',
-    
+
     note VARCHAR(500) DEFAULT NULL COMMENT 'Ghi chú đơn hàng',
     shipping_address VARCHAR(500) DEFAULT NULL COMMENT 'Địa chỉ giao hàng',
-    
+
     is_online TINYINT(1) NOT NULL DEFAULT 0 COMMENT 'Đơn online hay bán tại cửa hàng (1=online, 0=offline)',
     is_deleted TINYINT(1) NOT NULL DEFAULT 0 COMMENT 'Soft delete: 0 = chưa xóa, 1 = đã xóa',
-    
+
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP COMMENT 'Thời điểm tạo đơn hàng',
     updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT 'Thời điểm cập nhật đơn hàng',
-    
-    CONSTRAINT fk_orders_customer FOREIGN KEY (customer_id) REFERENCES customer(id),
+
+    CONSTRAINT fk_orders_customer FOREIGN KEY (customer_id) REFERENCES customers(id),
     CONSTRAINT fk_orders_staff FOREIGN KEY (staff_id) REFERENCES users(id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='Bảng lưu đơn hàng';
 
--- Index
 CREATE INDEX idx_orders_customer ON orders(customer_id);
 CREATE INDEX idx_orders_staff ON orders(staff_id);
 CREATE INDEX idx_orders_status ON orders(status);
 CREATE INDEX idx_orders_is_deleted ON orders(is_deleted);
 
 
+
 -- ================== Bảng payments ==================
 CREATE TABLE payments (
     id BIGINT AUTO_INCREMENT PRIMARY KEY COMMENT 'ID thanh toán, tự tăng',
-    
+
     order_id BIGINT NOT NULL COMMENT 'Khóa ngoại liên kết với đơn hàng (1 order ↔ 1 payment)',
-    
+
     amount DECIMAL(12,2) NOT NULL DEFAULT 0 COMMENT 'Số tiền thanh toán',
-    method VARCHAR(50) NOT NULL DEFAULT 'cash' COMMENT 'Hình thức thanh toán: cash, card, momo...',
+
+    method ENUM('CASH','CARD','MOMO','VNPAY','ZALO_PAY','BANK_TRANSFER') NOT NULL DEFAULT 'CASH' COMMENT 'Hình thức thanh toán',
     transaction_ref VARCHAR(255) DEFAULT NULL COMMENT 'Mã giao dịch (nếu có)',
-    status VARCHAR(50) NOT NULL DEFAULT 'completed' COMMENT 'Trạng thái thanh toán: completed, pending, failed',
-    
+    status ENUM('PENDING','COMPLETED','FAILED','CANCELLED') NOT NULL DEFAULT 'PENDING' COMMENT 'Trạng thái thanh toán',
+
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP COMMENT 'Thời điểm thanh toán',
-    
+
     CONSTRAINT fk_payments_order FOREIGN KEY (order_id) REFERENCES orders(id) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='Bảng lưu thanh toán của từng đơn hàng';
 
--- Index
 CREATE UNIQUE INDEX idx_payments_order ON payments(order_id);
+
 
 -- ================== Bảng order_items ==================
 
@@ -267,3 +271,33 @@ CREATE TABLE import_items (
 -- Index
 CREATE INDEX idx_import_item_import ON import_items(import_id);
 CREATE INDEX idx_import_item_product ON import_items(product_id);
+
+
+-- ================== Bảng suppliers ==================
+ALTER TABLE suppliers
+ADD COLUMN is_deleted TINYINT(1) NOT NULL DEFAULT 0 COMMENT 'Soft delete: 0 = chưa xóa, 1 = đã xóa';
+
+-- ================== Bảng units ==================
+ALTER TABLE units
+ADD COLUMN is_deleted TINYINT(1) NOT NULL DEFAULT 0 COMMENT 'Soft delete: 0 = chưa xóa, 1 = đã xóa';
+
+-- ================== Bảng categories ==================
+ALTER TABLE categories
+ADD COLUMN is_deleted TINYINT(1) NOT NULL DEFAULT 0 COMMENT 'Soft delete: 0 = chưa xóa, 1 = đã xóa';
+
+
+-- ================== Bảng permissions ==================
+CREATE TABLE permissions (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY COMMENT 'ID quyền, tự tăng',
+    name VARCHAR(100) NOT NULL UNIQUE COMMENT 'Tên quyền chi tiết, ví dụ: ORDER_CREATE, PRODUCT_EDIT',
+    description VARCHAR(255) DEFAULT NULL COMMENT 'Mô tả quyền, ví dụ: Cho phép tạo đơn hàng'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- ================== Bảng role_permissions ==================
+CREATE TABLE role_permissions (
+    role_id BIGINT NOT NULL COMMENT 'ID role',
+    permission_id BIGINT NOT NULL COMMENT 'ID permission',
+    PRIMARY KEY(role_id, permission_id),
+    CONSTRAINT fk_rp_role FOREIGN KEY (role_id) REFERENCES roles(id) ON DELETE CASCADE,
+    CONSTRAINT fk_rp_permission FOREIGN KEY (permission_id) REFERENCES permissions(id) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;

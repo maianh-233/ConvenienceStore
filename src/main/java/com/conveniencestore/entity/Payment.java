@@ -7,6 +7,9 @@ import lombok.Setter;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
+import com.conveniencestore.DTO.PaymentMethod;
+import com.conveniencestore.DTO.PaymentStatus;
+
 @Entity
 @Table(
     name = "payments",
@@ -31,13 +34,15 @@ public class Payment {
     private BigDecimal amount = BigDecimal.ZERO; // Số tiền thanh toán
 
     @Column(length = 50, nullable = false)
-    private String method = "cash"; // cash, card, momo, v.v.
+    @Enumerated(EnumType.STRING)
+    private PaymentMethod method = PaymentMethod.CASH; // Phương thức thanh toán
 
     @Column(name = "transaction_ref", length = 255)
     private String transactionRef; // mã giao dịch (nếu có)
 
     @Column(length = 50)
-    private String status = "pending"; // completed, pending, failed, etc.
+    @Enumerated(EnumType.STRING)
+    private PaymentStatus status = PaymentStatus.PENDING; // Trạng thái thanh toán
 
     private LocalDateTime createdAt;
 

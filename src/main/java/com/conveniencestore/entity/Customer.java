@@ -7,6 +7,8 @@ import lombok.Setter;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
+import com.conveniencestore.DTO.CustomerTier;
+
 @Entity
 @Table(
     name = "customers",
@@ -43,10 +45,15 @@ public class Customer {
     private int gender; // Giới tính: 0=Nam, 1=Nữ
 
     /* =================== HẠNG VÀ ĐIỂM =================== */
-    @Column(length = 20)
-    private String tier = "REGULAR"; // Hạng khách: REGULAR, VIP, PREMIUM
+    @Enumerated(EnumType.STRING)
+    @Column(length = 20, nullable = false)
+    private CustomerTier tier = CustomerTier.REGULAR; // Hạng khách hàng
 
     private int points = 0; // Điểm tích lũy
+
+    /* =================== MẬT KHẨU =================== */
+    @Column(length = 255, nullable = false)
+    private String password; // Mật khẩu (nên lưu hashed)
 
     /* =================== THÔNG TIN AUDIT =================== */
     private LocalDateTime createdAt; // Thời điểm thêm khách hàng

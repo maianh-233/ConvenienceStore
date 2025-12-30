@@ -8,6 +8,8 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import com.conveniencestore.DTO.OrderStatus;
+
 @Entity
 @Table(
     name = "orders",
@@ -40,7 +42,9 @@ public class Order {
     private User staff;
 
     @Column(length = 50)
-    private String status = "pending";
+    @Enumerated(EnumType.STRING) 
+    private OrderStatus status = OrderStatus.PENDING; // Trạng thái đơn hàng
+
 
     @Column(precision = 12, scale = 2)
     private BigDecimal subtotal = BigDecimal.ZERO;
