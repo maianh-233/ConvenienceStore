@@ -1,13 +1,13 @@
 package com.conveniencestore;
 
-import com.conveniencestore.gui.LoginFrame;
+import com.conveniencestore.gui.MainFrame;
 
 import javax.swing.SwingUtilities;
 
 public class Main {
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
-            new LoginFrame().setVisible(true);
+            new MainFrame().setVisible(true);
         });
     }
 }
