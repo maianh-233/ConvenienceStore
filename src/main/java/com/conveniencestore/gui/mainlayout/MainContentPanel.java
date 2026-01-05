@@ -6,6 +6,19 @@ import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
+import com.conveniencestore.gui.PanelCategory;
+import com.conveniencestore.gui.PanelCustomer;
+import com.conveniencestore.gui.PanelEmployee;
+import com.conveniencestore.gui.PanelHome;
+import com.conveniencestore.gui.PanelImport;
+import com.conveniencestore.gui.PanelInformation;
+import com.conveniencestore.gui.PanelInventory;
+import com.conveniencestore.gui.PanelOrder;
+import com.conveniencestore.gui.PanelProduct;
+import com.conveniencestore.gui.PanelPromotion;
+import com.conveniencestore.gui.PanelStat;
+import com.conveniencestore.gui.PanelSupplier;
+import com.conveniencestore.gui.PanelUnit;
 import com.conveniencestore.gui.utils.AppColor;
 public class MainContentPanel extends JPanel {
 
@@ -15,17 +28,19 @@ public class MainContentPanel extends JPanel {
         setLayout(cardLayout);
         setBackground(AppColor.CONTENT_BG);
 
-        // add(new PanelHome(), "HOME");
-        // add(new PanelOrder(), "ORDER");
-        // add(new PanelCustomer(), "CUSTOMER");
-        // add(new PanelEmployee(), "EMPLOYEE");
-        // add(new PanelSupplier(), "SUPPLIER");
-        // add(new PanelUnit(), "UNIT");
-        // add(new PanelCategory(), "CATEGORY");
-        // add(new PanelProduct(), "PRODUCT");
-        // add(new PanelInventory(), "INVENTORY");
-        // add(new PanelImport(), "IMPORT");
-        // add(new PanelThongKe(), "STAT");
+        add(new PanelHome(), "HOME");
+        add(new PanelOrder(), "ORDER");
+        add(new PanelCustomer(), "CUSTOMER");
+        add(new PanelEmployee(), "EMPLOYEE");
+        add(new PanelSupplier(), "SUPPLIER");
+        add(new PanelUnit(), "UNIT");
+        add(new PanelCategory(), "CATEGORY");
+        add(new PanelProduct(), "PRODUCT");
+        add(new PanelInventory(), "INVENTORY");
+        add(new PanelImport(), "IMPORT");
+        add(new PanelPromotion(), "PROMOTION");
+        add(new PanelStat(), "STAT");
+        add(new PanelInformation(), "INFORMATION");
     }
 
     public void showPage(String name) {

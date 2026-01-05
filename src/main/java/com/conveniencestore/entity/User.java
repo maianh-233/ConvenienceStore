@@ -35,6 +35,7 @@ public class User {
     private String phone;
     private String identityNumber;
     private String address;
+    private String img_url;
     private int gender;
 
     // ================== ROLE ==================

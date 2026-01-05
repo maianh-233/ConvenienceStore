@@ -53,18 +53,22 @@ public class MainFrame extends JFrame implements SidebarListener {
         });
     }
 
+    // Kế thừa phương thúc của interface => Lắng nghe sự kiện chọn ở sidebar
     @Override
     public void onMenuSelected(String menuKey) {
         mainContent.showPage(menuKey);
     }
 
+    // Thu nhỏ sidebar khi người dùng resize
     private void handleResize() {
-        boolean isFullScreen =
-                getWidth() >= screenSize.width - 10 &&
-                getHeight() >= screenSize.height - 10;
+        int frameWidth = getWidth();
+        int screenWidth = screenSize.width;
 
-        sidebar.collapse(!isFullScreen);
+        boolean shouldCollapse = frameWidth < screenWidth;
+
+        sidebar.collapse(shouldCollapse);
     }
+
 
     
 

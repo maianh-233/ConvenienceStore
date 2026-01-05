@@ -1,110 +1,138 @@
 package com.conveniencestore.gui.utils;
 
 import javax.swing.*;
-import javax.swing.table.DefaultTableCellRenderer;
-import javax.swing.table.DefaultTableModel;
-import javax.swing.table.JTableHeader;
+import javax.swing.table.*;
 import java.awt.*;
-import java.util.List;
 
 /**
- * TableUtil nâng cao: custom JTable, hover, alternate color, header style
- * @param <T> Entity type
+ * Utility class dùng để custom JTable:
+ * - Header xanh lá, chữ trắng
+ * - Hàng chẵn xanh nhạt, hàng lẻ trắng
+ * - Cho phép resize cột
+ * - Tự động cắt text dài (ellipsis)
  */
-public abstract class TableUtil<T> {
-    protected JTable table;
-    protected DefaultTableModel model;
+public class TableUtil {
 
-    private Color headerBgColor = new Color(63, 81, 181); // Màu header mặc định
-    private Color headerFgColor = Color.WHITE;
-    private Font headerFont = new Font("Segoe UI", Font.BOLD, 14);
+    // ===================== MÀU SẮC =====================
+    public static final Color HEADER_BG = new Color(22, 163, 74);   // Xanh lá chủ đạo
+    public static final Color HEADER_FG = Color.WHITE;
 
-    private Color rowColor1 = Color.WHITE;  // Màu chẵn
-    private Color rowColor2 = new Color(240, 240, 240); // Màu lẻ
-    private Color hoverColor = new Color(200, 230, 250); // Màu hover
+    public static final Color ROW_EVEN = new Color(240, 253, 244);  // Xanh nhạt
+    public static final Color ROW_ODD  = Color.WHITE;
 
-    public TableUtil(JTable table, String[] columnNames) {
-        this.table = table;
-        this.model = new DefaultTableModel(columnNames, 0) {
-            @Override
-            public boolean isCellEditable(int row, int column) {
-                return false; // tất cả column read-only
-            }
-        };
-        table.setModel(model);
-        initCustomTable();
+    public static final Color GRID_COLOR = new Color(229, 231, 235);
+
+    // ===================== FONT =====================
+    public static final Font HEADER_FONT = new Font("Segoe UI", Font.BOLD, 14);
+    public static final Font BODY_FONT   = new Font("Segoe UI", Font.PLAIN, 13);
+
+   
+    private TableUtil() {
+        // Không cho tạo instance
     }
 
-    /** Init custom style cho table */
-    private void initCustomTable() {
-        // Header
-        JTableHeader header = table.getTableHeader();
-        header.setBackground(headerBgColor);
-        header.setForeground(headerFgColor);
-        header.setFont(headerFont);
-        header.setReorderingAllowed(false);
+    // ===================== HÀM GỌI CHÍNH =====================
+    public static void style(JTable table) {
+        styleHeader(table);
+        styleBody(table);
+        styleGrid(table);
+        styleBehavior(table);
+    }
 
-        // Row color & hover
-        table.setDefaultRenderer(Object.class, new DefaultTableCellRenderer() {
+    // ===================== HEADER =====================
+    private static void styleHeader(JTable table) {
+        JTableHeader header = table.getTableHeader();
+
+        header.setPreferredSize(new Dimension(header.getWidth(), 42));
+        header.setReorderingAllowed(false); // Không cho kéo đổi vị trí cột
+        header.setResizingAllowed(true);    // CHO resize cột
+
+        header.setDefaultRenderer(new DefaultTableCellRenderer() {
             @Override
             public Component getTableCellRendererComponent(
                     JTable table, Object value, boolean isSelected,
-                    boolean hasFocus, int row, int column) {
+                    boolean hasFocus, int row, int col) {
 
-                Component c = super.getTableCellRendererComponent(
-                        table, value, isSelected, hasFocus, row, column);
+                JLabel label = (JLabel) super.getTableCellRendererComponent(
+                        table, value, isSelected, hasFocus, row, col);
 
-                // Hover
-                if (row == table.getSelectedRow()) {
-                    c.setBackground(hoverColor);
-                } else {
-                    // Alternate row color
-                    c.setBackground(row % 2 == 0 ? rowColor1 : rowColor2);
-                }
+                label.setOpaque(true);
+                label.setBackground(HEADER_BG);
+                label.setForeground(HEADER_FG);
+                label.setFont(HEADER_FONT);
+                label.setHorizontalAlignment(CENTER);
+                label.setBorder(BorderFactory.createEmptyBorder(5, 10, 5, 10));
 
-                return c;
+                return label;
             }
         });
-
-        table.setRowHeight(30);
-        table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        table.setShowGrid(true);
-        table.setGridColor(Color.LIGHT_GRAY);
     }
 
-    /** Load dữ liệu entity */
-    public abstract void loadData(List<T> data);
+    // ===================== BODY =====================
+    private static void styleBody(JTable table) {
+        table.setFont(BODY_FONT);
+        table.setRowHeight(38);
 
-    /** Xóa tất cả row */
-    public void clear() {
-        model.setRowCount(0);
-    }
+        // Cho table co giãn khi resize panel
+        table.setAutoResizeMode(JTable.AUTO_RESIZE_SUBSEQUENT_COLUMNS);
 
-    /** Xóa 1 row */
-    public void removeRow(int index) {
-        if (index >= 0 && index < model.getRowCount()) {
-            model.removeRow(index);
+        // Renderer cắt text (20 ký tự)
+        DefaultTableCellRenderer renderer = new EllipsisCellRenderer(20) {
+
+            @Override
+            public Component getTableCellRendererComponent(
+                    JTable table, Object value, boolean isSelected,
+                    boolean hasFocus, int row, int col) {
+
+                JLabel label = (JLabel) super.getTableCellRendererComponent(
+                        table, value, isSelected, hasFocus, row, col);
+
+                // Màu xen kẽ chẵn / lẻ
+                if (!isSelected) {
+                    label.setBackground(row % 2 == 0 ? ROW_EVEN : ROW_ODD);
+                }
+
+                label.setFont(BODY_FONT);
+                label.setForeground(Color.DARK_GRAY);
+                label.setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 10));
+
+                return label;
+            }
+        };
+
+        // Áp dụng renderer cho tất cả các cột
+        for (int i = 0; i < table.getColumnCount(); i++) {
+            table.getColumnModel().getColumn(i).setCellRenderer(renderer);
         }
     }
 
-    /** Tùy chỉnh màu header */
-    public void setHeaderColor(Color bg, Color fg, Font font) {
-        this.headerBgColor = bg;
-        this.headerFgColor = fg;
-        this.headerFont = font;
-        initCustomTable();
+    // ===================== GRID =====================
+    private static void styleGrid(JTable table) {
+        table.setGridColor(GRID_COLOR);
+        table.setShowVerticalLines(false);
+        table.setShowHorizontalLines(true);
+        table.setIntercellSpacing(new Dimension(0, 1));
     }
 
-    /** Tùy chỉnh màu hover */
-    public void setHoverColor(Color hover) {
-        this.hoverColor = hover;
-        initCustomTable();
-    }
-
-    /** Tùy chỉnh màu alternate row */
-    public void setRowColors(Color color1, Color color2) {
-        this.rowColor1 = color1;
-        this.rowColor2 = color2;
-        initCustomTable();
+    // ===================== HÀNH VI =====================
+    private static void styleBehavior(JTable table) {
+        table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        table.setRowSelectionAllowed(true);
+        table.setColumnSelectionAllowed(false);
+        table.setFocusable(false);
     }
 }
+/*
+JTable table = new JTable(tableModel);
+
+// Custom style dùng chung
+TableUtil.style(table);
+
+JScrollPane scrollPane = new JScrollPane(table);
+scrollPane.setBorder(BorderFactory.createEmptyBorder());
+scrollPane.getViewport().setBackground(Color.WHITE);
+
+// ScrollBar custom của bạn (nếu có)
+scrollPane.getVerticalScrollBar().setUI(new ModernScrollBarUI());
+
+*/

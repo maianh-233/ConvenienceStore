@@ -37,11 +37,11 @@ public class SidebarButton extends JButton {
         setForeground(Color.WHITE);
         setFont(new Font("Segoe UI", Font.BOLD, 15));
 
-        // ===== QUAN TRỌNG CHO BOX LAYOUT =====
-        Dimension size = new Dimension(Integer.MAX_VALUE, 60);
+        // ===== BOX LAYOUT =====
+        Dimension size = new Dimension(Integer.MAX_VALUE, 50);
         setPreferredSize(size);
         setMinimumSize(new Dimension(0, 60));
-        setMaximumSize(new Dimension(Integer.MAX_VALUE, 60));
+        setMaximumSize(new Dimension(Integer.MAX_VALUE, 50));
 
         setBorder(BorderFactory.createEmptyBorder(0, 15, 0, 0));
     }

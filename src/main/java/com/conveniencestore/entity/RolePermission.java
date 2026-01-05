@@ -29,11 +29,13 @@ public class RolePermission {
     public static class RolePermissionId implements java.io.Serializable {
         private Long roleId;
         private Long permissionId;
+        private Integer is_active;
 
         public RolePermissionId() {}
-        public RolePermissionId(Long roleId, Long permissionId) {
+        public RolePermissionId(Long roleId, Long permissionId, int is_active) {
             this.roleId = roleId;
             this.permissionId = permissionId;
+            this.is_active = is_active;
         }
     }
 }

@@ -21,7 +21,7 @@ public class SidebarPanel extends JPanel {
        setBackground(AppColor.SIDEBAR_BG);
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
-        setPreferredSize(new Dimension(230, 0));
+        setPreferredSize(new Dimension(250, 0));
         setMinimumSize(new Dimension(70, 0));
 
         add(Box.createVerticalStrut(10));
@@ -38,7 +38,8 @@ public class SidebarPanel extends JPanel {
         addMenu("/icon/products.png", "Product Management", "PRODUCT");
         addMenu("/icon/inventory.png", "Inventory Management", "INVENTORY");
         addMenu("/icon/imports.png", "Import Management", "IMPORT");
-        addMenu("/icon/ThongKe.png", "Statistics", "STAT");
+        addMenu("/icon/imports.png", "Promotion Management", "PROMOTION");
+        addMenu("/icon/stat.png", "Statistics", "STAT");
         addMenu("/icon/user.png", "Information", "INFORMATION");
         add(Box.createVerticalGlue());
     }
@@ -78,7 +79,7 @@ public class SidebarPanel extends JPanel {
 
         setPreferredSize(
             collapse ? new Dimension(70, getHeight())
-                     : new Dimension(230, getHeight())
+                     : new Dimension(250, getHeight())
         );
 
         for (SidebarButton btn : buttons) {

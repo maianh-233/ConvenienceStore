@@ -1,25 +1,31 @@
 package com.conveniencestore.gui.utils;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 /**
- * CustomButton - nút tùy biến cho Swing
- * Hỗ trợ:
- * - Tùy chỉnh màu nền, màu chữ, màu hover
- * - Bo góc (corner radius)
- * - Icon và text
- * - Font chữ
+ * CustomButton – JButton tùy biến (SAFE VERSION)
+ * - Không cắt text / icon
+ * - Tương thích mọi Layout
+ * - Bo góc + hover
+ * - Tự đo preferred size chính xác
  */
 public class CustomButton extends JButton {
 
-    private Color backgroundColor = new Color(52, 152, 219); // màu nền mặc định
-    private Color hoverColor = new Color(41, 128, 185);      // màu khi hover
-    private Color textColor = Color.WHITE;                   // màu chữ
-    private int cornerRadius = 10;                           // bán kính bo góc
+    // ================= CONFIG =================
+    private Color backgroundColor = new Color(37, 99, 235);   // Blue-600
+    private Color hoverColor      = new Color(29, 78, 216);   // Blue-700
+    private Color textColor       = Color.WHITE;
+
+    private int cornerRadius = 10;
     private boolean hover = false;
 
+    private static final int HEIGHT = 36;
+    private static final int H_PADDING = 14;
+
+    // ================= CONSTRUCTOR =================
     public CustomButton(String text) {
         super(text);
         init();
@@ -30,14 +36,23 @@ public class CustomButton extends JButton {
         init();
     }
 
+    // ================= INIT =================
     private void init() {
+
+        setOpaque(false);
         setContentAreaFilled(false);
-        setFocusPainted(false);
         setBorderPainted(false);
+        setFocusPainted(false);
+
         setForeground(textColor);
-        setFont(new Font("Segoe UI", Font.BOLD, 14));
+        setFont(new Font("Segoe UI", Font.BOLD, 13));
         setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 
+        setHorizontalAlignment(SwingConstants.CENTER);
+        setHorizontalTextPosition(SwingConstants.RIGHT);
+        setIconTextGap(8);
+
+        // Hover effect
         addMouseListener(new MouseAdapter() {
             @Override
             public void mouseEntered(MouseEvent e) {
@@ -53,7 +68,48 @@ public class CustomButton extends JButton {
         });
     }
 
-    // ================= Setter tùy chỉnh =================
+    // ================= PAINT =================
+    @Override
+    protected void paintComponent(Graphics g) {
+
+        Graphics2D g2 = (Graphics2D) g.create();
+        g2.setRenderingHint(
+                RenderingHints.KEY_ANTIALIASING,
+                RenderingHints.VALUE_ANTIALIAS_ON
+        );
+
+        g2.setColor(hover ? hoverColor : backgroundColor);
+        g2.fillRoundRect(
+                0, 0,
+                getWidth(), getHeight(),
+                cornerRadius, cornerRadius
+        );
+
+        g2.dispose();
+        super.paintComponent(g);
+    }
+
+    // ================= SIZE (IMPORTANT) =================
+    @Override
+    public Dimension getPreferredSize() {
+
+        Dimension d = super.getPreferredSize();
+
+        // Ép chiều cao đồng bộ toàn UI
+        d.height = HEIGHT;
+
+        // Padding trái phải cho icon + text
+        d.width += H_PADDING;
+
+        return d;
+    }
+
+    @Override
+    public Dimension getMinimumSize() {
+        return getPreferredSize();
+    }
+
+    // ================= SETTER =================
     public void setBackgroundColor(Color color) {
         this.backgroundColor = color;
         repaint();
@@ -78,17 +134,5 @@ public class CustomButton extends JButton {
     public void setButtonFont(Font font) {
         setFont(font);
         repaint();
-    }
-
-    @Override
-    protected void paintComponent(Graphics g) {
-        Graphics2D g2 = (Graphics2D) g.create();
-        g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-
-        g2.setColor(hover ? hoverColor : backgroundColor);
-        g2.fillRoundRect(0, 0, getWidth(), getHeight(), cornerRadius, cornerRadius);
-
-        g2.dispose();
-        super.paintComponent(g);
     }
 }
