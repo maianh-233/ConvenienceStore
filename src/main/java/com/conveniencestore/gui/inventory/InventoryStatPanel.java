@@ -20,10 +20,10 @@ public class InventoryStatPanel extends JPanel {
 
         // Icon (bạn đổi path theo project)
         Icon iconInStock = ImageUtil.scaleIcon(
-                        new ImageIcon(getIconUrl("/icon/filter.png")), 18, 18
+                        new ImageIcon(getIconUrl("/icon/active.png")), 20, 20
                 );
         Icon iconOutStock = ImageUtil.scaleIcon(
-                        new ImageIcon(getIconUrl("/icon/filter.png")), 18, 18
+                        new ImageIcon(getIconUrl("/icon/unactive.png")), 20, 20
                 );
 
         cardInStock = new StatCard(

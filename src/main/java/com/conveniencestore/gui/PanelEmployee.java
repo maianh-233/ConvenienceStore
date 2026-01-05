@@ -4,6 +4,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.net.URL;
 
+import com.conveniencestore.gui.customer.CustomerStatPanel;
+import com.conveniencestore.gui.employee.EmployeeStatPanel;
 import com.conveniencestore.gui.mainlayout.SidebarButton;
 import com.conveniencestore.gui.utils.ButtonPanelUtil;
 import com.conveniencestore.gui.utils.CustomButton;
@@ -18,6 +20,8 @@ public class PanelEmployee  extends JPanel {
    // ================= HEADER =================
     private String titlePanel = "Quản lý nhân viên";
     private CustomButton btnReload;
+    // ================= STAT =================
+    private EmployeeStatPanel employeeStatPanel;
 
     // ================= SEARCH =================
     private JTextField txtSearch;
@@ -100,7 +104,14 @@ public class PanelEmployee  extends JPanel {
                         new ImageIcon(getIconUrl("/icon/next.png")), 16, 16
                 )
         );
-    }
+
+         // ===== STAT PANEL =====
+        employeeStatPanel = new EmployeeStatPanel();
+
+        // ví dụ test dữ liệu
+        employeeStatPanel.setcardActiveEmployee(120);
+        employeeStatPanel.setcardUnActiveEmployee(18);
+}
 
     // ================= LAYOUT =================
     private void initLayout() {
@@ -120,6 +131,9 @@ public class PanelEmployee  extends JPanel {
         );
         topPanel.add(Box.createVerticalStrut(10));
 
+        /* =================  STAT ================= */
+        topPanel.add(employeeStatPanel);
+        topPanel.add(Box.createVerticalStrut(15));
         // Search + Filter
        
         topPanel.add(

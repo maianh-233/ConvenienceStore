@@ -25,16 +25,16 @@ public class CustomerStatPanel extends JPanel {
 
        
         Icon iconcardActiveCustomer = ImageUtil.scaleIcon(
-                        new ImageIcon(getIconUrl("/icon/filter.png")), 18, 18
+                        new ImageIcon(getIconUrl("/icon/active.png")), 20, 20
                 );
         Icon iconcardVIPCustomer = ImageUtil.scaleIcon(
-                        new ImageIcon(getIconUrl("/icon/filter.png")), 18, 18
+                        new ImageIcon(getIconUrl("/icon/vip.png")), 20, 20
                 );
         Icon iconcardREGULARCustomer = ImageUtil.scaleIcon(
-                        new ImageIcon(getIconUrl("/icon/filter.png")), 18, 18
+                        new ImageIcon(getIconUrl("/icon/regular.png")), 20, 20
                 );
         Icon iconcardPREMIUMCustomer = ImageUtil.scaleIcon(
-                        new ImageIcon(getIconUrl("/icon/filter.png")), 18, 18
+                        new ImageIcon(getIconUrl("/icon/premium.png")), 20, 20
                 );
 
         cardActiveCustomer = new StatCard(

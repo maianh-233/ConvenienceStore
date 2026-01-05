@@ -3,9 +3,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.net.URL;
 
-import com.conveniencestore.gui.employee.EmployeeStatPanel;
 import com.conveniencestore.gui.mainlayout.SidebarButton;
-import com.conveniencestore.gui.promotion.PromotionStatPanel;
 import com.conveniencestore.gui.utils.ButtonPanelUtil;
 import com.conveniencestore.gui.utils.CustomButton;
 import com.conveniencestore.gui.utils.FilterDateUtil;
@@ -14,16 +12,15 @@ import com.conveniencestore.gui.utils.ImageUtil;
 import com.conveniencestore.gui.utils.PaginationUtil;
 import com.conveniencestore.gui.utils.SearchPanelUtil;
 import com.conveniencestore.gui.utils.TableUtil;
-public class PanelPromotion extends JPanel{
+public class PanelRole extends JPanel{
     // ================= HEADER =================
-    private String titlePanel = "Quản lý khuyến mãi";
+    private String titlePanel = "Quản lý phân quyền";
     private CustomButton btnReload;
 
     // ================= SEARCH =================
     private JTextField txtSearch;
     private CustomButton btnSearch;
-   // ================= STAT =================
-    private PromotionStatPanel promotionStatPanel;
+
 
     // ================= BUTTON ACTION =================
     private CustomButton btnView;
@@ -42,7 +39,7 @@ public class PanelPromotion extends JPanel{
     private CustomButton btnPrev;
     private CustomButton btnNext;
 
-    public PanelPromotion () {
+    public PanelRole () {
         initComponent();
         initLayout();
     }
@@ -101,12 +98,6 @@ public class PanelPromotion extends JPanel{
                         new ImageIcon(getIconUrl("/icon/next.png")), 16, 16
                 )
         );
-        // ===== STAT PANEL =====
-        promotionStatPanel = new PromotionStatPanel();
-
-        // ví dụ test dữ liệu
-        promotionStatPanel.setcardActivePromotion(120);
-        promotionStatPanel.setcardInActivePromotion(18);
     }
 
     // ================= LAYOUT =================
@@ -126,10 +117,6 @@ public class PanelPromotion extends JPanel{
                 HeaderPanelUtil.createHeaderPanel(titlePanel, btnReload)
         );
         topPanel.add(Box.createVerticalStrut(10));
-
-         /* =================  STAT ================= */
-        topPanel.add(promotionStatPanel);
-        topPanel.add(Box.createVerticalStrut(15));
 
         // Search + Filter
        

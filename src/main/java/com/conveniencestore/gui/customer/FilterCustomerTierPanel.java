@@ -95,7 +95,7 @@ public class FilterCustomerTierPanel {
 
     // ===================== STYLE =====================
     private static void styleLabel(JLabel label) {
-        label.setFont(new Font("Segoe UI", Font.PLAIN, 13));
+        label.setFont(new Font("Segoe UI", Font.BOLD, 15));
         label.setForeground(new Color(75, 85, 99));
     }
 

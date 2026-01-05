@@ -38,8 +38,9 @@ public class SidebarPanel extends JPanel {
         addMenu("/icon/products.png", "Product Management", "PRODUCT");
         addMenu("/icon/inventory.png", "Inventory Management", "INVENTORY");
         addMenu("/icon/imports.png", "Import Management", "IMPORT");
-        addMenu("/icon/imports.png", "Promotion Management", "PROMOTION");
+        addMenu("/icon/promotion.png", "Promotion Management", "PROMOTION");
         addMenu("/icon/stat.png", "Statistics", "STAT");
+        addMenu("/icon/role.png", "Role", "ROLE");
         addMenu("/icon/user.png", "Information", "INFORMATION");
         add(Box.createVerticalGlue());
     }

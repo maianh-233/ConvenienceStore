@@ -16,6 +16,7 @@ import com.conveniencestore.gui.PanelInventory;
 import com.conveniencestore.gui.PanelOrder;
 import com.conveniencestore.gui.PanelProduct;
 import com.conveniencestore.gui.PanelPromotion;
+import com.conveniencestore.gui.PanelRole;
 import com.conveniencestore.gui.PanelStat;
 import com.conveniencestore.gui.PanelSupplier;
 import com.conveniencestore.gui.PanelUnit;
@@ -40,6 +41,7 @@ public class MainContentPanel extends JPanel {
         add(new PanelImport(), "IMPORT");
         add(new PanelPromotion(), "PROMOTION");
         add(new PanelStat(), "STAT");
+        add(new PanelRole(), "ROLE");
         add(new PanelInformation(), "INFORMATION");
     }
 
