@@ -68,8 +68,8 @@ public class Order {
     @Column(name = "is_online")
     private int isOnline = 0;
 
-    @Column(name = "is_deleted")
-    private int isDeleted = 0; // 0 = chưa xóa, 1 = đã xóa
+    @Column(name = "is_deleted", nullable= false)
+    private int isDeleted = 1; // 1 = chưa xóa, 0 = đã xóa
 
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;

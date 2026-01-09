@@ -3,16 +3,19 @@ import javax.swing.*;
 import java.awt.*;
 import java.net.URL;
 
-import com.conveniencestore.gui.mainlayout.SidebarButton;
+
+import com.conveniencestore.DTO.UnitResponseDTO;
+import com.conveniencestore.gui.unit.UnitDialog;
 import com.conveniencestore.gui.utils.ButtonPanelUtil;
 import com.conveniencestore.gui.utils.CustomButton;
-import com.conveniencestore.gui.utils.FilterDateUtil;
 import com.conveniencestore.gui.utils.HeaderPanelUtil;
 import com.conveniencestore.gui.utils.ImageUtil;
 import com.conveniencestore.gui.utils.PaginationUtil;
 import com.conveniencestore.gui.utils.SearchPanelUtil;
 import com.conveniencestore.gui.utils.TableUtil;
+
 public class PanelUnit extends JPanel{
+    private JFrame parentFrame;
     // ================= HEADER =================
     private String titlePanel = "Quản lý đơn vị hàng hóa";
     private CustomButton btnReload;
@@ -27,6 +30,7 @@ public class PanelUnit extends JPanel{
     private CustomButton btnAdd;
     private CustomButton btnDelete;
     private CustomButton btnEdit;
+     private CustomButton btnRestore;
     private CustomButton btnExportExcel;
     private CustomButton btnImportExcel;
     private CustomButton btnExportPDF;
@@ -39,9 +43,11 @@ public class PanelUnit extends JPanel{
     private CustomButton btnPrev;
     private CustomButton btnNext;
 
-    public PanelUnit () {
+    public PanelUnit (JFrame parentFrame) {
+        this.parentFrame = parentFrame;
         initComponent();
         initLayout();
+        initEvent();   
     }
     private URL getIconUrl(String path){
          return getClass().getResource(path);
@@ -74,10 +80,10 @@ public class PanelUnit extends JPanel{
         btnAdd    = new CustomButton("Thêm",  loadIcon("plus"));
         btnDelete = new CustomButton("Xóa",   loadIcon("delete"));
         btnEdit   = new CustomButton("Sửa",   loadIcon("edit"));
-
-        btnExportExcel = new CustomButton("Xuất Excel", loadIcon("excel"));
+        btnRestore   = new CustomButton("Restore",   loadIcon("restore"));
+        btnExportExcel = new CustomButton("Xuất", loadIcon("excel"));
         btnImportExcel = null; // không dùng
-        btnExportPDF   = new CustomButton("Xuất PDF", loadIcon("pdf"));
+        btnExportPDF   = new CustomButton("Xuất", loadIcon("pdf"));
         btnImportPDF   = null;
 
         // ===== TABLE =====
@@ -133,6 +139,7 @@ public class PanelUnit extends JPanel{
                         btnAdd,
                         btnDelete,
                         btnEdit,
+                        btnRestore,
                         btnExportExcel,
                         btnImportExcel,
                         btnExportPDF,
@@ -159,18 +166,53 @@ public class PanelUnit extends JPanel{
     }
 
     // ================= HELPER =================
-    private JSpinner createDateSpinner() {
-        JSpinner spinner = new JSpinner(new SpinnerDateModel());
-        spinner.setEditor(new JSpinner.DateEditor(spinner, "dd/MM/yyyy"));
-        spinner.setPreferredSize(new Dimension(120, 30));
-        return spinner;
-    }
-
     private Icon loadIcon(String name) {
         return ImageUtil.scaleIcon(
                 new ImageIcon(getIconUrl("/icon/" + name + ".png")),
                 18, 18
         );
-    } 
+    }
+
+    private UnitResponseDTO mockUnit() {
+        UnitResponseDTO dto = new UnitResponseDTO();
+        dto.setId(1L);
+        dto.setName("Đồ uống");
+        dto.setDescription("Nước ngọt, trà, cà phê");
+        dto.setIsDeleted(0);
+        dto.setCreatedAt(java.time.LocalDateTime.now().minusDays(3));
+        dto.setUpdatedAt(java.time.LocalDateTime.now());
+        return dto;
+   }
+
+    // ACTION EVENT
+    private void initEvent() {
+        // TEST ADD
+        btnAdd.addActionListener(e -> {
+                new UnitDialog(
+                        parentFrame,
+                        UnitDialog.MODE_ADD,
+                        null
+                );
+        });
+
+        // TEST EDIT
+        btnEdit.addActionListener(e -> {
+                new UnitDialog(
+                        parentFrame,
+                        UnitDialog.MODE_EDIT,
+                        mockUnit()
+                );
+        });
+
+        // TEST VIEW
+        btnView.addActionListener(e -> {
+                new UnitDialog(
+                        parentFrame,
+                        UnitDialog.MODE_VIEW,
+                        mockUnit()
+                );
+        });
+   }
+
 }
 

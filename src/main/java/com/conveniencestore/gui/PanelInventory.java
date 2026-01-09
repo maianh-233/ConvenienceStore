@@ -34,6 +34,7 @@ public class PanelInventory extends JPanel{
     private CustomButton btnAdd;
     private CustomButton btnDelete;
     private CustomButton btnEdit;
+     private CustomButton btnRestore;
     private CustomButton btnExportExcel;
     private CustomButton btnImportExcel;
     private CustomButton btnExportPDF;
@@ -82,9 +83,10 @@ public class PanelInventory extends JPanel{
         btnDelete = new CustomButton("Xóa",   loadIcon("delete"));
         btnEdit   = new CustomButton("Sửa",   loadIcon("edit"));
 
-        btnExportExcel = new CustomButton("Xuất Excel", loadIcon("excel"));
+        btnRestore   = new CustomButton("Restore",   loadIcon("restore"));
+        btnExportExcel = new CustomButton("Xuất", loadIcon("excel"));
         btnImportExcel = null; // không dùng
-        btnExportPDF   = new CustomButton("Xuất PDF", loadIcon("pdf"));
+        btnExportPDF   = new CustomButton("Xuất", loadIcon("pdf"));
         btnImportPDF   = null;
 
         // ===== TABLE =====
@@ -150,6 +152,7 @@ public class PanelInventory extends JPanel{
                         btnAdd,
                         btnDelete,
                         btnEdit,
+                        btnRestore,
                         btnExportExcel,
                         btnImportExcel,
                         btnExportPDF,

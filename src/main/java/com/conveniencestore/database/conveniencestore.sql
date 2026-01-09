@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 30, 2025 at 11:45 AM
+-- Generation Time: Jan 08, 2026 at 03:55 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.0.30
 
@@ -170,7 +170,20 @@ CREATE TABLE `payments` (
 CREATE TABLE `permissions` (
   `id` bigint(20) NOT NULL COMMENT 'ID quyền, tự tăng',
   `name` varchar(100) NOT NULL COMMENT 'Tên quyền chi tiết, ví dụ: ORDER_CREATE, PRODUCT_EDIT',
-  `description` varchar(255) DEFAULT NULL COMMENT 'Mô tả quyền, ví dụ: Cho phép tạo đơn hàng'
+  `description` varchar(255) DEFAULT NULL COMMENT 'Mô tả quyền, ví dụ: Cho phép tạo đơn hàng',
+  `group_id` bigint(20) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `permission_groups`
+--
+
+CREATE TABLE `permission_groups` (
+  `id` bigint(20) NOT NULL,
+  `code` varchar(50) NOT NULL,
+  `name` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -214,7 +227,8 @@ CREATE TABLE `roles` (
 
 CREATE TABLE `role_permissions` (
   `role_id` bigint(20) NOT NULL COMMENT 'ID role',
-  `permission_id` bigint(20) NOT NULL COMMENT 'ID permission'
+  `permission_id` bigint(20) NOT NULL COMMENT 'ID permission',
+  `is_active` int(11) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -276,7 +290,8 @@ CREATE TABLE `users` (
   `refresh_token_hash` varchar(512) DEFAULT NULL COMMENT 'Hash refresh token',
   `refreshTokenExpiry` datetime DEFAULT NULL COMMENT 'Hết hạn refresh token',
   `reset_password_token_hash` varchar(512) DEFAULT NULL COMMENT 'Hash token quên mật khẩu',
-  `resetPasswordTokenExpiry` datetime DEFAULT NULL COMMENT 'Hết hạn token quên mật khẩu'
+  `resetPasswordTokenExpiry` datetime DEFAULT NULL COMMENT 'Hết hạn token quên mật khẩu',
+  `img_url` varchar(100) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='Bảng lưu thông tin người dùng';
 
 --
@@ -354,7 +369,15 @@ ALTER TABLE `payments`
 --
 ALTER TABLE `permissions`
   ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `name` (`name`);
+  ADD UNIQUE KEY `name` (`name`),
+  ADD KEY `idx_permissions_group_id` (`group_id`);
+
+--
+-- Indexes for table `permission_groups`
+--
+ALTER TABLE `permission_groups`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `ux_permission_groups_code` (`code`);
 
 --
 -- Indexes for table `products`
@@ -464,6 +487,12 @@ ALTER TABLE `permissions`
   MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT 'ID quyền, tự tăng';
 
 --
+-- AUTO_INCREMENT for table `permission_groups`
+--
+ALTER TABLE `permission_groups`
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT for table `products`
 --
 ALTER TABLE `products`
@@ -536,6 +565,12 @@ ALTER TABLE `order_items`
 --
 ALTER TABLE `payments`
   ADD CONSTRAINT `fk_payments_order` FOREIGN KEY (`order_id`) REFERENCES `orders` (`id`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `permissions`
+--
+ALTER TABLE `permissions`
+  ADD CONSTRAINT `fk_permissions_group` FOREIGN KEY (`group_id`) REFERENCES `permission_groups` (`id`) ON UPDATE CASCADE;
 
 --
 -- Constraints for table `products`

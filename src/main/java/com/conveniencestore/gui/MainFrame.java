@@ -6,9 +6,12 @@ import com.conveniencestore.gui.mainlayout.SidebarListener;
 import com.conveniencestore.gui.mainlayout.SidebarPanel;
 
 import javax.swing.*;
+
 import java.awt.*;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
+
+import org.apache.commons.compress.harmony.unpack200.bytecode.forms.ThisFieldRefForm;
 
 public class MainFrame extends JFrame implements SidebarListener {
     private SidebarPanel sidebar;
@@ -35,7 +38,7 @@ public class MainFrame extends JFrame implements SidebarListener {
         sidebar = new SidebarPanel();
         sidebar.setSidebarListener(this);
 
-        mainContent = new MainContentPanel();
+        mainContent = new MainContentPanel(this);
 
         JPanel body = new JPanel(new BorderLayout());
         body.add(sidebar, BorderLayout.WEST);

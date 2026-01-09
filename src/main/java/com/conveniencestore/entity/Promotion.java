@@ -15,7 +15,7 @@ import java.util.List;
         @Index(name = "idx_promotions_start_at", columnList = "start_at"),
         @Index(name = "idx_promotions_end_at", columnList = "end_at"),
         @Index(name = "idx_promotions_is_active", columnList = "is_active"),
-        @Index(name = "idx_promotions_is_deleted", columnList = "is_deleted")
+
     }
 )
 @Getter
@@ -41,17 +41,13 @@ public class Promotion {
     @Column(name = "end_at")
     private LocalDateTime endAt;   // Thời điểm kết thúc
 
-    @Column(name = "is_active")
+    @Column(name = "is_active", nullable = false)
     private int isActive = 1; // 1 = đang hoạt động, 0 = hết hạn / tạm dừng
 
-    @Column(name = "is_deleted")
-    private int isDeleted = 0; // Soft delete: 0 = chưa xóa, 1 = đã xóa
 
-    @Column(name = "deleted_at")
-    private LocalDateTime deletedAt; // Thời điểm xóa soft delete
 
     @Column(length = 50)
-    private String customerTier; // Loại khách hàng áp dụng: 'regular', 'vip', ...
+    private CustomerTier customerTier; // Loại khách hàng áp dụng: 'regular', 'vip', ...
 
     @Column(name = "max_uses")
     private Integer maxUses; // Số lần tối đa áp dụng khuyến mãi
@@ -62,8 +58,7 @@ public class Promotion {
     @Column(length = 500)
     private String note; // Ghi chú thêm
 
-    @Column(name = "applicable_tiers", length = 50)
-    private String applicableTiers; // "REGULAR,VIP"
+  
 
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;

@@ -41,7 +41,8 @@ public class Supplier {
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 
-    private int isDeleted = 0; // 0 = chưa xóa, 1 = đã xóa
+    @Column(nullable = false)
+    private int isDeleted = 1; // 1 = chưa xóa, 0 = đã xóa
 
     /* =================== QUAN HỆ VỚI PRODUCT =================== */
     @OneToMany(mappedBy = "supplier", fetch = FetchType.LAZY)

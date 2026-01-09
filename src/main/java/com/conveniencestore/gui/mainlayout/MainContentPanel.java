@@ -24,8 +24,9 @@ import com.conveniencestore.gui.utils.AppColor;
 public class MainContentPanel extends JPanel {
 
     private CardLayout cardLayout = new CardLayout();
+    
 
-    public MainContentPanel() {
+    public MainContentPanel(JFrame parentFrame) {
         setLayout(cardLayout);
         setBackground(AppColor.CONTENT_BG);
 
@@ -33,13 +34,13 @@ public class MainContentPanel extends JPanel {
         add(new PanelOrder(), "ORDER");
         add(new PanelCustomer(), "CUSTOMER");
         add(new PanelEmployee(), "EMPLOYEE");
-        add(new PanelSupplier(), "SUPPLIER");
-        add(new PanelUnit(), "UNIT");
-        add(new PanelCategory(), "CATEGORY");
+        add(new PanelSupplier(parentFrame), "SUPPLIER");
+        add(new PanelUnit(parentFrame), "UNIT");
+        add(new PanelCategory(parentFrame), "CATEGORY");
         add(new PanelProduct(), "PRODUCT");
         add(new PanelInventory(), "INVENTORY");
         add(new PanelImport(), "IMPORT");
-        add(new PanelPromotion(), "PROMOTION");
+        add(new PanelPromotion(parentFrame), "PROMOTION");
         add(new PanelStat(), "STAT");
         add(new PanelRole(), "ROLE");
         add(new PanelInformation(), "INFORMATION");

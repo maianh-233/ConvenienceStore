@@ -60,8 +60,8 @@ public class Product {
     @Column(length = 1024)
     private String imageUrl;
 
-    @Column(name = "is_active")
-    private boolean isActive = true;
+    @Column(name = "is_active", nullable = false)
+    private int isActive = 1; // 1 = hoạt động, 0 = không hoạt động
 
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;

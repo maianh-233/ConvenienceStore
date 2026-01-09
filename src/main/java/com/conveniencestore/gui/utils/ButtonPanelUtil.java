@@ -19,6 +19,7 @@ public class ButtonPanelUtil {
             JButton btnAdd,
             JButton btnDelete,
             JButton btnEdit,
+            JButton btnRestore,
             JButton btnExportExcel,
             JButton btnImportExcel,
             JButton btnExportPDF,
@@ -26,7 +27,7 @@ public class ButtonPanelUtil {
     ) {
 
         // 🔥 CENTER
-        JPanel panel = new JPanel(new FlowLayout(FlowLayout.CENTER, 5, 0));
+        JPanel panel = new JPanel(new FlowLayout(FlowLayout.CENTER, 4, 0));
         panel.setOpaque(false);
 
         List<JButton> buttons = new ArrayList<>();
@@ -35,6 +36,10 @@ public class ButtonPanelUtil {
         add(panel, buttons, style(btnAdd, new Color(99, 102, 241)));   // Tím
         add(panel, buttons, style(btnDelete, new Color(220, 38, 38))); // Đỏ
         add(panel, buttons, style(btnEdit, new Color(124, 58, 237)));  // Tím đậm
+
+        if (btnRestore != null) {
+            add(panel, buttons, style(btnRestore, new Color(14, 165, 233))); // Xanh dương (Restore)
+        }
 
         if (btnExportExcel != null)
             add(panel, buttons, style(btnExportExcel, new Color(5, 150, 105)));
@@ -59,7 +64,7 @@ public class ButtonPanelUtil {
         btn.setToolTipText(btn.getText());
 
         btn.setMinimumSize(new Dimension(BUTTON_HEIGHT, BUTTON_HEIGHT));
-        btn.setMaximumSize(new Dimension(150, BUTTON_HEIGHT));
+        btn.setMaximumSize(new Dimension(100, BUTTON_HEIGHT));
         btn.setMargin(new Insets(0, 16, 0, 16));
 
         if (btn instanceof CustomButton cbtn) {

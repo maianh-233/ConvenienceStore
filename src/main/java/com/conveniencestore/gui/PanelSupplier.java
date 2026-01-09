@@ -1,9 +1,13 @@
 package com.conveniencestore.gui;
 import javax.swing.*;
+
 import java.awt.*;
 import java.net.URL;
 
+import com.conveniencestore.DTO.SupplierResponseDTO;
 import com.conveniencestore.gui.mainlayout.SidebarButton;
+import com.conveniencestore.gui.supplier.SupplierDialog;
+import com.conveniencestore.gui.unit.UnitDialog;
 import com.conveniencestore.gui.utils.ButtonPanelUtil;
 import com.conveniencestore.gui.utils.CustomButton;
 import com.conveniencestore.gui.utils.FilterDateUtil;
@@ -12,7 +16,9 @@ import com.conveniencestore.gui.utils.ImageUtil;
 import com.conveniencestore.gui.utils.PaginationUtil;
 import com.conveniencestore.gui.utils.SearchPanelUtil;
 import com.conveniencestore.gui.utils.TableUtil;
+
 public class PanelSupplier extends JPanel{
+    private JFrame parentFrame;
     // ================= HEADER =================
     private String titlePanel = "Quản lý nhà cung cấp";
     private CustomButton btnReload;
@@ -27,6 +33,7 @@ public class PanelSupplier extends JPanel{
     private CustomButton btnAdd;
     private CustomButton btnDelete;
     private CustomButton btnEdit;
+     private CustomButton btnRestore;
     private CustomButton btnExportExcel;
     private CustomButton btnImportExcel;
     private CustomButton btnExportPDF;
@@ -39,9 +46,11 @@ public class PanelSupplier extends JPanel{
     private CustomButton btnPrev;
     private CustomButton btnNext;
 
-    public PanelSupplier () {
+    public PanelSupplier (JFrame parentFrame) {
+        this.parentFrame = parentFrame;
         initComponent();
         initLayout();
+        initEvent();  
     }
     private URL getIconUrl(String path){
          return getClass().getResource(path);
@@ -74,10 +83,11 @@ public class PanelSupplier extends JPanel{
         btnAdd    = new CustomButton("Thêm",  loadIcon("plus"));
         btnDelete = new CustomButton("Xóa",   loadIcon("delete"));
         btnEdit   = new CustomButton("Sửa",   loadIcon("edit"));
+        btnRestore   = new CustomButton("Restore",   loadIcon("restore"));
 
-        btnExportExcel = new CustomButton("Xuất Excel", loadIcon("excel"));
+        btnExportExcel = new CustomButton("Xuất", loadIcon("excel"));
         btnImportExcel = null; // không dùng
-        btnExportPDF   = new CustomButton("Xuất PDF", loadIcon("pdf"));
+        btnExportPDF   = new CustomButton("Xuất", loadIcon("pdf"));
         btnImportPDF   = null;
 
         // ===== TABLE =====
@@ -133,6 +143,7 @@ public class PanelSupplier extends JPanel{
                         btnAdd,
                         btnDelete,
                         btnEdit,
+                        btnRestore,
                         btnExportExcel,
                         btnImportExcel,
                         btnExportPDF,
@@ -159,17 +170,57 @@ public class PanelSupplier extends JPanel{
     }
 
     // ================= HELPER =================
-    private JSpinner createDateSpinner() {
-        JSpinner spinner = new JSpinner(new SpinnerDateModel());
-        spinner.setEditor(new JSpinner.DateEditor(spinner, "dd/MM/yyyy"));
-        spinner.setPreferredSize(new Dimension(120, 30));
-        return spinner;
-    }
-
     private Icon loadIcon(String name) {
         return ImageUtil.scaleIcon(
                 new ImageIcon(getIconUrl("/icon/" + name + ".png")),
                 18, 18
         );
     } 
+
+    private SupplierResponseDTO mockSupplier() {
+        SupplierResponseDTO dto = new SupplierResponseDTO();
+        dto.setId(1L);
+        dto.setName("Công ty ABC");
+        dto.setEmail("contact@abc.com");
+        dto.setPhone("0909123456");
+        dto.setAddress("123 Đường Lê Lợi, Quận 1, TP.HCM");
+        dto.setNote("Nhà cung cấp uy tín, giao hàng nhanh");
+
+        dto.setIsDeleted(0);
+        dto.setCreatedAt(java.time.LocalDateTime.now().minusDays(5));
+        dto.setUpdatedAt(java.time.LocalDateTime.now());
+
+        return dto;
+   }
+       // ACTION EVENT
+    private void initEvent() {
+        // TEST ADD
+        btnAdd.addActionListener(e -> {
+                new SupplierDialog(
+                        parentFrame,
+                        SupplierDialog.MODE_ADD,
+                        null
+                );
+        });
+
+        // TEST EDIT
+        btnEdit.addActionListener(e -> {
+                new SupplierDialog(
+                        parentFrame,
+                        SupplierDialog.MODE_EDIT,
+                        mockSupplier()
+                );
+        });
+
+        // TEST VIEW
+        btnView.addActionListener(e -> {
+                new SupplierDialog(
+                        parentFrame,
+                        SupplierDialog.MODE_VIEW,
+                        mockSupplier()
+                );
+        });
+   }
+
+
 }

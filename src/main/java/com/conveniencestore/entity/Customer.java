@@ -39,9 +39,6 @@ public class Customer {
     @Column(length = 500)
     private String address; // Địa chỉ đầy đủ
 
-    @Column(length = 50)
-    private String identityNumber; // Căn cước / CMND
-
     private int gender; // Giới tính: 0=Nam, 1=Nữ
 
     /* =================== HẠNG VÀ ĐIỂM =================== */
@@ -52,8 +49,12 @@ public class Customer {
     private int points = 0; // Điểm tích lũy
 
     /* =================== MẬT KHẨU =================== */
-    @Column(length = 255, nullable = false)
+    @Column(length = 255, nullable = true)
     private String password; // Mật khẩu (nên lưu hashed)
+
+     /* =================== SOFT DELETE =================== */
+    @Column(nullable = false)
+    private int isDeleted = 1; // Đánh dấu khách hàng đã bị xóa (soft delete)
 
     /* =================== THÔNG TIN AUDIT =================== */
     private LocalDateTime createdAt; // Thời điểm thêm khách hàng

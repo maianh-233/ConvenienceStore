@@ -1,8 +1,9 @@
 package com.conveniencestore.entity;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
+
+import java.io.Serializable;
 
 @Entity
 @Table(name = "role_permissions")
@@ -15,27 +16,14 @@ public class RolePermission {
 
     @MapsId("roleId")
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "role_id")
+    @JoinColumn(name = "role_id", nullable = false)
     private Role role;
 
     @MapsId("permissionId")
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "permission_id")
+    @JoinColumn(name = "permission_id", nullable = false)
     private Permission permission;
 
-    @Embeddable
-    @Getter
-    @Setter
-    public static class RolePermissionId implements java.io.Serializable {
-        private Long roleId;
-        private Long permissionId;
-        private Integer is_active;
-
-        public RolePermissionId() {}
-        public RolePermissionId(Long roleId, Long permissionId, int is_active) {
-            this.roleId = roleId;
-            this.permissionId = permissionId;
-            this.is_active = is_active;
-        }
-    }
+    @Column(name = "is_active", nullable = false)
+    private int isActive; // 0 / 1
 }

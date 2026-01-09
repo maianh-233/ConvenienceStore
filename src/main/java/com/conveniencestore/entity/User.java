@@ -29,13 +29,20 @@ public class User {
     @Column(name = "password_hash", nullable = false, length = 255)
     private String passwordHash;
 
+    @Column(name = "full_name", length = 255, nullable = false)
     private String fullName;
+
     private LocalDate dateOfBirth;
+
+    @Column(length = 255, unique = true, nullable = false)
     private String email;
+    @Column(length = 50, unique = true, nullable = false)
     private String phone;
-    private String identityNumber;
+
     private String address;
+    
     private String img_url;
+
     private int gender;
 
     // ================== ROLE ==================
@@ -43,11 +50,14 @@ public class User {
     @JoinColumn(name = "role_id", nullable = false)
     private Role role;
 
+
+    @Column(nullable = false)
     private int active = 1;
-    private int locked = 0;
+  
 
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
+    
     private LocalDateTime lastLogin;
 
     @Column(name = "refresh_token_hash", length = 512)

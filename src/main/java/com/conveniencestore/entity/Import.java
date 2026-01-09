@@ -41,7 +41,7 @@ public class Import {
     @Column(length = 500)
     private String note; // Ghi chú phiếu nhập
 
-    @Column(name = "is_deleted")
+    @Column(name = "is_deleted", nullable = false)
     private int isDeleted = 0; // 0 = chưa xóa, 1 = đã xóa
 
     private LocalDateTime createdAt;
