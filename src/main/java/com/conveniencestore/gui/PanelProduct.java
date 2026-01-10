@@ -1,20 +1,23 @@
 package com.conveniencestore.gui;
 import javax.swing.*;
+
 import java.awt.*;
 import java.net.URL;
 
-import com.conveniencestore.gui.inventory.InventoryStatPanel;
-import com.conveniencestore.gui.mainlayout.SidebarButton;
+import javax.swing.table.DefaultTableModel;
+
+import com.conveniencestore.DTO.ProductResponseDTO;
+import com.conveniencestore.gui.product.ProductDialog;
 import com.conveniencestore.gui.product.ProductStatPanel;
 import com.conveniencestore.gui.utils.ButtonPanelUtil;
 import com.conveniencestore.gui.utils.CustomButton;
-import com.conveniencestore.gui.utils.FilterDateUtil;
 import com.conveniencestore.gui.utils.HeaderPanelUtil;
 import com.conveniencestore.gui.utils.ImageUtil;
 import com.conveniencestore.gui.utils.PaginationUtil;
 import com.conveniencestore.gui.utils.SearchPanelUtil;
 import com.conveniencestore.gui.utils.TableUtil;
 public class PanelProduct extends JPanel{
+    private JFrame parentFrame;
     // ================= HEADER =================
     private String titlePanel = "Quản lý sản phẩm";
     private CustomButton btnReload;
@@ -32,12 +35,8 @@ public class PanelProduct extends JPanel{
     private CustomButton btnAdd;
     private CustomButton btnDelete;
     private CustomButton btnEdit;
-     private CustomButton btnRestore;
-    private CustomButton btnExportExcel;
-    private CustomButton btnImportExcel;
-    private CustomButton btnExportPDF;
-    private CustomButton btnImportPDF;
-
+    private CustomButton btnRestore;
+    
     // ================= TABLE =================
     private JTable table;
 
@@ -45,9 +44,11 @@ public class PanelProduct extends JPanel{
     private CustomButton btnPrev;
     private CustomButton btnNext;
 
-    public PanelProduct () {
+    public PanelProduct (JFrame parentFrame) {
+        this.parentFrame = parentFrame;
         initComponent();
         initLayout();
+        initEvent();
     }
     private URL getIconUrl(String path){
          return getClass().getResource(path);
@@ -80,16 +81,21 @@ public class PanelProduct extends JPanel{
         btnAdd    = new CustomButton("Thêm",  loadIcon("plus"));
         btnDelete = new CustomButton("Xóa",   loadIcon("delete"));
         btnEdit   = new CustomButton("Sửa",   loadIcon("edit"));
-
         btnRestore   = new CustomButton("Restore",   loadIcon("restore"));
-        btnExportExcel = new CustomButton("Xuất", loadIcon("excel"));
-        btnImportExcel = null; // không dùng
-        btnExportPDF   = new CustomButton("Xuất", loadIcon("pdf"));
-        btnImportPDF   = null;
+        
 
         // ===== TABLE =====
         table = new JTable();
         TableUtil.style(table);
+
+        // Tạo header bảng
+        DefaultTableModel tableModel = new DefaultTableModel();
+        tableModel.addColumn("ID");
+        tableModel.addColumn("Tên sản phẩm");
+        tableModel.addColumn("Mã SKU");
+        tableModel.addColumn("Mã vạch");
+        tableModel.addColumn("Trạng thái");
+        table.setModel(tableModel);
 
         // ===== PAGINATION =====
         btnPrev = new CustomButton(
@@ -110,8 +116,10 @@ public class PanelProduct extends JPanel{
         productStatPanel = new ProductStatPanel();
 
         // ví dụ test dữ liệu
-        productStatPanel.setcardActiveProduct(120);
-        productStatPanel.setcardInActiveProduct(18);
+        productStatPanel.setActiveProduct(120);
+        productStatPanel.setInActiveProduct(5);
+        productStatPanel.setInStock(98);
+        productStatPanel.setOutOfStock(27);
     }
 
     // ================= LAYOUT =================
@@ -151,11 +159,7 @@ public class PanelProduct extends JPanel{
                         btnAdd,
                         btnDelete,
                         btnEdit,
-                        btnRestore,
-                        btnExportExcel,
-                        btnImportExcel,
-                        btnExportPDF,
-                        btnImportPDF
+                        btnRestore
                 )
         );
 
@@ -178,12 +182,6 @@ public class PanelProduct extends JPanel{
     }
 
     // ================= HELPER =================
-    private JSpinner createDateSpinner() {
-        JSpinner spinner = new JSpinner(new SpinnerDateModel());
-        spinner.setEditor(new JSpinner.DateEditor(spinner, "dd/MM/yyyy"));
-        spinner.setPreferredSize(new Dimension(120, 30));
-        return spinner;
-    }
 
     private Icon loadIcon(String name) {
         return ImageUtil.scaleIcon(
@@ -191,4 +189,68 @@ public class PanelProduct extends JPanel{
                 18, 18
         );
     } 
+
+    private ProductResponseDTO mockProductResponseDTO() {
+        ProductResponseDTO dto = new ProductResponseDTO();
+
+        dto.setId(101L);
+        dto.setSku("SP001");
+        dto.setBarcode("8938505974192");
+        dto.setProductName("Nước ngọt Coca-Cola 330ml");
+
+        dto.setCategoryId(1L);
+        dto.setCategoryName("Đồ uống");
+
+        dto.setSupplierId(2L);
+        dto.setSupplierName("Coca-Cola Việt Nam");
+
+        dto.setUnitId(1L);
+        dto.setUnitName("Lon");
+
+        dto.setPrice(new java.math.BigDecimal("10000"));
+        dto.setCost(new java.math.BigDecimal("7500"));
+
+        dto.setDescription("Nước ngọt có gas Coca-Cola lon 330ml, giải khát tức thì.");
+
+        dto.setImageUrl("/icon/product.png"); 
+        // set null để test ảnh mặc định
+
+        dto.setIsActive(1); // 1 = đang bán, 0 = ngưng bán
+
+        dto.setCreatedAt(java.time.LocalDateTime.now().minusDays(15));
+        dto.setUpdatedAt(java.time.LocalDateTime.now().minusDays(2));
+
+        return dto;
+    }
+
+        // ACTION EVENT
+    private void initEvent() {
+        // TEST ADD
+        btnAdd.addActionListener(e -> {
+                new ProductDialog(
+                        parentFrame,
+                        ProductDialog.MODE_ADD,
+                        null
+                );
+        });
+
+        // TEST EDIT
+        btnEdit.addActionListener(e -> {
+                new ProductDialog(
+                        parentFrame,
+                        ProductDialog.MODE_EDIT,
+                        mockProductResponseDTO()
+                );
+        });
+
+        // TEST VIEW
+        btnView.addActionListener(e -> {
+                new ProductDialog(
+                        parentFrame,
+                        ProductDialog.MODE_VIEW,
+                        mockProductResponseDTO()
+                );
+        });
+   }
+
 }

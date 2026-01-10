@@ -27,11 +27,8 @@ public class PanelRole extends JPanel{
     private CustomButton btnAdd;
     private CustomButton btnDelete;
     private CustomButton btnEdit;
-     private CustomButton btnRestore;
-    private CustomButton btnExportExcel;
-    private CustomButton btnImportExcel;
-    private CustomButton btnExportPDF;
-    private CustomButton btnImportPDF;
+    private CustomButton btnRestore;
+  
 
     // ================= TABLE =================
     private JTable table;
@@ -75,12 +72,8 @@ public class PanelRole extends JPanel{
         btnAdd    = new CustomButton("Thêm",  loadIcon("plus"));
         btnDelete = new CustomButton("Xóa",   loadIcon("delete"));
         btnEdit   = new CustomButton("Sửa",   loadIcon("edit"));
-        btnRestore   = null;
+        btnRestore= btnRestore   = new CustomButton("Restore",   loadIcon("restore"));;
 
-        btnExportExcel = null;
-        btnImportExcel = null; // không dùng
-        btnExportPDF   = null;
-        btnImportPDF   = null;
 
         // ===== TABLE =====
         table = new JTable();
@@ -135,11 +128,8 @@ public class PanelRole extends JPanel{
                         btnAdd,
                         btnDelete,
                         btnEdit,
-                        btnRestore,
-                        btnExportExcel,
-                        btnImportExcel,
-                        btnExportPDF,
-                        btnImportPDF
+                        btnRestore
+                        
                 )
         );
 

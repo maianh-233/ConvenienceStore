@@ -4,13 +4,12 @@ import javax.swing.*;
 import java.awt.*;
 import java.net.URL;
 
+import javax.swing.table.DefaultTableModel;
+
 import com.conveniencestore.DTO.SupplierResponseDTO;
-import com.conveniencestore.gui.mainlayout.SidebarButton;
 import com.conveniencestore.gui.supplier.SupplierDialog;
-import com.conveniencestore.gui.unit.UnitDialog;
 import com.conveniencestore.gui.utils.ButtonPanelUtil;
 import com.conveniencestore.gui.utils.CustomButton;
-import com.conveniencestore.gui.utils.FilterDateUtil;
 import com.conveniencestore.gui.utils.HeaderPanelUtil;
 import com.conveniencestore.gui.utils.ImageUtil;
 import com.conveniencestore.gui.utils.PaginationUtil;
@@ -33,11 +32,8 @@ public class PanelSupplier extends JPanel{
     private CustomButton btnAdd;
     private CustomButton btnDelete;
     private CustomButton btnEdit;
-     private CustomButton btnRestore;
-    private CustomButton btnExportExcel;
-    private CustomButton btnImportExcel;
-    private CustomButton btnExportPDF;
-    private CustomButton btnImportPDF;
+    private CustomButton btnRestore;
+    
 
     // ================= TABLE =================
     private JTable table;
@@ -85,14 +81,18 @@ public class PanelSupplier extends JPanel{
         btnEdit   = new CustomButton("Sửa",   loadIcon("edit"));
         btnRestore   = new CustomButton("Restore",   loadIcon("restore"));
 
-        btnExportExcel = new CustomButton("Xuất", loadIcon("excel"));
-        btnImportExcel = null; // không dùng
-        btnExportPDF   = new CustomButton("Xuất", loadIcon("pdf"));
-        btnImportPDF   = null;
+      
 
         // ===== TABLE =====
         table = new JTable();
         TableUtil.style(table);
+        // Tạo header bảng
+        DefaultTableModel tableModel = new DefaultTableModel();
+        tableModel.addColumn("ID");
+        tableModel.addColumn("Tên nhà cung cấp");
+        tableModel.addColumn("Email");
+        tableModel.addColumn("Trạng thái");
+        table.setModel(tableModel);
 
         // ===== PAGINATION =====
         btnPrev = new CustomButton(
@@ -143,11 +143,7 @@ public class PanelSupplier extends JPanel{
                         btnAdd,
                         btnDelete,
                         btnEdit,
-                        btnRestore,
-                        btnExportExcel,
-                        btnImportExcel,
-                        btnExportPDF,
-                        btnImportPDF
+                        btnRestore
                 )
         );
 

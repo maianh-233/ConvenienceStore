@@ -1,4 +1,4 @@
-package com.conveniencestore.gui.order;
+package com.conveniencestore.gui.exportcomponent;
 
 import javax.swing.*;
 
@@ -9,42 +9,28 @@ import java.awt.*;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 
-/**
- * PanelOrderFilterStatus
- *
- * CHỈ dùng cho PanelOrder
- *
- * Cấu trúc:
- *  Trạng thái + cbStatus
- *  Thanh toán + cbPaymentStatus
- *  Phương thức + cbPaymentMethod
- *  Button Lọc
- */
-public class PanelOrderFilterStatus {
-
-    // ===================== CONFIG =====================
+public class FilterExportStatusPanel  {
+     // ===================== CONFIG =====================
     private static final int MIN_WIDTH_SHOW_LABEL = 520;
     private static final int COMPONENT_HEIGHT = 44;
 
     private static final int COMBO_WIDTH_LARGE = 150;
     private static final int COMBO_WIDTH_SMALL = 110;
 
-    // XÁM MODERN
+    // 🎨 XÁM MODERN
     private static final Color BUTTON_BG    = new Color(55, 65, 81);
     private static final Color BUTTON_HOVER = new Color(31, 41, 55);
 
-    private PanelOrderFilterStatus() {}
+    private FilterExportStatusPanel() {}
 
     // ===================== MAIN =====================
     public static JPanel create(
             JLabel lblStatus,
             JComboBox<?> cbStatus,
 
-            JLabel lblPaymentStatus,
-            JComboBox<?> cbPaymentStatus,
+            JLabel lblType,
+            JComboBox<?> cbType,
 
-            JLabel lblPaymentMethod,
-            JComboBox<?> cbPaymentMethod,
 
             JButton btnFilter
     ) {
@@ -55,12 +41,9 @@ public class PanelOrderFilterStatus {
 
         // ===== STYLE =====
         styleLabel(lblStatus);
-        styleLabel(lblPaymentStatus);
-        styleLabel(lblPaymentMethod);
-
         styleCombo(cbStatus, COMBO_WIDTH_LARGE);
-        styleCombo(cbPaymentStatus, COMBO_WIDTH_LARGE);
-        styleCombo(cbPaymentMethod, COMBO_WIDTH_LARGE);
+        styleLabel(lblType);
+        styleCombo(cbType, COMBO_WIDTH_LARGE);
 
         styleButton(btnFilter);
 
@@ -68,10 +51,7 @@ public class PanelOrderFilterStatus {
         addGroup(panel, lblStatus, cbStatus);
         addGap(panel, 14);
 
-        addGroup(panel, lblPaymentStatus, cbPaymentStatus);
-        addGap(panel, 14);
-
-        addGroup(panel, lblPaymentMethod, cbPaymentMethod);
+        addGroup(panel, lblType, cbType);
         addGap(panel, 16);
 
         panel.add(btnFilter);
@@ -84,13 +64,10 @@ public class PanelOrderFilterStatus {
                 boolean small = panel.getWidth() < MIN_WIDTH_SHOW_LABEL;
 
                 lblStatus.setVisible(!small);
-                lblPaymentStatus.setVisible(!small);
-                lblPaymentMethod.setVisible(!small);
+                lblType.setVisible(!small);
 
                 resizeCombo(cbStatus, small);
-                resizeCombo(cbPaymentStatus, small);
-                resizeCombo(cbPaymentMethod, small);
-
+                resizeCombo(cbType, small);
                 panel.revalidate();
                 panel.repaint();
             }
@@ -132,6 +109,7 @@ public class PanelOrderFilterStatus {
         combo.setFont(new Font("Segoe UI", Font.PLAIN, 13));
         combo.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 
+     
         combo.setBackground(Color.WHITE);
         combo.setOpaque(true);
 

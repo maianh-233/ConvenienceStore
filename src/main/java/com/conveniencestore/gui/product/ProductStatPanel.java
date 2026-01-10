@@ -12,53 +12,79 @@ public class ProductStatPanel extends JPanel {
 
     private StatCard cardActiveProduct;
     private StatCard cardInActiveProduct;
+    private StatCard cardInStock;
+    private StatCard cardOutOfStock;
 
-    public  ProductStatPanel () {
-        setLayout(new GridLayout(1, 2, 15, 0));
+    public ProductStatPanel() {
+        setLayout(new GridLayout(1, 4, 15, 0));
+
         setOpaque(false);
         setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
-        // Icon (bạn đổi path theo project)
-        Icon iconcardActiveProduct = ImageUtil.scaleIcon(
-                        new ImageIcon(getIconUrl("/icon/active.png")), 20, 20
-                );
-        Icon iconcardInActiveProduct = ImageUtil.scaleIcon(
-                        new ImageIcon(getIconUrl("/icon/unactive.png")), 20, 20
-                );
+        Icon iconActive = ImageUtil.scaleIcon(
+                new ImageIcon(getIconUrl("/icon/active.png")), 20, 20
+        );
+        Icon iconInactive = ImageUtil.scaleIcon(
+                new ImageIcon(getIconUrl("/icon/unactive.png")), 20, 20
+        );
 
+        // ===== PRODUCT STATUS =====
         cardActiveProduct = new StatCard(
                 "Sản phẩm còn bán",
                 "0",
-                iconcardActiveProduct
+                iconActive
         );
 
         cardInActiveProduct = new StatCard(
                 "Sản phẩm bị khóa",
                 "0",
-                iconcardInActiveProduct
+                iconInactive
         );
 
-        // Tuỳ chỉnh màu icon nền cho dễ phân biệt
+        // ===== INVENTORY STATUS =====
+        cardInStock = new StatCard(
+                "Sản phẩm còn hàng",
+                "0",
+                iconActive
+        );
+
+        cardOutOfStock = new StatCard(
+                "Sản phẩm hết hàng",
+                "0",
+                iconInactive
+        );
+
+        // Theme đồng bộ
         cardActiveProduct.setBackground(StatTheme.CARD_BG);
         cardInActiveProduct.setBackground(StatTheme.CARD_BG);
+        cardInStock.setBackground(StatTheme.CARD_BG);
+        cardOutOfStock.setBackground(StatTheme.CARD_BG);
 
         add(cardActiveProduct);
         add(cardInActiveProduct);
+        add(cardInStock);
+        add(cardOutOfStock);
     }
 
-    /* ================= API cho PanelInventory ================= */
+    /* ================= API ================= */
 
-    public void setcardActiveProduct(int value) {
+    public void setActiveProduct(int value) {
         cardActiveProduct.setValue(String.valueOf(value));
     }
 
-    public void setcardInActiveProduct(int value) {
+    public void setInActiveProduct(int value) {
         cardInActiveProduct.setValue(String.valueOf(value));
     }
 
-    private URL getIconUrl(String path){
-         return getClass().getResource(path);
-       
+    public void setInStock(int value) {
+        cardInStock.setValue(String.valueOf(value));
     }
 
+    public void setOutOfStock(int value) {
+        cardOutOfStock.setValue(String.valueOf(value));
+    }
+
+    private URL getIconUrl(String path) {
+        return getClass().getResource(path);
+    }
 }

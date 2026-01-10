@@ -1,8 +1,10 @@
 package com.conveniencestore.gui;
 import javax.swing.*;
+
 import java.awt.*;
 import java.net.URL;
 
+import javax.swing.table.DefaultTableModel;
 
 import com.conveniencestore.DTO.UnitResponseDTO;
 import com.conveniencestore.gui.unit.UnitDialog;
@@ -30,11 +32,8 @@ public class PanelUnit extends JPanel{
     private CustomButton btnAdd;
     private CustomButton btnDelete;
     private CustomButton btnEdit;
-     private CustomButton btnRestore;
-    private CustomButton btnExportExcel;
-    private CustomButton btnImportExcel;
-    private CustomButton btnExportPDF;
-    private CustomButton btnImportPDF;
+    private CustomButton btnRestore;
+    
 
     // ================= TABLE =================
     private JTable table;
@@ -81,14 +80,18 @@ public class PanelUnit extends JPanel{
         btnDelete = new CustomButton("Xóa",   loadIcon("delete"));
         btnEdit   = new CustomButton("Sửa",   loadIcon("edit"));
         btnRestore   = new CustomButton("Restore",   loadIcon("restore"));
-        btnExportExcel = new CustomButton("Xuất", loadIcon("excel"));
-        btnImportExcel = null; // không dùng
-        btnExportPDF   = new CustomButton("Xuất", loadIcon("pdf"));
-        btnImportPDF   = null;
+       
 
         // ===== TABLE =====
         table = new JTable();
         TableUtil.style(table);
+
+        // Tạo header bảng
+        DefaultTableModel tableModel = new DefaultTableModel();
+        tableModel.addColumn("ID");
+        tableModel.addColumn("Tên đơn vị");
+        tableModel.addColumn("Trạng thái");
+        table.setModel(tableModel);
 
         // ===== PAGINATION =====
         btnPrev = new CustomButton(
@@ -139,11 +142,8 @@ public class PanelUnit extends JPanel{
                         btnAdd,
                         btnDelete,
                         btnEdit,
-                        btnRestore,
-                        btnExportExcel,
-                        btnImportExcel,
-                        btnExportPDF,
-                        btnImportPDF
+                        btnRestore
+                        
                 )
         );
 

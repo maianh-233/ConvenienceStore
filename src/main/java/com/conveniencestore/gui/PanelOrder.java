@@ -68,11 +68,8 @@ public class PanelOrder extends JPanel {
     private CustomButton btnAdd;
     private CustomButton btnDelete;
     private CustomButton btnEdit;
-     private CustomButton btnRestore;
-    private CustomButton btnExportExcel;
-    private CustomButton btnImportExcel;
-    private CustomButton btnExportPDF;
-    private CustomButton btnImportPDF;
+    private CustomButton btnRestore;
+  
 
     // ================= TABLE =================
     private JTable table;
@@ -154,10 +151,7 @@ public class PanelOrder extends JPanel {
         btnEdit   = new CustomButton("Sửa",   loadIcon("edit"));
         btnRestore   = new CustomButton("Restore",   loadIcon("restore"));
 
-        btnExportExcel = new CustomButton("Xuất", loadIcon("excel"));
-        btnImportExcel = null; // không dùng
-        btnExportPDF   = new CustomButton("Xuất", loadIcon("pdf"));
-        btnImportPDF   = null;
+       
 
         // ===== TABLE =====
         table = new JTable();
@@ -234,11 +228,7 @@ public class PanelOrder extends JPanel {
                         btnAdd,
                         btnDelete,
                         btnEdit,
-                        btnRestore,
-                        btnExportExcel,
-                        btnImportExcel,
-                        btnExportPDF,
-                        btnImportPDF
+                        btnRestore
                 )
         );
 

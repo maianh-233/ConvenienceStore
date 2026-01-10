@@ -11,6 +11,8 @@ import java.time.LocalDateTime;
 public class PromotionRequestDTO {
 
     private Long id;                 // null = create, có = update
+
+    private String code;
     private String name;
     private String type;             // percent / amount
     private BigDecimal value;
@@ -19,12 +21,12 @@ public class PromotionRequestDTO {
     private LocalDateTime endAt;
 
     private int isActive;
-    private int isDeleted;
+
 
     private String customerTier;
     private Integer maxUses;
     private BigDecimal minOrderAmount;
 
     private String note;
-    private String applicableTiers;  // "REGULAR,VIP"
+   
 }

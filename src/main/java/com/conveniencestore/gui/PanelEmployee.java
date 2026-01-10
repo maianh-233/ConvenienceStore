@@ -1,15 +1,16 @@
 package com.conveniencestore.gui;
-
 import javax.swing.*;
+
 import java.awt.*;
 import java.net.URL;
 
-import com.conveniencestore.gui.customer.CustomerStatPanel;
+import javax.swing.table.DefaultTableModel;
+
+import com.conveniencestore.DTO.UserResponseDTO;
+import com.conveniencestore.gui.employee.EmployeeDialog;
 import com.conveniencestore.gui.employee.EmployeeStatPanel;
-import com.conveniencestore.gui.mainlayout.SidebarButton;
 import com.conveniencestore.gui.utils.ButtonPanelUtil;
 import com.conveniencestore.gui.utils.CustomButton;
-import com.conveniencestore.gui.utils.FilterDateUtil;
 import com.conveniencestore.gui.utils.HeaderPanelUtil;
 import com.conveniencestore.gui.utils.ImageUtil;
 import com.conveniencestore.gui.utils.PaginationUtil;
@@ -17,7 +18,8 @@ import com.conveniencestore.gui.utils.SearchPanelUtil;
 import com.conveniencestore.gui.utils.TableUtil;
 
 public class PanelEmployee  extends JPanel {
-   // ================= HEADER =================
+    private JFrame parentFrame;
+    // ================= HEADER =================
     private String titlePanel = "Quản lý nhân viên";
     private CustomButton btnReload;
     // ================= STAT =================
@@ -46,9 +48,11 @@ public class PanelEmployee  extends JPanel {
     private CustomButton btnPrev;
     private CustomButton btnNext;
 
-    public PanelEmployee() {
+    public PanelEmployee(JFrame parentFrame) {
+        this.parentFrame = parentFrame;
         initComponent();
         initLayout();
+        initEvent();
     }
     private URL getIconUrl(String path){
          return getClass().getResource(path);
@@ -81,16 +85,22 @@ public class PanelEmployee  extends JPanel {
         btnAdd    = new CustomButton("Thêm",  loadIcon("plus"));
         btnDelete = new CustomButton("Xóa",   loadIcon("delete"));
         btnEdit   = new CustomButton("Sửa",   loadIcon("edit"));
-
         btnRestore   = new CustomButton("Restore",   loadIcon("restore"));
-        btnExportExcel = new CustomButton("Xuất", loadIcon("excel"));
-        btnImportExcel = null; // không dùng
-        btnExportPDF   = new CustomButton("Xuất", loadIcon("pdf"));
-        btnImportPDF   = null;
+        
 
         // ===== TABLE =====
         table = new JTable();
         TableUtil.style(table);
+
+        // Tạo header bảng
+        DefaultTableModel tableModel = new DefaultTableModel();
+        tableModel.addColumn("ID");
+        tableModel.addColumn("Tên nhân viên");
+        tableModel.addColumn("Email");
+        tableModel.addColumn("Số điện thoại");
+        tableModel.addColumn("Chức vụ");
+        tableModel.addColumn("Trạng thái");
+        table.setModel(tableModel);
 
         // ===== PAGINATION =====
         btnPrev = new CustomButton(
@@ -151,11 +161,7 @@ public class PanelEmployee  extends JPanel {
                         btnAdd,
                         btnDelete,
                         btnEdit,
-                        btnRestore,
-                        btnExportExcel,
-                        btnImportExcel,
-                        btnExportPDF,
-                        btnImportPDF
+                        btnRestore
                 )
         );
 
@@ -178,12 +184,6 @@ public class PanelEmployee  extends JPanel {
     }
 
     // ================= HELPER =================
-    private JSpinner createDateSpinner() {
-        JSpinner spinner = new JSpinner(new SpinnerDateModel());
-        spinner.setEditor(new JSpinner.DateEditor(spinner, "dd/MM/yyyy"));
-        spinner.setPreferredSize(new Dimension(120, 30));
-        return spinner;
-    }
 
     private Icon loadIcon(String name) {
         return ImageUtil.scaleIcon(
@@ -191,4 +191,62 @@ public class PanelEmployee  extends JPanel {
                 18, 18
         );
     }  
+
+    private UserResponseDTO mockUserResponseDTO() {
+        UserResponseDTO dto = new UserResponseDTO();
+
+        dto.setId(1L);
+        dto.setUsername("nv001");
+        dto.setFullName("Trần Thị B");
+        dto.setPasswordHash("$2a$10$mocked_password_hash");
+
+        dto.setDateOfBirth(java.time.LocalDate.of(1997, 8, 15));
+        dto.setEmail("tranthib@gmail.com");
+        dto.setPhone("0909123456");
+        dto.setAddress("456 Nguyễn Trãi, Quận 5, TP.HCM");
+
+        dto.setImgUrl("/icon/user.png"); // hoặc null để test ảnh mặc định
+        dto.setGender(1); // 0 = Nam, 1 = Nữ, 2 = Khác
+
+        dto.setRoleId(2L);
+
+        dto.setActive(1); // 1 = hoạt động, 0 = ngưng
+
+        dto.setCreatedAt(java.time.LocalDateTime.now().minusDays(20));
+        dto.setUpdatedAt(java.time.LocalDateTime.now().minusDays(1));
+       
+
+        return dto;
+   }
+
+                   // ACTION EVENT
+    private void initEvent() {
+        // TEST ADD
+        btnAdd.addActionListener(e -> {
+                new EmployeeDialog(
+                        parentFrame,
+                        EmployeeDialog.MODE_ADD,
+                        null
+                );
+        });
+
+        // TEST EDIT
+        btnEdit.addActionListener(e -> {
+                new EmployeeDialog(
+                        parentFrame,
+                        EmployeeDialog.MODE_EDIT,
+                        mockUserResponseDTO()
+                );
+        });
+
+        // TEST VIEW
+        btnView.addActionListener(e -> {
+                new EmployeeDialog(
+                        parentFrame,
+                        EmployeeDialog.MODE_VIEW,
+                        mockUserResponseDTO()
+                );
+        });
+   }
+
 }

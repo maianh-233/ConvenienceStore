@@ -12,10 +12,10 @@ public class UserResponseDTO {
     private Long id;
     private String username;
     private String fullName;
+    private String passwordHash;
     private LocalDate dateOfBirth;
     private String email;
     private String phone;
-    private String identityNumber;
     private String address;
     private String imgUrl;
     private int gender;
@@ -24,7 +24,7 @@ public class UserResponseDTO {
     private String roleName;
 
     private int active;
-    private int locked;
+
 
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;

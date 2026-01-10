@@ -30,6 +30,10 @@ public class Product {
     @Column(length = 100, unique = true)
     private String sku; // Mã sản phẩm
 
+    // Thêm barciode cho sản phẩm
+    @Column(length = 100, unique = true)
+    private String barcode; // Mã vạch sản phẩm
+
     @Column(name = "product_name", nullable = false, length = 255)
     private String productName;
 
@@ -74,6 +78,11 @@ public class Product {
     // 1 product có thể xuất hiện trong nhiều import items
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<ImportItem> importItems;
+
+    // 1 product có thể xuất hiện trong nhiều chi tiết phiếu xuất kho
+    @OneToMany(mappedBy = "product", fetch = FetchType.LAZY)
+    private List<InventoryExportItem> exportItems;
+
 
     // =================== TỰ ĐỘNG SET THỜI GIAN ===================
     @PrePersist

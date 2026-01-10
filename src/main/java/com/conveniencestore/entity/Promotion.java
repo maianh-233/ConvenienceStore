@@ -8,6 +8,8 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import com.conveniencestore.constant.CustomerTier;
+import com.conveniencestore.constant.PromotionType;
 @Entity
 @Table(
     name = "promotions",
@@ -26,11 +28,18 @@ public class Promotion {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id; // ID khuyến mãi, tự tăng
 
+    // ================== Thông tin cơ bản ==================
+    @Column(nullable = false, unique = true, length = 50)
+    private String code;
+    //CODE Khuyến mãi, định danh duy nhất
+
     @Column(nullable = false, length = 150)
     private String name; // Tên khuyến mãi
 
-    @Column(length = 50)
-    private String type; // Loại khuyến mãi: 'percent', 'amount'
+    /** Loại khuyến mãi */
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false, length = 20)
+    private PromotionType type;
 
     @Column(precision = 12, scale = 2)
     private BigDecimal value = BigDecimal.ZERO; // Giá trị khuyến mãi

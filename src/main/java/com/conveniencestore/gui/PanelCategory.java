@@ -2,12 +2,11 @@ package com.conveniencestore.gui;
 import javax.swing.*;
 import java.awt.*;
 import java.net.URL;
-
+import javax.swing.table.DefaultTableModel;
 import com.conveniencestore.DTO.CategoryResponseDTO;
 import com.conveniencestore.gui.category.CategoryDialog;
 import com.conveniencestore.gui.utils.ButtonPanelUtil;
 import com.conveniencestore.gui.utils.CustomButton;
-
 import com.conveniencestore.gui.utils.HeaderPanelUtil;
 import com.conveniencestore.gui.utils.ImageUtil;
 import com.conveniencestore.gui.utils.PaginationUtil;
@@ -31,10 +30,7 @@ public class PanelCategory extends JPanel{
     private CustomButton btnDelete;
     private CustomButton btnEdit;
     private CustomButton btnRestore;
-    private CustomButton btnExportExcel;
-    private CustomButton btnImportExcel;
-    private CustomButton btnExportPDF;
-    private CustomButton btnImportPDF;
+
 
     // ================= TABLE =================
     private JTable table;
@@ -82,14 +78,21 @@ public class PanelCategory extends JPanel{
         btnDelete = new CustomButton("Xóa",   loadIcon("delete"));
         btnEdit   = new CustomButton("Sửa",   loadIcon("edit"));
         btnRestore   = new CustomButton("Restore",   loadIcon("restore"));
-        btnExportExcel = new CustomButton("Xuất", loadIcon("excel"));
-        btnImportExcel = null; // không dùng
-        btnExportPDF   = new CustomButton("Xuất", loadIcon("pdf"));
-        btnImportPDF   = null;
+       
 
         // ===== TABLE =====
         table = new JTable();
         TableUtil.style(table);
+
+        // Tạo header bảng
+        DefaultTableModel tableModel = new DefaultTableModel();
+        tableModel.addColumn("ID");
+        tableModel.addColumn("Tên loại hàng");
+        tableModel.addColumn("Mô tả");
+        tableModel.addColumn("Trạng thái");
+        tableModel.addColumn("Ngày tạo");
+        tableModel.addColumn("Ngày cập nhật");
+        table.setModel(tableModel);
 
         // ===== PAGINATION =====
         btnPrev = new CustomButton(
@@ -140,11 +143,8 @@ public class PanelCategory extends JPanel{
                         btnAdd,
                         btnDelete,
                         btnEdit,
-                        btnRestore,
-                        btnExportExcel,
-                        btnImportExcel,
-                        btnExportPDF,
-                        btnImportPDF
+                        btnRestore
+                      
                 )
         );
 

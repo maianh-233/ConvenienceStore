@@ -9,6 +9,7 @@ import java.awt.event.MouseEvent;
 import com.conveniencestore.gui.PanelCategory;
 import com.conveniencestore.gui.PanelCustomer;
 import com.conveniencestore.gui.PanelEmployee;
+import com.conveniencestore.gui.PanelExport;
 import com.conveniencestore.gui.PanelHome;
 import com.conveniencestore.gui.PanelImport;
 import com.conveniencestore.gui.PanelInformation;
@@ -32,14 +33,14 @@ public class MainContentPanel extends JPanel {
 
         add(new PanelHome(), "HOME");
         add(new PanelOrder(), "ORDER");
-        add(new PanelCustomer(), "CUSTOMER");
-        add(new PanelEmployee(), "EMPLOYEE");
+        add(new PanelCustomer(parentFrame), "CUSTOMER");
+        add(new PanelEmployee(parentFrame), "EMPLOYEE");
         add(new PanelSupplier(parentFrame), "SUPPLIER");
         add(new PanelUnit(parentFrame), "UNIT");
         add(new PanelCategory(parentFrame), "CATEGORY");
-        add(new PanelProduct(), "PRODUCT");
-        add(new PanelInventory(), "INVENTORY");
+        add(new PanelProduct(parentFrame), "PRODUCT");
         add(new PanelImport(), "IMPORT");
+        add(new PanelExport(), "EXPORT");
         add(new PanelPromotion(parentFrame), "PROMOTION");
         add(new PanelStat(), "STAT");
         add(new PanelRole(), "ROLE");

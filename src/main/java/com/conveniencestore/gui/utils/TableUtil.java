@@ -33,11 +33,32 @@ public class TableUtil {
 
     // ===================== HÀM GỌI CHÍNH =====================
     public static void style(JTable table) {
+
+        // ===== AUTO CREATE HEADER IF EMPTY =====
+        if (table.getModel() == null
+            || table.getColumnCount() == 0) {
+
+            DefaultTableModel emptyModel =
+                new DefaultTableModel(
+                    new Object[][]{},
+                    new String[]{" "} // 1 cột giả để header xuất hiện
+                ) {
+                    @Override
+                    public boolean isCellEditable(int r, int c) {
+                        return false;
+                    }
+                };
+
+            table.setModel(emptyModel);
+        }
+
+        // ===== STYLE CŨ =====
         styleHeader(table);
         styleBody(table);
         styleGrid(table);
         styleBehavior(table);
     }
+
 
     // ===================== HEADER =====================
     private static void styleHeader(JTable table) {

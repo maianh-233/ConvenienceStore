@@ -4,21 +4,23 @@ import javax.swing.*;
 import java.awt.*;
 import java.net.URL;
 
+import javax.swing.table.DefaultTableModel;
+
+import com.conveniencestore.DTO.CustomerResponseDTO;
 import com.conveniencestore.constant.CustomerTier;
-import com.conveniencestore.constant.OrderStatus;
+import com.conveniencestore.gui.customer.CustomerDialog;
 import com.conveniencestore.gui.customer.CustomerStatPanel;
 import com.conveniencestore.gui.customer.FilterCustomerTierPanel;
-import com.conveniencestore.gui.mainlayout.SidebarButton;
 import com.conveniencestore.gui.utils.ButtonPanelUtil;
 import com.conveniencestore.gui.utils.ComboItem;
 import com.conveniencestore.gui.utils.CustomButton;
-import com.conveniencestore.gui.utils.FilterDateUtil;
 import com.conveniencestore.gui.utils.HeaderPanelUtil;
 import com.conveniencestore.gui.utils.ImageUtil;
 import com.conveniencestore.gui.utils.PaginationUtil;
 import com.conveniencestore.gui.utils.SearchPanelUtil;
 import com.conveniencestore.gui.utils.TableUtil;
 public class PanelCustomer extends JPanel{
+    private JFrame parentFrame;
     // ================= HEADER =================
     private String titlePanel = "Quản lý khách hàng";
     private CustomButton btnReload;
@@ -30,7 +32,7 @@ public class PanelCustomer extends JPanel{
     private JTextField txtSearch;
     private CustomButton btnSearch;
 
-  // ================= FILTERSTATUS =================
+    // ================= FILTERSTATUS =================
     private JLabel lblStatusCustomerTier;
     private JComboBox cbStatusCustomerTier;
 
@@ -43,10 +45,6 @@ public class PanelCustomer extends JPanel{
     private CustomButton btnDelete;
     private CustomButton btnEdit;
     private CustomButton btnRestore;
-    private CustomButton btnExportExcel;
-    private CustomButton btnImportExcel;
-    private CustomButton btnExportPDF;
-    private CustomButton btnImportPDF;
 
     // ================= TABLE =================
     private JTable table;
@@ -55,9 +53,11 @@ public class PanelCustomer extends JPanel{
     private CustomButton btnPrev;
     private CustomButton btnNext;
 
-    public PanelCustomer () {
+    public PanelCustomer(JFrame parentFrame) {
+        this.parentFrame = parentFrame;
         initComponent();
         initLayout();
+        initEvent();
     }
     private URL getIconUrl(String path){
          return getClass().getResource(path);
@@ -84,7 +84,7 @@ public class PanelCustomer extends JPanel{
                 )
         );
 
-                // ===== FILTER STATUS =====
+        // ===== FILTER STATUS =====
 
         lblStatusCustomerTier = new JLabel("Customer Tier:");
         cbStatusCustomerTier = createStatusCutsomerTierCombo() ;
@@ -106,14 +106,21 @@ public class PanelCustomer extends JPanel{
         btnDelete = new CustomButton("Xóa",   loadIcon("delete"));
         btnEdit   = new CustomButton("Sửa",   loadIcon("edit"));
         btnRestore   = new CustomButton("Restore",   loadIcon("restore"));
-        btnExportExcel = new CustomButton("Xuất", loadIcon("excel"));
-        btnImportExcel = null; // không dùng
-        btnExportPDF   = new CustomButton("Xuất", loadIcon("pdf"));
-        btnImportPDF   = null;
+       
 
         // ===== TABLE =====
         table = new JTable();
         TableUtil.style(table);
+
+        // Tạo header bảng
+        DefaultTableModel tableModel = new DefaultTableModel();
+        tableModel.addColumn("ID");
+        tableModel.addColumn("Tên khách hàng");
+        tableModel.addColumn("Email");
+        tableModel.addColumn("Số điện thoại");
+        tableModel.addColumn("Loại khách hàng");
+        tableModel.addColumn("Trạng thái");
+        table.setModel(tableModel);
 
         // ===== PAGINATION =====
         btnPrev = new CustomButton(
@@ -184,11 +191,7 @@ public class PanelCustomer extends JPanel{
                         btnAdd,
                         btnDelete,
                         btnEdit,
-                        btnRestore,
-                        btnExportExcel,
-                        btnImportExcel,
-                        btnExportPDF,
-                        btnImportPDF
+                        btnRestore
                 )
         );
 
@@ -214,12 +217,6 @@ public class PanelCustomer extends JPanel{
     }
 
     // ================= HELPER =================
-    private JSpinner createDateSpinner() {
-        JSpinner spinner = new JSpinner(new SpinnerDateModel());
-        spinner.setEditor(new JSpinner.DateEditor(spinner, "dd/MM/yyyy"));
-        spinner.setPreferredSize(new Dimension(120, 30));
-        return spinner;
-    }
 
     private Icon loadIcon(String name) {
         return ImageUtil.scaleIcon(
@@ -241,4 +238,60 @@ public class PanelCustomer extends JPanel{
 
                 return combo;
         }
+
+        private CustomerResponseDTO mockCustomerResponse() {
+                CustomerResponseDTO dto = new CustomerResponseDTO();
+
+                dto.setId(1L);
+                dto.setFullName("Nguyễn Văn A");
+
+                dto.setDateOfBirth(java.time.LocalDate.of(1998, 5, 20));
+                dto.setEmail("nguyenvana@gmail.com");
+                dto.setPhone("0987654321");
+                dto.setAddress("123 Lê Lợi, Quận 1, TP.HCM");
+        
+
+                dto.setGender(0); // 0 = Nam, 1 = Nữ, 2 = Khác
+
+                dto.setTier(CustomerTier.PREMIUM);
+                dto.setPoints(1200);
+
+                dto.setIsDeleted(0); // 0 = hoạt động, 1 = đã xóa
+
+                dto.setCreatedAt(java.time.LocalDateTime.now().minusDays(10));
+                dto.setUpdatedAt(java.time.LocalDateTime.now());
+
+                return dto;
+        }
+
+                // ACTION EVENT
+    private void initEvent() {
+        // TEST ADD
+        btnAdd.addActionListener(e -> {
+                new CustomerDialog(
+                        parentFrame,
+                        CustomerDialog.MODE_ADD,
+                        null
+                );
+        });
+
+        // TEST EDIT
+        btnEdit.addActionListener(e -> {
+                new CustomerDialog(
+                        parentFrame,
+                        CustomerDialog.MODE_EDIT,
+                        mockCustomerResponse()
+                );
+        });
+
+        // TEST VIEW
+        btnView.addActionListener(e -> {
+                new CustomerDialog(
+                        parentFrame,
+                        CustomerDialog.MODE_VIEW,
+                        mockCustomerResponse()
+                );
+        });
+   }
+
 }

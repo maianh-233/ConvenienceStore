@@ -1,11 +1,18 @@
 package com.conveniencestore.gui;
 import javax.swing.*;
+
 import java.awt.*;
 import java.net.URL;
 
-import com.conveniencestore.gui.inventory.InventoryStatPanel;
+import com.conveniencestore.constant.ExportStatus;
+import com.conveniencestore.constant.ExportType;
+import com.conveniencestore.constant.OrderStatus;
+import com.conveniencestore.constant.PaymentStatus;
+import com.conveniencestore.gui.exportcomponent.FilterExportStatusPanel;
 import com.conveniencestore.gui.mainlayout.SidebarButton;
+import com.conveniencestore.gui.order.PanelOrderFilterStatus;
 import com.conveniencestore.gui.utils.ButtonPanelUtil;
+import com.conveniencestore.gui.utils.ComboItem;
 import com.conveniencestore.gui.utils.CustomButton;
 import com.conveniencestore.gui.utils.FilterDateUtil;
 import com.conveniencestore.gui.utils.HeaderPanelUtil;
@@ -13,32 +20,40 @@ import com.conveniencestore.gui.utils.ImageUtil;
 import com.conveniencestore.gui.utils.PaginationUtil;
 import com.conveniencestore.gui.utils.SearchPanelUtil;
 import com.conveniencestore.gui.utils.TableUtil;
-public class PanelInventory extends JPanel{
+public class PanelExport extends JPanel {
     // ================= HEADER =================
-    private String titlePanel = "Quản lý kho hàng";
+    private String titlePanel = "Quản lý xuất hàng";
     private CustomButton btnReload;
 
-    // ================= STAT =================
-    private InventoryStatPanel inventoryStatPanel;
+    // ================= FILTERSTATUS =================
+    private JLabel lblStatus;
+    private JLabel lblType;
+
+    private JComboBox cbStatus;
+    private JComboBox cbType;
+    
+
+    private CustomButton btnFilterStatus;
 
 
     // ================= SEARCH =================
     private JTextField txtSearch;
     private CustomButton btnSearch;
 
-
-
+    // ================= FILTER DATE =================
+    private JLabel lblFrom;
+    private JLabel lblTo;
+    private JSpinner spFrom;
+    private JSpinner spTo;
+    private CustomButton btnFilter;
 
     // ================= BUTTON ACTION =================
     private CustomButton btnView;
     private CustomButton btnAdd;
     private CustomButton btnDelete;
     private CustomButton btnEdit;
-     private CustomButton btnRestore;
-    private CustomButton btnExportExcel;
-    private CustomButton btnImportExcel;
-    private CustomButton btnExportPDF;
-    private CustomButton btnImportPDF;
+    private CustomButton btnRestore;
+   
 
     // ================= TABLE =================
     private JTable table;
@@ -47,7 +62,7 @@ public class PanelInventory extends JPanel{
     private CustomButton btnPrev;
     private CustomButton btnNext;
 
-    public PanelInventory () {
+    public PanelExport () {
         initComponent();
         initLayout();
     }
@@ -67,6 +82,21 @@ public class PanelInventory extends JPanel{
                 )
         );
 
+        // ===== FILTER STATUS =====
+       
+        lblStatus = new JLabel("Status:");
+        cbStatus = createStatusCombo();
+
+        lblType = new JLabel("Type:");
+        cbType = createExportTypeCombo();
+
+        btnFilterStatus = new CustomButton(
+                "Lọc",
+                ImageUtil.scaleIcon(
+                        new ImageIcon(getIconUrl("/icon/filter.png")), 18, 18
+                )
+        );
+
         // ===== SEARCH =====
         txtSearch = new JTextField(20);
         btnSearch = new CustomButton(
@@ -76,18 +106,27 @@ public class PanelInventory extends JPanel{
                 )
         );
 
+        // ===== FILTER DATE =====
+        lblFrom = new JLabel("Từ");
+        lblTo   = new JLabel("Đến");
+
+        spFrom = createDateSpinner();
+        spTo   = createDateSpinner();
+
+        btnFilter = new CustomButton(
+                "Lọc",
+                ImageUtil.scaleIcon(
+                        new ImageIcon(getIconUrl("/icon/filter.png")), 18, 18
+                )
+        );
 
         // ===== BUTTON ACTION =====
         btnView   = new CustomButton("Xem",   loadIcon("see"));
         btnAdd    = new CustomButton("Thêm",  loadIcon("plus"));
         btnDelete = new CustomButton("Xóa",   loadIcon("delete"));
         btnEdit   = new CustomButton("Sửa",   loadIcon("edit"));
-
         btnRestore   = new CustomButton("Restore",   loadIcon("restore"));
-        btnExportExcel = new CustomButton("Xuất", loadIcon("excel"));
-        btnImportExcel = null; // không dùng
-        btnExportPDF   = new CustomButton("Xuất", loadIcon("pdf"));
-        btnImportPDF   = null;
+
 
         // ===== TABLE =====
         table = new JTable();
@@ -107,14 +146,6 @@ public class PanelInventory extends JPanel{
                         new ImageIcon(getIconUrl("/icon/next.png")), 16, 16
                 )
         );
-
-        // ===== STAT PANEL =====
-        inventoryStatPanel = new InventoryStatPanel();
-
-        // ví dụ test dữ liệu
-        inventoryStatPanel.setInStock(120);
-        inventoryStatPanel.setOutOfStock(18);
-
     }
 
     // ================= LAYOUT =================
@@ -133,35 +164,45 @@ public class PanelInventory extends JPanel{
         topPanel.add(
                 HeaderPanelUtil.createHeaderPanel(titlePanel, btnReload)
         );
-        topPanel.add(Box.createVerticalStrut(12));
+        topPanel.add(Box.createVerticalStrut(10));
 
-        /* ================= INVENTORY STAT ================= */
-        topPanel.add(inventoryStatPanel);
-        topPanel.add(Box.createVerticalStrut(15));
+        topPanel.add(
+                FilterExportStatusPanel.create(
+                lblStatus, cbStatus,
+                lblType, cbType,
+                btnFilterStatus
+                )
 
-        /* ================= SEARCH ================= */
+        );
+        topPanel.add(Box.createVerticalStrut(10));
+        // Search + Filter
+       
         topPanel.add(
                 SearchPanelUtil.createSearchPanel(txtSearch, btnSearch)
         );
         topPanel.add(Box.createVerticalStrut(10));
 
-        /* ================= BUTTON ACTION ================= */
+        // ===== FILTER DATE =====
+        topPanel.add(
+                FilterDateUtil.createFilterDatePanel(
+                        lblFrom, spFrom,
+                        lblTo, spTo,
+                        btnFilter
+                )
+        );
+        topPanel.add(Box.createVerticalStrut(10));
+
+
+        // Button action
         topPanel.add(
                 ButtonPanelUtil.createButtonPanel(
                         btnView,
                         btnAdd,
                         btnDelete,
                         btnEdit,
-                        btnRestore,
-                        btnExportExcel,
-                        btnImportExcel,
-                        btnExportPDF,
-                        btnImportPDF
+                        btnRestore
                 )
         );
-
-        add(topPanel, BorderLayout.NORTH);
-
 
         add(topPanel, BorderLayout.NORTH);
 
@@ -194,5 +235,33 @@ public class PanelInventory extends JPanel{
                 new ImageIcon(getIconUrl("/icon/" + name + ".png")),
                 18, 18
         );
-    } 
+    }
+
+    private JComboBox<ComboItem<ExportStatus>> createStatusCombo() {
+        JComboBox<ComboItem<ExportStatus>> combo = new JComboBox<>();
+
+        combo.addItem(new ComboItem<>(null, "Tất cả"));
+
+        for (ExportStatus status : ExportStatus.values()) {
+                combo.addItem(
+                        new ComboItem<>(status, status.getDisplayName())
+                );
+        }
+
+        return combo;
+    }
+
+        private JComboBox<ComboItem<ExportType>> createExportTypeCombo() {
+                JComboBox<ComboItem<ExportType>> combo = new JComboBox<>();
+
+                combo.addItem(new ComboItem<>(null, "Tất cả"));
+
+                for (ExportType status : ExportType.values()) {
+                        combo.addItem(
+                                new ComboItem<>(status, status.getDisplayName())
+                        );
+                }
+
+                return combo;
+        }
 }

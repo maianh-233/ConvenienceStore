@@ -10,11 +10,9 @@ public class InventoryMapper {
 
     public static Inventory toEntityVer2(InventoryRequestDTO dto) {
         Inventory i = new Inventory();
-
         i.setId(dto.getId());
         i.setQuantity(dto.getQuantity());
-        i.setLastCheckedAt(dto.getLastCheckedAt());
-
+   
         return i;
     }
 
@@ -28,7 +26,7 @@ public class InventoryMapper {
         i.setId(dto.getId());
         i.setProduct(product);
         i.setQuantity(dto.getQuantity());
-        i.setLastCheckedAt(dto.getLastCheckedAt());
+    
 
         return i;
     }
@@ -39,7 +37,7 @@ public class InventoryMapper {
 
         dto.setId(entity.getId());
         dto.setQuantity(entity.getQuantity());
-        dto.setLastCheckedAt(entity.getLastCheckedAt());
+    
         dto.setUpdatedAt(entity.getUpdatedAt());
 
         if (entity.getProduct() != null) {

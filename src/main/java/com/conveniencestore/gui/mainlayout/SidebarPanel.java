@@ -18,10 +18,10 @@ public class SidebarPanel extends JPanel {
 
 
     public SidebarPanel() {
-       setBackground(AppColor.SIDEBAR_BG);
+        setBackground(AppColor.SIDEBAR_BG);
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
-        setPreferredSize(new Dimension(250, 0));
+        setPreferredSize(new Dimension(150, 0));
         setMinimumSize(new Dimension(70, 0));
 
         add(Box.createVerticalStrut(10));
@@ -29,16 +29,16 @@ public class SidebarPanel extends JPanel {
 
 
         addMenu("/icon/Home.png", "Home", "HOME");
-        addMenu("/icon/orders.png", "Sales Management", "ORDER");
-        addMenu("/icon/customer.png", "Customer Management", "CUSTOMER");
-        addMenu("/icon/employee.png", "Employee Management", "EMPLOYEE");
-        addMenu("/icon/supplier.png", "Supplier Management", "SUPPLIER");
-        addMenu("/icon/units.png", "Unit Management", "UNIT");
-        addMenu("/icon/category.png", "Category Management", "CATEGORY");
-        addMenu("/icon/products.png", "Product Management", "PRODUCT");
-        addMenu("/icon/inventory.png", "Inventory Management", "INVENTORY");
-        addMenu("/icon/imports.png", "Import Management", "IMPORT");
-        addMenu("/icon/promotion.png", "Promotion Management", "PROMOTION");
+        addMenu("/icon/orders.png", "Sales", "ORDER");
+        addMenu("/icon/customer.png", "Customer", "CUSTOMER");
+        addMenu("/icon/employee.png", "Employee", "EMPLOYEE");
+        addMenu("/icon/supplier.png", "Supplier", "SUPPLIER");
+        addMenu("/icon/units.png", "Unit", "UNIT");
+        addMenu("/icon/category.png", "Category", "CATEGORY");
+        addMenu("/icon/products.png", "Product", "PRODUCT");
+        addMenu("/icon/imports.png", "Import", "IMPORT");
+        addMenu("/icon/export.png", "Export", "EXPORT");
+        addMenu("/icon/promotion.png", "Promotion", "PROMOTION");
         addMenu("/icon/stat.png", "Statistics", "STAT");
         addMenu("/icon/role.png", "Role", "ROLE");
         addMenu("/icon/user.png", "Information", "INFORMATION");
@@ -80,7 +80,7 @@ public class SidebarPanel extends JPanel {
 
         setPreferredSize(
             collapse ? new Dimension(70, getHeight())
-                     : new Dimension(250, getHeight())
+                     : new Dimension(150, getHeight())
         );
 
         for (SidebarButton btn : buttons) {

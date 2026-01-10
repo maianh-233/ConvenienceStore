@@ -14,11 +14,10 @@ public class UserRequestDTO {
     private LocalDate dateOfBirth;
     private String email;
     private String phone;
-    private String identityNumber;
     private String address;
     private String imgUrl;
     private int gender;
     private Long roleId;           
     private int active;
-    private int locked;
+
 }

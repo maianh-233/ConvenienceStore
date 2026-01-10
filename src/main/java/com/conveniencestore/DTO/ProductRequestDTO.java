@@ -12,6 +12,7 @@ public class ProductRequestDTO {
     private Long id;
 
     private String sku;
+    private String barcode;
     private String productName;
 
     private Long categoryId;
@@ -24,5 +25,5 @@ public class ProductRequestDTO {
     private String description;
     private String imageUrl;
 
-    private boolean isActive;
+    private int isActive;
 }

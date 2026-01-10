@@ -4,6 +4,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.net.URL;
 
+import javax.swing.table.DefaultTableModel;
+
 import com.conveniencestore.DTO.PromotionResponseDTO;
 import com.conveniencestore.gui.employee.EmployeeStatPanel;
 import com.conveniencestore.gui.mainlayout.SidebarButton;
@@ -36,10 +38,7 @@ public class PanelPromotion extends JPanel{
     private CustomButton btnDelete;
     private CustomButton btnEdit;
     private CustomButton btnRestore;
-    private CustomButton btnExportExcel;
-    private CustomButton btnImportExcel;
-    private CustomButton btnExportPDF;
-    private CustomButton btnImportPDF;
+
 
     // ================= TABLE =================
     private JTable table;
@@ -87,14 +86,19 @@ public class PanelPromotion extends JPanel{
         btnEdit   = new CustomButton("Sửa",   loadIcon("edit"));
         btnRestore   = new CustomButton("Restore",   loadIcon("restore"));
 
-        btnExportExcel = new CustomButton("Xuất", loadIcon("excel"));
-        btnImportExcel = null; // không dùng
-        btnExportPDF   = new CustomButton("Xuất", loadIcon("pdf"));
-        btnImportPDF   = null;
 
         // ===== TABLE =====
         table = new JTable();
         TableUtil.style(table);
+
+        // Tạo header bảng
+        DefaultTableModel tableModel = new DefaultTableModel();
+        tableModel.addColumn("ID");
+        tableModel.addColumn("Mã khuyến mãi");
+        tableModel.addColumn("Tên khuyến mãi");
+        tableModel.addColumn("Loại");
+        tableModel.addColumn("Trạng thái");
+        table.setModel(tableModel);
 
         // ===== PAGINATION =====
         btnPrev = new CustomButton(
@@ -155,11 +159,7 @@ public class PanelPromotion extends JPanel{
                         btnAdd,
                         btnDelete,
                         btnEdit,
-                        btnRestore,
-                        btnExportExcel,
-                        btnImportExcel,
-                        btnExportPDF,
-                        btnImportPDF
+                        btnRestore
                 )
         );
 
@@ -195,6 +195,7 @@ public class PanelPromotion extends JPanel{
         PromotionResponseDTO dto = new PromotionResponseDTO();
 
         dto.setId(1L);
+        dto.setCode("KHAITRUONG2024");
         dto.setName("Giảm giá khai trương");
 
         dto.setType("PERCENT");           // PERCENT | FIXED | FREESHIP

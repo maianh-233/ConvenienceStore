@@ -11,6 +11,7 @@ import java.time.LocalDateTime;
 public class PromotionResponseDTO {
 
     private Long id;
+    private String code;
     private String name;
     private String type;
     private BigDecimal value;
@@ -19,15 +20,13 @@ public class PromotionResponseDTO {
     private LocalDateTime endAt;
 
     private int isActive;
-    private int isDeleted;
-    private LocalDateTime deletedAt;
+
 
     private String customerTier;
     private Integer maxUses;
     private BigDecimal minOrderAmount;
 
     private String note;
-    private String applicableTiers;
 
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;

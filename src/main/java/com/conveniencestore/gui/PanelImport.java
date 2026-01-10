@@ -4,8 +4,12 @@ import javax.swing.*;
 import java.awt.*;
 import java.net.URL;
 
+import com.conveniencestore.constant.CustomerTier;
+import com.conveniencestore.constant.OrderStatus;
+import com.conveniencestore.gui.customer.FilterCustomerTierPanel;
 import com.conveniencestore.gui.mainlayout.SidebarButton;
 import com.conveniencestore.gui.utils.ButtonPanelUtil;
+import com.conveniencestore.gui.utils.ComboItem;
 import com.conveniencestore.gui.utils.CustomButton;
 import com.conveniencestore.gui.utils.FilterDateUtil;
 import com.conveniencestore.gui.utils.HeaderPanelUtil;
@@ -17,6 +21,13 @@ public class PanelImport extends JPanel {
     // ================= HEADER =================
     private String titlePanel = "Quản lý nhập hàng";
     private CustomButton btnReload;
+
+    // ================= FILTERSTATUS =================
+    private JLabel lblStatus;
+    private JComboBox cbStatus;
+
+    private CustomButton btnFilterStatus;
+
 
     // ================= SEARCH =================
     private JTextField txtSearch;
@@ -34,11 +45,8 @@ public class PanelImport extends JPanel {
     private CustomButton btnAdd;
     private CustomButton btnDelete;
     private CustomButton btnEdit;
-     private CustomButton btnRestore;
-    private CustomButton btnExportExcel;
-    private CustomButton btnImportExcel;
-    private CustomButton btnExportPDF;
-    private CustomButton btnImportPDF;
+    private CustomButton btnRestore;
+   
 
     // ================= TABLE =================
     private JTable table;
@@ -76,6 +84,30 @@ public class PanelImport extends JPanel {
                 )
         );
 
+        
+        // ===== FILTER STATUS =====
+
+        lblStatus = new JLabel("Status:");
+        cbStatus = createStatusCombo() ;
+
+     
+
+
+        btnFilterStatus = new CustomButton(
+                "Lọc",
+                ImageUtil.scaleIcon(
+                        new ImageIcon(getIconUrl("/icon/filter.png")), 18, 18
+                )
+        );
+
+
+        btnFilterStatus = new CustomButton(
+                "Lọc",
+                ImageUtil.scaleIcon(
+                        new ImageIcon(getIconUrl("/icon/filter.png")), 18, 18
+                )
+        );
+
         // ===== FILTER DATE =====
         lblFrom = new JLabel("Từ");
         lblTo   = new JLabel("Đến");
@@ -96,10 +128,7 @@ public class PanelImport extends JPanel {
         btnDelete = new CustomButton("Xóa",   loadIcon("delete"));
         btnEdit   = new CustomButton("Sửa",   loadIcon("edit"));
         btnRestore   = new CustomButton("Restore",   loadIcon("restore"));
-        btnExportExcel = new CustomButton("Xuất", loadIcon("excel"));
-        btnImportExcel = null; // không dùng
-        btnExportPDF   = new CustomButton("Xuất", loadIcon("pdf"));
-        btnImportPDF   = null;
+
 
         // ===== TABLE =====
         table = new JTable();
@@ -139,6 +168,15 @@ public class PanelImport extends JPanel {
         );
         topPanel.add(Box.createVerticalStrut(10));
 
+        /* ================= FILTER STATUS ================= */
+        topPanel.add(
+                FilterCustomerTierPanel.create(
+                        lblStatus, cbStatus,
+                        btnFilterStatus
+                )
+        );
+        topPanel.add(Box.createVerticalStrut(10));
+
         // Search + Filter
        
         topPanel.add(
@@ -164,11 +202,7 @@ public class PanelImport extends JPanel {
                         btnAdd,
                         btnDelete,
                         btnEdit,
-                        btnRestore,
-                        btnExportExcel,
-                        btnImportExcel,
-                        btnExportPDF,
-                        btnImportPDF
+                        btnRestore
                 )
         );
 
@@ -203,5 +237,19 @@ public class PanelImport extends JPanel {
                 new ImageIcon(getIconUrl("/icon/" + name + ".png")),
                 18, 18
         );
+    }
+
+    private JComboBox<ComboItem<OrderStatus>> createStatusCombo() {
+        JComboBox<ComboItem<OrderStatus>> combo = new JComboBox<>();
+
+        combo.addItem(new ComboItem<>(null, "Tất cả"));
+
+        for (OrderStatus status : OrderStatus.values()) {
+                combo.addItem(
+                        new ComboItem<>(status, status.getDisplayName())
+                );
+        }
+
+        return combo;
     }
 }

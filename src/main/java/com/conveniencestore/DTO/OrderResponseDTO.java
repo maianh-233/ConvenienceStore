@@ -13,6 +13,7 @@ import com.conveniencestore.constant.OrderStatus;
 public class OrderResponseDTO {
 
     private Long id;
+   
     private String orderNumber;
 
     private Long customerId;

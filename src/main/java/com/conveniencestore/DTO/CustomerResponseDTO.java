@@ -18,7 +18,6 @@ public class CustomerResponseDTO {
     private String email;
     private String phone;
     private String address;
-    private String identityNumber;
     private int gender;
 
     private CustomerTier tier;

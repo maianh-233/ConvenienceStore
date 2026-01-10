@@ -29,7 +29,6 @@ public class Inventory {
     @Column(nullable = false)
     private int quantity = 0; // Số lượng hiện tại
 
-    private LocalDateTime lastCheckedAt; // Lần kiểm tra tồn kho gần nhất
 
     private LocalDateTime updatedAt; // Thời điểm cập nhật tồn kho
 
@@ -37,7 +36,7 @@ public class Inventory {
     @PrePersist
     void onCreate() {
         updatedAt = LocalDateTime.now();
-        if (lastCheckedAt == null) lastCheckedAt = LocalDateTime.now();
+       
     }
 
     @PreUpdate

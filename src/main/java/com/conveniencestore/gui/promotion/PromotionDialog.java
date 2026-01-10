@@ -24,7 +24,7 @@ public class PromotionDialog extends JDialog {
     private final PromotionResponseDTO dto;
 
     /* ========== COMPONENT ========== */
-    private JTextField txtId, txtName, txtValue;
+    private JTextField txtId, txtName, txtValue, txtCode;
     private JTextField txtStartAt, txtEndAt;
     private JTextField txtMaxUses, txtMinOrderAmount;
     private JTextField txtCreatedAt, txtUpdatedAt;
@@ -96,6 +96,7 @@ public class PromotionDialog extends JDialog {
         form.setBorder(BorderFactory.createEmptyBorder(10, 16, 10, 16));
 
         txtId = createTextField();
+        txtCode = createTextField();
         txtName = createTextField();
         txtValue = createTextField();
 
@@ -115,6 +116,7 @@ public class PromotionDialog extends JDialog {
         txtUpdatedAt = createTextField();
 
         addRow(form, "ID", txtId);
+         addRow(form, "Code", txtCode);
         addRow(form, "Tên khuyến mãi", txtName);
         addRow(form, "Loại", cbbType);
         addRow(form, "Giá trị", txtValue);
@@ -261,6 +263,7 @@ public class PromotionDialog extends JDialog {
     /* ================= DTO ================= */
     private void bindDTO(PromotionResponseDTO dto) {
         txtId.setText(dto.getId() == null ? "" : dto.getId().toString());
+        txtCode.setT
         txtName.setText(dto.getName());
         cbbType.setSelectedItem(dto.getType());
         txtValue.setText(dto.getValue() == null ? "" : dto.getValue().toString());

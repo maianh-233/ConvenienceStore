@@ -12,7 +12,9 @@ public class ProductResponseDTO {
 
     private Long id;
     private String sku;
+    private String barcode;
     private String productName;
+
 
     private Long categoryId;
     private String categoryName;
@@ -29,7 +31,7 @@ public class ProductResponseDTO {
     private String description;
     private String imageUrl;
 
-    private boolean isActive;
+    private int isActive;
 
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;

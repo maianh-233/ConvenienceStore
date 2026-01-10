@@ -11,13 +11,11 @@ import com.conveniencestore.constant.CustomerTier;
 public class CustomerRequestDTO {
 
     private Long id;
-
     private String fullName;
     private LocalDate dateOfBirth;
     private String email;
     private String phone;
     private String address;
-    private String identityNumber;
     private int gender;
 
     private int isDeleted;

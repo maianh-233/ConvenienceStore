@@ -8,6 +8,8 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import com.conveniencestore.constant.ImportStatus;
+
 @Entity
 @Table(
     name = "imports",
@@ -42,10 +44,16 @@ public class Import {
     private String note; // Ghi chú phiếu nhập
 
     @Column(name = "is_deleted", nullable = false)
-    private int isDeleted = 0; // 0 = chưa xóa, 1 = đã xóa
+    private int isDeleted = 1; // 1 = chưa xóa, 0 = đã xóa
 
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
+
+        // ================== TRẠNG THÁI PHIẾU NHẬP ==================
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false, length = 20)
+    private ImportStatus status;
+
 
     // ================== Chi tiết sản phẩm nhập ==================
     @OneToMany(mappedBy = "importRecord", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
@@ -55,7 +63,11 @@ public class Import {
     void onCreate() {
         createdAt = LocalDateTime.now();
         updatedAt = LocalDateTime.now();
+        if (status == null) {
+            status = ImportStatus.PENDING; // mặc định khi tạo
+        }
     }
+
 
     @PreUpdate
     void onUpdate() {
