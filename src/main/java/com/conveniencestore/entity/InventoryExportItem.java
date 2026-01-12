@@ -1,11 +1,10 @@
 package com.conveniencestore.entity;
-mport jakarta.persistence.*;
+import jakarta.persistence.*;
+
 import lombok.Getter;
 import lombok.Setter;
 
-import java.math.BigDecimal;
-import java.time.LocalDateTime;
-import java.util.List;
+
 @Entity
 @Table(
     name = "inventory_export_items",

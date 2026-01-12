@@ -7,6 +7,8 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 import com.conveniencestore.constant.OrderStatus;
+import com.conveniencestore.constant.PaymentMethod;
+import com.conveniencestore.constant.PaymentStatus;
 
 @Getter
 @Setter
@@ -39,4 +41,11 @@ public class OrderResponseDTO {
 
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
+
+    // Mở rộng 
+    private String transactionref;
+    private PaymentMethod paymentMethod;
+    private PaymentStatus paymentStatus;
+
+
 }

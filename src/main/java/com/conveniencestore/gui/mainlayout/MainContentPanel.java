@@ -13,7 +13,7 @@ import com.conveniencestore.gui.PanelExport;
 import com.conveniencestore.gui.PanelHome;
 import com.conveniencestore.gui.PanelImport;
 import com.conveniencestore.gui.PanelInformation;
-import com.conveniencestore.gui.PanelInventory;
+
 import com.conveniencestore.gui.PanelOrder;
 import com.conveniencestore.gui.PanelProduct;
 import com.conveniencestore.gui.PanelPromotion;
@@ -32,7 +32,7 @@ public class MainContentPanel extends JPanel {
         setBackground(AppColor.CONTENT_BG);
 
         add(new PanelHome(), "HOME");
-        add(new PanelOrder(), "ORDER");
+        add(new PanelOrder(parentFrame), "ORDER");
         add(new PanelCustomer(parentFrame), "CUSTOMER");
         add(new PanelEmployee(parentFrame), "EMPLOYEE");
         add(new PanelSupplier(parentFrame), "SUPPLIER");

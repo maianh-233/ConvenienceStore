@@ -94,6 +94,7 @@ public class PanelProduct extends JPanel{
         tableModel.addColumn("Tên sản phẩm");
         tableModel.addColumn("Mã SKU");
         tableModel.addColumn("Mã vạch");
+        tableModel.addColumn("Số lượng tồn");
         tableModel.addColumn("Trạng thái");
         table.setModel(tableModel);
 

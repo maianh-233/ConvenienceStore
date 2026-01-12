@@ -4,13 +4,20 @@ package com.conveniencestore.gui;
 import javax.swing.*;
 
 import java.awt.*;
+import java.util.List;
+import java.math.BigDecimal;
 import java.net.URL;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
+import com.conveniencestore.DTO.OrderItemResponseDTO;
+import com.conveniencestore.DTO.OrderResponseDTO;
 import com.conveniencestore.constant.OrderStatus;
 import com.conveniencestore.constant.PaymentMethod;
 import com.conveniencestore.constant.PaymentStatus;
-import com.conveniencestore.gui.mainlayout.SidebarButton;
-
+import com.conveniencestore.gui.order.OrderDialog;
 import com.conveniencestore.gui.order.PanelOrderFilterStatus;
 import com.conveniencestore.gui.utils.ButtonPanelUtil;
 import com.conveniencestore.gui.utils.ComboItem;
@@ -36,7 +43,7 @@ import com.conveniencestore.gui.utils.TableUtil;
  *   PaginationUtil
  */
 public class PanelOrder extends JPanel {
-
+    private JFrame parentFrame;
     // ================= HEADER =================
     private String titlePanel = "Quản lý đơn hàng";
     private CustomButton btnReload;
@@ -78,9 +85,11 @@ public class PanelOrder extends JPanel {
     private CustomButton btnPrev;
     private CustomButton btnNext;
 
-    public PanelOrder() {
+    public PanelOrder(JFrame parentFrame) {
+        this.parentFrame = parentFrame;
         initComponent();
         initLayout();
+        initEvent();
     }
     private URL getIconUrl(String path){
          return getClass().getResource(path);
@@ -307,6 +316,115 @@ public class PanelOrder extends JPanel {
 
                 return combo;
         }
+
+        private List<OrderItemResponseDTO> mockOrderItems() {
+                List<OrderItemResponseDTO> list = new ArrayList<>();
+
+                OrderItemResponseDTO i1 = new OrderItemResponseDTO();
+                i1.setId(1L);
+                i1.setProductId(101L);
+                i1.setProductName("Coca Cola");
+                i1.setQuantity(2);
+                i1.setUnitPrice(new BigDecimal("12000"));
+                i1.setTotalPrice(new BigDecimal("24000"));
+
+                OrderItemResponseDTO i2 = new OrderItemResponseDTO();
+                i2.setId(2L);
+                i2.setProductId(102L);
+                i2.setProductName("Mì Hảo Hảo");
+                i2.setQuantity(5);
+                i2.setUnitPrice(new BigDecimal("3500"));
+                i2.setTotalPrice(new BigDecimal("17500"));
+
+                list.add(i1);
+                list.add(i2);
+
+                return list;
+        }
+
+        private OrderResponseDTO mockOrderResponse() {
+        OrderResponseDTO dto = new OrderResponseDTO();
+
+        dto.setId(1L);
+        dto.setOrderNumber("ORD-2026-0001");
+
+        dto.setCustomerId(10L);
+        dto.setCustomerName("Nguyễn Văn A");
+
+        dto.setStaffId(3L);
+        dto.setStaffName("Trần Thị B");
+
+        dto.setPromotionId(2L);
+        dto.setPromotionCode("SALE10");
+
+        dto.setStatus(OrderStatus.PROCESSING);
+
+        dto.setSubtotal(new BigDecimal("150000"));
+        dto.setDiscount(new BigDecimal("15000"));
+        dto.setTotalAmount(new BigDecimal("135000"));
+
+        dto.setNote("Giao hàng trước 18h");
+        dto.setShippingAddress("123 Lê Lợi, Q1");
+
+        dto.setIsOnline(1);
+        dto.setIsDeleted(0);
+
+        dto.setCreatedAt(LocalDateTime.now().minusDays(1));
+        dto.setUpdatedAt(LocalDateTime.now());
+
+        // ====== THANH TOÁN (ENUM) ======
+        dto.setPaymentMethod(PaymentMethod.VNPAY);
+        dto.setPaymentStatus(PaymentStatus.COMPLETED);
+
+        return dto;
+        }
+
+
+
+
+        private Map<Long, String> mockPromotions() {
+                Map<Long, String> map = new LinkedHashMap<>();
+                map.put(1L, "Không áp dụng");
+                map.put(2L, "SALE10 - Giảm 10%");
+                map.put(3L, "SALE20 - Giảm 20%");
+                return map;
+        }
+
+            // ACTION EVENT
+        private void initEvent() {
+                // TEST ADD
+                btnAdd.addActionListener(e -> {
+                        new OrderDialog(
+                        parentFrame,
+                        OrderDialog.MODE_ADD,
+                        null,
+                        new ArrayList<>()
+                        );
+                });
+
+                // TEST EDIT
+                btnEdit.addActionListener(e -> {
+                        new OrderDialog(
+                        parentFrame,
+                        OrderDialog.MODE_EDIT,
+                        mockOrderResponse(),
+                        mockOrderItems()
+                        );
+                });
+
+                // TEST VIEW
+                btnView.addActionListener(e -> {
+                        new OrderDialog(
+                        parentFrame,
+                        OrderDialog.MODE_VIEW,
+                        mockOrderResponse(),
+                        mockOrderItems()
+                        );
+                });
+        }
+
+
+
 
 
 }
