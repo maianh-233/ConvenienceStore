@@ -21,7 +21,8 @@ public final class HibernateUtil {
     private static final Logger LOGGER = LoggerFactory.getLogger(HibernateUtil.class);
 
     // Private constructor: không cho tạo instance
-    private HibernateUtil() { }
+    private HibernateUtil() {
+    }
 
     /**
      * Holder idiom – đảm bảo thread-safe, lazy-loading

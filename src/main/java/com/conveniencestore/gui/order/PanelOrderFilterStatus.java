@@ -15,10 +15,10 @@ import java.awt.event.ComponentEvent;
  * CHỈ dùng cho PanelOrder
  *
  * Cấu trúc:
- *  Trạng thái + cbStatus
- *  Thanh toán + cbPaymentStatus
- *  Phương thức + cbPaymentMethod
- *  Button Lọc
+ * Trạng thái + cbStatus
+ * Thanh toán + cbPaymentStatus
+ * Phương thức + cbPaymentMethod
+ * Button Lọc
  */
 public class PanelOrderFilterStatus {
 
@@ -30,10 +30,11 @@ public class PanelOrderFilterStatus {
     private static final int COMBO_WIDTH_SMALL = 110;
 
     // XÁM MODERN
-    private static final Color BUTTON_BG    = new Color(55, 65, 81);
+    private static final Color BUTTON_BG = new Color(55, 65, 81);
     private static final Color BUTTON_HOVER = new Color(31, 41, 55);
 
-    private PanelOrderFilterStatus() {}
+    private PanelOrderFilterStatus() {
+    }
 
     // ===================== MAIN =====================
     public static JPanel create(
@@ -46,8 +47,7 @@ public class PanelOrderFilterStatus {
             JLabel lblPaymentMethod,
             JComboBox<?> cbPaymentMethod,
 
-            JButton btnFilter
-    ) {
+            JButton btnFilter) {
 
         JPanel panel = new JPanel();
         panel.setOpaque(false);
@@ -113,8 +113,7 @@ public class PanelOrderFilterStatus {
     private static void resizeCombo(JComboBox<?> combo, boolean small) {
         combo.setPreferredSize(new Dimension(
                 small ? COMBO_WIDTH_SMALL : COMBO_WIDTH_LARGE,
-                COMPONENT_HEIGHT
-        ));
+                COMPONENT_HEIGHT));
     }
 
     // ===================== STYLE =====================
@@ -123,7 +122,7 @@ public class PanelOrderFilterStatus {
         label.setForeground(new Color(75, 85, 99));
     }
 
-   private static void styleCombo(JComboBox<?> combo, int width) {
+    private static void styleCombo(JComboBox<?> combo, int width) {
 
         combo.setPreferredSize(new Dimension(width, COMPONENT_HEIGHT));
         combo.setMinimumSize(new Dimension(90, COMPONENT_HEIGHT));
@@ -143,8 +142,7 @@ public class PanelOrderFilterStatus {
                     boolean isSelected, boolean cellHasFocus) {
 
                 JLabel lbl = (JLabel) super.getListCellRendererComponent(
-                        list, value, index, isSelected, cellHasFocus
-                );
+                        list, value, index, isSelected, cellHasFocus);
 
                 if (isSelected) {
                     lbl.setBackground(new Color(229, 231, 235)); // xám nhạt modern
@@ -161,7 +159,6 @@ public class PanelOrderFilterStatus {
         // Viền gọn gàng
         combo.setBorder(BorderFactory.createLineBorder(new Color(209, 213, 219)));
     }
-
 
     private static void styleButton(JButton btn) {
 
@@ -187,8 +184,7 @@ public class PanelOrderFilterStatus {
     // ===================== FACTORY =====================
     public static CustomButton createFilterButton(String iconPath) {
         ImageIcon icon = ImageUtil.scaleIcon(
-                new ImageIcon(iconPath), 18, 18
-        );
+                new ImageIcon(iconPath), 18, 18);
         return new CustomButton("Lọc", icon);
     }
 }

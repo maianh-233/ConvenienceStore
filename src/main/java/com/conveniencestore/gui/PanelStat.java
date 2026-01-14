@@ -70,18 +70,17 @@ public class PanelStat extends JPanel {
             }
         }
 
-
         // --- Bottom Panel ---
         if (compact) {
             bottomPanel.setLayout(new BoxLayout(bottomPanel, BoxLayout.Y_AXIS));
             for (Component c : bottomPanel.getComponents()) {
-                ((JComponent)c).setMaximumSize(new Dimension(Integer.MAX_VALUE, 300));
-                ((JComponent)c).setAlignmentX(Component.CENTER_ALIGNMENT);
+                ((JComponent) c).setMaximumSize(new Dimension(Integer.MAX_VALUE, 300));
+                ((JComponent) c).setAlignmentX(Component.CENTER_ALIGNMENT);
             }
         } else {
             bottomPanel.setLayout(new GridLayout(1, 2, 15, 15));
             for (Component c : bottomPanel.getComponents()) {
-                ((JComponent)c).setMaximumSize(null); // GridLayout tự resize
+                ((JComponent) c).setMaximumSize(null); // GridLayout tự resize
             }
         }
 
@@ -108,26 +107,25 @@ public class PanelStat extends JPanel {
         mainScroll.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         mainScroll.getVerticalScrollBar().setUnitIncrement(16);
         mainScroll.getVerticalScrollBar().setUI(new ModernScrollBarUI());
-       
+
         mainScroll.setBackground(Color.WHITE); // hoặc StatTheme.BG nếu muốn custom
-      
+
         mainScroll.getViewport().setBackground(Color.WHITE);
 
         mainScroll.getVerticalScrollBar().setUI(new ModernScrollBarUI() {
             @Override
             protected void configureScrollBarColors() {
                 thumbColor = new Color(0, 200, 100); // màu thumb (xanh lá trong ví dụ)
-                trackColor = Color.WHITE;            // track màu trắng
+                trackColor = Color.WHITE; // track màu trắng
             }
 
             // Nếu track vẫn không trắng, override paintTrack
             @Override
             protected void paintTrack(Graphics g, JComponent c, Rectangle trackBounds) {
-                g.setColor(Color.WHITE);  // set màu trắng
+                g.setColor(Color.WHITE); // set màu trắng
                 g.fillRect(trackBounds.x, trackBounds.y, trackBounds.width, trackBounds.height);
             }
         });
-
 
         return mainScroll;
     }
@@ -168,19 +166,19 @@ public class PanelStat extends JPanel {
     // ==================== STAT CARDS ====================
     private JPanel createStatCards() {
         statCardsPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 15, 0));
-        
+
         // Set màu nền trắng và bật opaque
         statCardsPanel.setOpaque(true);
         statCardsPanel.setBackground(Color.WHITE);
 
         statCardsPanel.add(new StatCard("Doanh thu hôm nay", "0",
-                ImageUtil.scaleIcon(new ImageIcon(StatCard.class.getResource("/icon/revenue.png")),28,28)));
+                ImageUtil.scaleIcon(new ImageIcon(StatCard.class.getResource("/icon/revenue.png")), 28, 28)));
         statCardsPanel.add(new StatCard("Số hóa đơn", "0",
-                ImageUtil.scaleIcon(new ImageIcon(StatCard.class.getResource("/icon/orders.png")),28,28)));
+                ImageUtil.scaleIcon(new ImageIcon(StatCard.class.getResource("/icon/orders.png")), 28, 28)));
         statCardsPanel.add(new StatCard("Khách hàng", "0",
-                ImageUtil.scaleIcon(new ImageIcon(StatCard.class.getResource("/icon/customer.png")),28,28)));
+                ImageUtil.scaleIcon(new ImageIcon(StatCard.class.getResource("/icon/customer.png")), 28, 28)));
         statCardsPanel.add(new StatCard("NV đang hoạt động", "0",
-                ImageUtil.scaleIcon(new ImageIcon(StatCard.class.getResource("/icon/employee.png")),28,28)));
+                ImageUtil.scaleIcon(new ImageIcon(StatCard.class.getResource("/icon/employee.png")), 28, 28)));
 
         // Set border nếu muốn có padding
         statCardsPanel.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
@@ -188,12 +186,11 @@ public class PanelStat extends JPanel {
         return statCardsPanel;
     }
 
-
     // ==================== BOTTOM PANEL ====================
     private JPanel createBottom() {
         bottomPanel = new JPanel();
         bottomPanel.setOpaque(false);
-        bottomPanel.setLayout(new GridLayout(1,2,15,15));
+        bottomPanel.setLayout(new GridLayout(1, 2, 15, 15));
 
         bottomPanel.add(new InventoryAlertPanel(data.lowInventory));
         bottomPanel.add(createAuditPreview());
@@ -202,7 +199,7 @@ public class PanelStat extends JPanel {
     }
 
     // ==================== AUDIT PREVIEW ====================
-    
+
     private JPanel createAuditPreview() {
         JPanel panel = new JPanel(new BorderLayout(5, 5));
         panel.setBackground(Color.WHITE);
@@ -226,13 +223,15 @@ public class PanelStat extends JPanel {
 
         // Model
         DefaultTableModel model = new DefaultTableModel(
-                new String[]{"Mã NV","Payload","Entity","Action"}, 0) {
+                new String[] { "Mã NV", "Payload", "Entity", "Action" }, 0) {
             @Override
-            public boolean isCellEditable(int row, int col){ return false; }
+            public boolean isCellEditable(int row, int col) {
+                return false;
+            }
         };
 
-        for(String log : data.auditLogs) {
-            model.addRow(new Object[]{"NV01", log, "Order","CREATE"});
+        for (String log : data.auditLogs) {
+            model.addRow(new Object[] { "NV01", log, "Order", "CREATE" });
         }
         table.setModel(model);
 
@@ -260,7 +259,6 @@ public class PanelStat extends JPanel {
 
         // ScrollPane giống Inventory (có margin, không empty border)
         JScrollPane scroll = new JScrollPane(table);
-      
 
         panel.add(title, BorderLayout.NORTH);
         panel.add(scroll, BorderLayout.CENTER);
@@ -268,38 +266,34 @@ public class PanelStat extends JPanel {
         return panel;
     }
 
-
-
-
-
     private void applyAuditColumnRenderer(JTable table) {
         table.getColumnModel().getColumn(3)
-            .setCellRenderer(new DefaultTableCellRenderer() {
-                @Override
-                public Component getTableCellRendererComponent(
-                        JTable table, Object value, boolean isSelected,
-                        boolean hasFocus, int row, int column) {
-                    JLabel lbl = (JLabel)super.getTableCellRendererComponent(
-                            table, value, isSelected, hasFocus, row, column);
-                    lbl.setHorizontalAlignment(JLabel.CENTER);
-                    lbl.setFont(new Font("Segoe UI", Font.BOLD, 12));
-                    String action = value.toString();
-                    switch(action){
-                        case "CREATE" -> lbl.setForeground(new Color(22,163,74));
-                        case "UPDATE" -> lbl.setForeground(new Color(234,179,8));
-                        case "DELETE" -> lbl.setForeground(Color.RED);
-                        default -> lbl.setForeground(Color.GRAY);
+                .setCellRenderer(new DefaultTableCellRenderer() {
+                    @Override
+                    public Component getTableCellRendererComponent(
+                            JTable table, Object value, boolean isSelected,
+                            boolean hasFocus, int row, int column) {
+                        JLabel lbl = (JLabel) super.getTableCellRendererComponent(
+                                table, value, isSelected, hasFocus, row, column);
+                        lbl.setHorizontalAlignment(JLabel.CENTER);
+                        lbl.setFont(new Font("Segoe UI", Font.BOLD, 12));
+                        String action = value.toString();
+                        switch (action) {
+                            case "CREATE" -> lbl.setForeground(new Color(22, 163, 74));
+                            case "UPDATE" -> lbl.setForeground(new Color(234, 179, 8));
+                            case "DELETE" -> lbl.setForeground(Color.RED);
+                            default -> lbl.setForeground(Color.GRAY);
+                        }
+                        return lbl;
                     }
-                    return lbl;
-                }
-            });
+                });
     }
 
     // ==================== LINE CHART ====================
     private JPanel createLineChartSection() {
-        lineChartPanel = new JPanel(new BorderLayout(10,10));
+        lineChartPanel = new JPanel(new BorderLayout(10, 10));
         lineChartPanel.setBackground(Color.WHITE);
-        lineChartPanel.setBorder(BorderFactory.createEmptyBorder(15,15,15,15));
+        lineChartPanel.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
         lineChartPanel.setPreferredSize(new Dimension(0, 600));
 
         JLabel title = new JLabel("Doanh thu theo ngày");
@@ -313,9 +307,9 @@ public class PanelStat extends JPanel {
 
     // ==================== BAR CHART ====================
     private JPanel createBarChartSection() {
-        barChartPanel = new JPanel(new BorderLayout(10,10));
+        barChartPanel = new JPanel(new BorderLayout(10, 10));
         barChartPanel.setBackground(Color.WHITE);
-        barChartPanel.setBorder(BorderFactory.createEmptyBorder(15,15,15,15));
+        barChartPanel.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
         barChartPanel.setPreferredSize(new Dimension(0, 600));
 
         JLabel title = new JLabel("Top sản phẩm bán chạy");

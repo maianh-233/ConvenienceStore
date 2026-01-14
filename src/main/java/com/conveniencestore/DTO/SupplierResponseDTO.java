@@ -15,9 +15,7 @@ public class SupplierResponseDTO {
     private String phone;
     private String address;
     private String note;
-
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
-
     private int isDeleted;
 }

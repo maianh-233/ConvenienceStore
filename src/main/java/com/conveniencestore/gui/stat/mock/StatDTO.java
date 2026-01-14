@@ -11,7 +11,6 @@ public class StatDTO {
     public long revenueToday;
     public int activeEmployees;
 
-
     public Map<String, Long> revenueByDay;
     public Map<String, Integer> topProducts;
     public List<InventoryAlertDTO> lowInventory;

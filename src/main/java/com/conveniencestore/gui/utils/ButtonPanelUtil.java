@@ -9,14 +9,15 @@ public class ButtonPanelUtil {
 
     private static final int BUTTON_HEIGHT = 44;
 
-    private ButtonPanelUtil() {}
+    private ButtonPanelUtil() {
+    }
 
     /**
-     * @param btnView     nút xem
-     * @param btnAdd      nút thêm
-     * @param btnDelete   nút xóa
-     * @param btnEdit     nút sửa
-     * @param btnRestore  nút khôi phục
+     * @param btnView      nút xem
+     * @param btnAdd       nút thêm
+     * @param btnDelete    nút xóa
+     * @param btnEdit      nút sửa
+     * @param btnRestore   nút khôi phục
      * @param extraButtons các nút mở rộng phía sau (0..n)
      */
     public static JPanel createButtonPanel(
@@ -25,8 +26,7 @@ public class ButtonPanelUtil {
             JButton btnDelete,
             JButton btnEdit,
             JButton btnRestore,
-            JButton... extraButtons
-    ) {
+            JButton... extraButtons) {
 
         JPanel panel = new JPanel(new FlowLayout(FlowLayout.CENTER, 4, 0));
         panel.setOpaque(false);
@@ -34,11 +34,11 @@ public class ButtonPanelUtil {
         List<JButton> buttons = new ArrayList<>();
 
         // ====== NÚT CHÍNH ======
-        add(panel, buttons, style(btnView,   new Color(75, 85, 99)));     // Xám
-        add(panel, buttons, style(btnAdd,    new Color(99, 102, 241)));   // Tím
-        add(panel, buttons, style(btnDelete, new Color(220, 38, 38)));    // Đỏ
-        add(panel, buttons, style(btnEdit,   new Color(124, 58, 237)));   // Tím đậm
-        add(panel, buttons, style(btnRestore,new Color(14, 165, 233)));   // Xanh
+        add(panel, buttons, style(btnView, new Color(75, 85, 99))); // Xám
+        add(panel, buttons, style(btnAdd, new Color(99, 102, 241))); // Tím
+        add(panel, buttons, style(btnDelete, new Color(220, 38, 38))); // Đỏ
+        add(panel, buttons, style(btnEdit, new Color(124, 58, 237))); // Tím đậm
+        add(panel, buttons, style(btnRestore, new Color(14, 165, 233))); // Xanh
 
         // ====== NÚT MỞ RỘNG (CÓ THỂ 0 NÚT) ======
         if (extraButtons != null) {
@@ -87,10 +87,14 @@ public class ButtonPanelUtil {
     private static Color pickColor(JButton btn) {
         String text = btn.getText().toLowerCase();
 
-        if (text.contains("excel")) return new Color(5, 150, 105);
-        if (text.contains("pdf"))   return new Color(159, 18, 57);
-        if (text.contains("import"))return new Color(4, 120, 87);
-        if (text.contains("export"))return new Color(136, 19, 55);
+        if (text.contains("excel"))
+            return new Color(5, 150, 105);
+        if (text.contains("pdf"))
+            return new Color(159, 18, 57);
+        if (text.contains("import"))
+            return new Color(4, 120, 87);
+        if (text.contains("export"))
+            return new Color(136, 19, 55);
 
         return new Color(100, 116, 139); // mặc định
     }

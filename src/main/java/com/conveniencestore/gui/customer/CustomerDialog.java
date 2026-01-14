@@ -17,7 +17,7 @@ public class CustomerDialog extends JDialog {
 
     /* ========== MODE ========== */
     public static final int MODE_VIEW = 0;
-    public static final int MODE_ADD  = 1;
+    public static final int MODE_ADD = 1;
     public static final int MODE_EDIT = 2;
 
     private final int mode;
@@ -35,17 +35,16 @@ public class CustomerDialog extends JDialog {
     private CustomButton btnAdd, btnEdit;
 
     /* ========== THEME ========== */
-    private static final Color PRIMARY      = new Color(22, 163, 74);
+    private static final Color PRIMARY = new Color(22, 163, 74);
     private static final Color PRIMARY_DARK = new Color(21, 128, 61);
-    private static final Color BORDER       = new Color(187, 247, 208);
-    private static final Color LABEL_COLOR  = new Color(22, 101, 52);
+    private static final Color BORDER = new Color(187, 247, 208);
+    private static final Color LABEL_COLOR = new Color(22, 101, 52);
 
     private static final Font TITLE_FONT = new Font("Segoe UI", Font.BOLD, 20);
     private static final Font LABEL_FONT = new Font("Segoe UI", Font.BOLD, 14);
     private static final Font FIELD_FONT = new Font("Segoe UI", Font.PLAIN, 14);
 
-    private static final DateTimeFormatter UI_DATE =
-            DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+    private static final DateTimeFormatter UI_DATE = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
 
     /* ========== ROW MAP ========== */
     private final Map<String, JPanel> rows = new LinkedHashMap<>();
@@ -66,7 +65,8 @@ public class CustomerDialog extends JDialog {
         add(createFormScroll(), BorderLayout.CENTER);
         add(createButtons(), BorderLayout.SOUTH);
 
-        if (dto != null) bindDTO(dto);
+        if (dto != null)
+            bindDTO(dto);
         applyMode();
         setVisible(true);
     }
@@ -101,7 +101,6 @@ public class CustomerDialog extends JDialog {
         cbbGender = createGenderCombo();
         cbbTier = createCustomerTierCombo();
         txtPoints = createTextField();
-
 
         lblIsDeleted = createStatusLabel();
 
@@ -157,8 +156,7 @@ public class CustomerDialog extends JDialog {
         txt.setPreferredSize(new Dimension(200, 36));
         txt.setBorder(BorderFactory.createCompoundBorder(
                 BorderFactory.createLineBorder(BORDER),
-                BorderFactory.createEmptyBorder(0, 10, 0, 10)
-        ));
+                BorderFactory.createEmptyBorder(0, 10, 0, 10)));
         return txt;
     }
 
@@ -221,12 +219,13 @@ public class CustomerDialog extends JDialog {
         cbbGender.setEnabled(false);
         cbbTier.setEnabled(false);
         rows.values().forEach(r -> r.setEnabled(false));
-        
+
     }
 
     private void hideRow(String key) {
         JPanel row = rows.get(key);
-        if (row != null) row.setVisible(false);
+        if (row != null)
+            row.setVisible(false);
     }
 
     /* ================= DTO ================= */
@@ -254,11 +253,10 @@ public class CustomerDialog extends JDialog {
             }
         }
 
-
         boolean active = dto.getIsDeleted() == 0;
         lblIsDeleted.setText(active ? "Hoạt động" : "Đã xóa");
-        lblIsDeleted.setForeground(active ? new Color(22,101,52) : new Color(153,27,27));
-        lblIsDeleted.setBackground(active ? new Color(220,252,231) : new Color(254,226,226));
+        lblIsDeleted.setForeground(active ? new Color(22, 101, 52) : new Color(153, 27, 27));
+        lblIsDeleted.setBackground(active ? new Color(220, 252, 231) : new Color(254, 226, 226));
 
         txtCreatedAt.setText(dto.getCreatedAt() == null ? "" : dto.getCreatedAt().format(UI_DATE));
         txtUpdatedAt.setText(dto.getUpdatedAt() == null ? "" : dto.getUpdatedAt().format(UI_DATE));
@@ -266,9 +264,9 @@ public class CustomerDialog extends JDialog {
 
     private String getTitleByMode() {
         return switch (mode) {
-            case MODE_ADD  -> "Thêm khách hàng";
+            case MODE_ADD -> "Thêm khách hàng";
             case MODE_EDIT -> "Sửa khách hàng";
-            default        -> "Xem khách hàng";
+            default -> "Xem khách hàng";
         };
     }
 
@@ -290,8 +288,7 @@ public class CustomerDialog extends JDialog {
 
         for (CustomerTier tier : CustomerTier.values()) {
             combo.addItem(
-                new ComboItem<>(tier, tier.getDisplayName())
-            );
+                    new ComboItem<>(tier, tier.getDisplayName()));
         }
 
         combo.setFont(FIELD_FONT);
@@ -300,9 +297,12 @@ public class CustomerDialog extends JDialog {
         return combo;
     }
 
-
-
     /* ================= GETTER BUTTON ================= */
-    public CustomButton getBtnAdd() { return btnAdd; }
-    public CustomButton getBtnEdit() { return btnEdit; }
+    public CustomButton getBtnAdd() {
+        return btnAdd;
+    }
+
+    public CustomButton getBtnEdit() {
+        return btnEdit;
+    }
 }

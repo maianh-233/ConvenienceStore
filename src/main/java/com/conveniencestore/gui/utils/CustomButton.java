@@ -15,9 +15,9 @@ import java.awt.event.MouseEvent;
 public class CustomButton extends JButton {
 
     // ================= CONFIG =================
-    private Color backgroundColor = new Color(37, 99, 235);   // Blue-600
-    private Color hoverColor      = new Color(29, 78, 216);   // Blue-700
-    private Color textColor       = Color.WHITE;
+    private Color backgroundColor = new Color(37, 99, 235); // Blue-600
+    private Color hoverColor = new Color(29, 78, 216); // Blue-700
+    private Color textColor = Color.WHITE;
 
     private int cornerRadius = 10;
     private boolean hover = false;
@@ -75,15 +75,13 @@ public class CustomButton extends JButton {
         Graphics2D g2 = (Graphics2D) g.create();
         g2.setRenderingHint(
                 RenderingHints.KEY_ANTIALIASING,
-                RenderingHints.VALUE_ANTIALIAS_ON
-        );
+                RenderingHints.VALUE_ANTIALIAS_ON);
 
         g2.setColor(hover ? hoverColor : backgroundColor);
         g2.fillRoundRect(
                 0, 0,
                 getWidth(), getHeight(),
-                cornerRadius, cornerRadius
-        );
+                cornerRadius, cornerRadius);
 
         g2.dispose();
         super.paintComponent(g);

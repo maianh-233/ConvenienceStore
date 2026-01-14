@@ -64,7 +64,7 @@ public class Import {
         createdAt = LocalDateTime.now();
         updatedAt = LocalDateTime.now();
         if (status == null) {
-            status = ImportStatus.PENDING; // mặc định khi tạo
+            status = ImportStatus.PENDING; // Mặc định trạng thái là PENDING khi tạo mới
         }
     }
 

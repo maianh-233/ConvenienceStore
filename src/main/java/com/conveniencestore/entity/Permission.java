@@ -1,5 +1,7 @@
 package com.conveniencestore.entity;
 
+import com.conveniencestore.constant.PermissionAction;
+
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -24,6 +26,11 @@ public class Permission {
 
     @Column(length = 255)
     private String description;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "permission_action", length = 20, nullable = false)
+    private PermissionAction permissionAction;
+
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(

@@ -10,18 +10,15 @@ import com.conveniencestore.constant.CustomerTier;
 @Setter
 public class CustomerRequestDTO {
 
-    private Long id;
-    private String fullName;
-    private LocalDate dateOfBirth;
-    private String email;
-    private String phone;
-    private String address;
-    private int gender;
-
-    private int isDeleted;
-
-    private CustomerTier tier;
-    private int points;
-
-    private String password; // password raw từ form
+	private Long id;
+	private String fullName;
+	private LocalDate dateOfBirth;
+	private String email;
+	private String phone;
+	private String address;
+	private int gender;
+	private int isDeleted;
+	private CustomerTier tier;
+	private int points;
+	private String password; 
 }

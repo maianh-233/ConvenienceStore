@@ -1,35 +1,38 @@
-package com.conveniencestore.gui.order;
+package com.conveniencestore.gui.importcomponent;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
+
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.conveniencestore.DTO.OrderItemRequestDTO;
-import com.conveniencestore.DTO.OrderItemResponseDTO;
+import com.conveniencestore.DTO.ImportItemRequestDTO;
+import com.conveniencestore.DTO.ImportItemResponseDTO;
 import com.conveniencestore.gui.utils.CustomButton;
 import com.conveniencestore.gui.utils.ImageUtil;
 import com.conveniencestore.gui.utils.TableUtil;
 
-public class OrderItemPanel extends JPanel {
+public class ImportItemPanel extends JPanel {
 
     /* ================= MODE ================= */
     public static final int MODE_VIEW = 0;
-    public static final int MODE_ADD  = 1;
+    public static final int MODE_ADD = 1;
     public static final int MODE_EDIT = 2;
 
     private int parentMode = MODE_VIEW;
 
     /* ================= DATA ================= */
-    private final List<OrderItemResponseDTO> responseItems = new ArrayList<>();
-    private final List<OrderItemRequestDTO>  requestItems  = new ArrayList<>();
+    private final List<ImportItemResponseDTO> responseItems = new ArrayList<>();
+    private final List<ImportItemRequestDTO> requestItems = new ArrayList<>();
 
     /* ================= COMPONENTS ================= */
     private JTextField txtProduct;
-    private JSpinner   spQuantity;
+    private JSpinner spQuantity;
     private JTextField txtUnitPrice;
     private JTextField txtTotalPrice;
+    private JTextField txtInventoryOriginal;
+    private JTextField txtInventoryAfter;
 
     private CustomButton btnSelectProduct;
     private CustomButton btnAdd;
@@ -39,51 +42,49 @@ public class OrderItemPanel extends JPanel {
 
     private JPanel formSection;
 
-
     private JTable table;
 
     /* ================= THEME ================= */
-    private static final Color PRIMARY       = new Color(22, 163, 74);
-    private static final Color PRIMARY_DARK  = new Color(21, 128, 61);
-    private static final Color DANGER        = new Color(153, 27, 27);
-    private static final Color BORDER        = new Color(187, 247, 208);
-    private static final Color LABEL_COLOR   = new Color(22, 101, 52);
+    private static final Color PRIMARY = new Color(22, 163, 74);
+    private static final Color PRIMARY_DARK = new Color(21, 128, 61);
+    private static final Color DANGER = new Color(153, 27, 27);
+    private static final Color BORDER = new Color(187, 247, 208);
+    private static final Color LABEL_COLOR = new Color(22, 101, 52);
 
     /* ================= THEME ================= */
 
     // ===== SUCCESS (Hoàn tất / OK) =====
-    private static final Color SUCCESS        = new Color(34, 197, 94);
-    private static final Color SUCCESS_BG     = new Color(220, 252, 231);
+    private static final Color SUCCESS = new Color(34, 197, 94);
+    private static final Color SUCCESS_BG = new Color(220, 252, 231);
 
     // ===== INFO (Xem / Chi tiết) =====
-    private static final Color INFO           = new Color(37, 99, 235);   // Xanh dương
-    private static final Color INFO_BG        = new Color(219, 234, 254);
+    private static final Color INFO = new Color(37, 99, 235); // Xanh dương
+    private static final Color INFO_BG = new Color(219, 234, 254);
 
     // ===== WARNING (Chú ý / Tạm thời) =====
-    private static final Color WARNING        = new Color(217, 119, 6);   // Cam
-    private static final Color WARNING_BG     = new Color(254, 249, 195);
+    private static final Color WARNING = new Color(217, 119, 6); // Cam
+    private static final Color WARNING_BG = new Color(254, 249, 195);
 
     // ===== DANGER (Xóa / Huỷ) =====
-    private static final Color DANGER_BG      = new Color(254, 226, 226);
+    private static final Color DANGER_BG = new Color(254, 226, 226);
 
     // ===== NEUTRAL (Đóng / Huỷ / Phụ) =====
-    private static final Color NEUTRAL        = new Color(107, 114, 128); // Xám
-    private static final Color NEUTRAL_BG     = new Color(243, 244, 246);
+    private static final Color NEUTRAL = new Color(107, 114, 128); // Xám
+    private static final Color NEUTRAL_BG = new Color(243, 244, 246);
 
     // ===== TEXT =====
-    private static final Color TEXT_PRIMARY  = new Color(31, 41, 55);
-    private static final Color TEXT_MUTED     = new Color(107, 114, 128);
+    private static final Color TEXT_PRIMARY = new Color(31, 41, 55);
+    private static final Color TEXT_MUTED = new Color(107, 114, 128);
 
     // ===== BORDER / BACKGROUND =====
-    private static final Color BORDER_LIGHT   = new Color(209, 250, 229);
-    private static final Color BG_LIGHT       = new Color(240, 253, 244);
-
+    private static final Color BORDER_LIGHT = new Color(209, 250, 229);
+    private static final Color BG_LIGHT = new Color(240, 253, 244);
 
     private static final Font LABEL_FONT = new Font("Segoe UI", Font.BOLD, 14);
     private static final Font FIELD_FONT = new Font("Segoe UI", Font.PLAIN, 14);
 
     /* ================= CONSTRUCTOR ================= */
-    public OrderItemPanel() {
+    public ImportItemPanel() {
         setLayout(new BorderLayout());
         setOpaque(false);
 
@@ -92,16 +93,15 @@ public class OrderItemPanel extends JPanel {
     }
 
     /* ================= API – CHA GỌI ================= */
-    public void setViewData(List<OrderItemResponseDTO> items) {
+    public void setViewData(List<ImportItemResponseDTO> items) {
         parentMode = MODE_VIEW;
         responseItems.clear();
         responseItems.addAll(items);
         requestItems.clear();
 
         setBorder(BorderFactory.createLineBorder(
-            new Color(187, 247, 208), // BORDER
-            1
-        ));
+                new Color(187, 247, 208), // BORDER
+                1));
 
         applyParentMode();
         loadTableFromResponse();
@@ -116,8 +116,8 @@ public class OrderItemPanel extends JPanel {
         clearTable();
     }
 
-    public void setEditData(List<OrderItemResponseDTO> response,
-                            List<OrderItemRequestDTO> request) {
+    public void setEditData(List<ImportItemResponseDTO> response,
+            List<ImportItemRequestDTO> request) {
         parentMode = MODE_EDIT;
 
         responseItems.clear();
@@ -130,7 +130,7 @@ public class OrderItemPanel extends JPanel {
         loadTableFromRequest();
     }
 
-    public List<OrderItemRequestDTO> getRequestItems() {
+    public List<ImportItemRequestDTO> getRequestItems() {
         return requestItems;
     }
 
@@ -140,7 +140,7 @@ public class OrderItemPanel extends JPanel {
         wrapper.setLayout(new BoxLayout(wrapper, BoxLayout.Y_AXIS));
         wrapper.setOpaque(false);
 
-        formSection = createFormSection(); 
+        formSection = createFormSection();
         wrapper.add(formSection);
         wrapper.add(Box.createVerticalStrut(12));
         wrapper.add(createTableSection());
@@ -156,17 +156,21 @@ public class OrderItemPanel extends JPanel {
 
         addSectionTitle(form, "Thêm / sửa sản phẩm");
 
-        txtProduct    = createTextField(false);
-        spQuantity    = new JSpinner(new SpinnerNumberModel(1, 1, 999, 1));
-        txtUnitPrice  = createTextField(false);
+        txtProduct = createTextField(false);
+        spQuantity = new JSpinner(new SpinnerNumberModel(1, 1, 999, 1));
+        txtUnitPrice = createTextField(false);
         txtTotalPrice = createTextField(false);
+        txtInventoryOriginal = createTextField(false);
+        txtInventoryAfter = createTextField(false);
 
         btnSelectProduct = createButton("Chọn SP", "/icon/search.png", NEUTRAL);
-        btnAdd      = createButton("Thêm", "/icon/plus.png",  SUCCESS);
-        btnSaveEdit = createButton("Lưu sửa", "/icon/save.png",  SUCCESS );
+        btnAdd = createButton("Thêm", "/icon/plus.png", SUCCESS);
+        btnSaveEdit = createButton("Lưu sửa", "/icon/save.png", SUCCESS);
 
         addRow(form, "Sản phẩm", createWithButton(txtProduct, btnSelectProduct));
         addRow(form, "Số lượng", spQuantity);
+        addRow(form, "Tồn kho trước", txtInventoryOriginal);
+        addRow(form, "Tồn kho sau", txtInventoryAfter);
         addRow(form, "Đơn giá", txtUnitPrice);
         addRow(form, "Thành tiền", txtTotalPrice);
 
@@ -186,7 +190,7 @@ public class OrderItemPanel extends JPanel {
 
         addSectionTitle(panel, "Danh sách sản phẩm");
 
-        btnEdit   = createButton("Sửa", "/icon/edit.png", WARNING );
+        btnEdit = createButton("Sửa", "/icon/edit.png", WARNING);
         btnDelete = createButton("Xóa", "/icon/delete.png", DANGER);
 
         JPanel top = new JPanel(new FlowLayout(FlowLayout.RIGHT, 8, 0));
@@ -195,9 +199,8 @@ public class OrderItemPanel extends JPanel {
         top.add(btnDelete);
 
         table = new JTable(new DefaultTableModel(
-                new Object[][]{},
-                new String[]{"Tên sản phẩm", "SL", "Đơn giá", "Thành tiền"}
-        ));
+                new Object[][] {},
+                new String[] { "Tên sản phẩm", "SL", "Đơn giá", "Thành tiền" }));
         TableUtil.style(table);
         table.setRowHeight(42);
 
@@ -221,20 +224,20 @@ public class OrderItemPanel extends JPanel {
 
         table.setEnabled(editable);
 
-        if (!editable) table.clearSelection();
+        if (!editable)
+            table.clearSelection();
 
         revalidate();
         repaint();
     }
-
 
     /* ================= TABLE LOAD ================= */
     private void loadTableFromResponse() {
         DefaultTableModel model = getModel();
         model.setRowCount(0);
 
-        for (OrderItemResponseDTO dto : responseItems) {
-            model.addRow(new Object[]{
+        for (ImportItemResponseDTO dto : responseItems) {
+            model.addRow(new Object[] {
                     dto.getProductName(),
                     dto.getQuantity(),
                     dto.getUnitPrice(),
@@ -247,8 +250,8 @@ public class OrderItemPanel extends JPanel {
         DefaultTableModel model = getModel();
         model.setRowCount(0);
 
-        for (OrderItemRequestDTO dto : requestItems) {
-            model.addRow(new Object[]{
+        for (ImportItemRequestDTO dto : requestItems) {
+            model.addRow(new Object[] {
                     "SP",
                     dto.getQuantity(),
                     dto.getUnitPrice(),
@@ -297,8 +300,7 @@ public class OrderItemPanel extends JPanel {
         txt.setPreferredSize(new Dimension(200, 36));
         txt.setBorder(BorderFactory.createCompoundBorder(
                 BorderFactory.createLineBorder(BORDER),
-                BorderFactory.createEmptyBorder(0, 10, 0, 10)
-        ));
+                BorderFactory.createEmptyBorder(0, 10, 0, 10)));
         return txt;
     }
 
@@ -314,9 +316,7 @@ public class OrderItemPanel extends JPanel {
         CustomButton btn = new CustomButton(
                 text,
                 ImageUtil.scaleIcon(
-                        new ImageIcon(getClass().getResource(icon)), 18, 18
-                )
-        );
+                        new ImageIcon(getClass().getResource(icon)), 18, 18));
         btn.setBackgroundColor(bg);
         return btn;
     }

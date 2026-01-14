@@ -39,11 +39,11 @@ public class MainContentPanel extends JPanel {
         add(new PanelUnit(parentFrame), "UNIT");
         add(new PanelCategory(parentFrame), "CATEGORY");
         add(new PanelProduct(parentFrame), "PRODUCT");
-        add(new PanelImport(), "IMPORT");
-        add(new PanelExport(), "EXPORT");
+        add(new PanelImport(parentFrame), "IMPORT");
+        add(new PanelExport(parentFrame), "EXPORT");
         add(new PanelPromotion(parentFrame), "PROMOTION");
         add(new PanelStat(), "STAT");
-        add(new PanelRole(), "ROLE");
+        add(new PanelRole(parentFrame), "ROLE");
         add(new PanelInformation(), "INFORMATION");
     }
 

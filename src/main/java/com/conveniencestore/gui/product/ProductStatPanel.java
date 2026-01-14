@@ -22,37 +22,31 @@ public class ProductStatPanel extends JPanel {
         setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
         Icon iconActive = ImageUtil.scaleIcon(
-                new ImageIcon(getIconUrl("/icon/active.png")), 20, 20
-        );
+                new ImageIcon(getIconUrl("/icon/active.png")), 20, 20);
         Icon iconInactive = ImageUtil.scaleIcon(
-                new ImageIcon(getIconUrl("/icon/unactive.png")), 20, 20
-        );
+                new ImageIcon(getIconUrl("/icon/unactive.png")), 20, 20);
 
         // ===== PRODUCT STATUS =====
         cardActiveProduct = new StatCard(
                 "Sản phẩm còn bán",
                 "0",
-                iconActive
-        );
+                iconActive);
 
         cardInActiveProduct = new StatCard(
                 "Sản phẩm bị khóa",
                 "0",
-                iconInactive
-        );
+                iconInactive);
 
         // ===== INVENTORY STATUS =====
         cardInStock = new StatCard(
                 "Sản phẩm còn hàng",
                 "0",
-                iconActive
-        );
+                iconActive);
 
         cardOutOfStock = new StatCard(
                 "Sản phẩm hết hàng",
                 "0",
-                iconInactive
-        );
+                iconInactive);
 
         // Theme đồng bộ
         cardActiveProduct.setBackground(StatTheme.CARD_BG);

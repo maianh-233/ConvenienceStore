@@ -11,15 +11,11 @@ import java.time.LocalDateTime;
 public class OrderItemResponseDTO {
 
     private Long id;
-
     private Long orderId;
-
     private Long productId;
     private String productName;
-
     private int quantity;
     private BigDecimal unitPrice;
     private BigDecimal totalPrice;
-
     private LocalDateTime createdAt;
 }

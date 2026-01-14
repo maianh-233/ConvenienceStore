@@ -17,7 +17,7 @@ public class PromotionDialog extends JDialog {
 
     /* ========== MODE ========== */
     public static final int MODE_VIEW = 0;
-    public static final int MODE_ADD  = 1;
+    public static final int MODE_ADD = 1;
     public static final int MODE_EDIT = 2;
 
     private final int mode;
@@ -38,17 +38,16 @@ public class PromotionDialog extends JDialog {
     private CustomButton btnAdd, btnEdit;
 
     /* ========== THEME ========== */
-    private static final Color PRIMARY      = new Color(22, 163, 74);
+    private static final Color PRIMARY = new Color(22, 163, 74);
     private static final Color PRIMARY_DARK = new Color(21, 128, 61);
-    private static final Color BORDER       = new Color(187, 247, 208);
-    private static final Color LABEL_COLOR  = new Color(22, 101, 52);
+    private static final Color BORDER = new Color(187, 247, 208);
+    private static final Color LABEL_COLOR = new Color(22, 101, 52);
 
     private static final Font TITLE_FONT = new Font("Segoe UI", Font.BOLD, 20);
     private static final Font LABEL_FONT = new Font("Segoe UI", Font.BOLD, 14);
     private static final Font FIELD_FONT = new Font("Segoe UI", Font.PLAIN, 14);
 
-    private static final DateTimeFormatter UI_DATE =
-            DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+    private static final DateTimeFormatter UI_DATE = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
 
     /* ========== ROW MAP ========== */
     private final Map<String, JPanel> rows = new LinkedHashMap<>();
@@ -69,7 +68,8 @@ public class PromotionDialog extends JDialog {
         add(createFormScroll(), BorderLayout.CENTER);
         add(createButtons(), BorderLayout.SOUTH);
 
-        if (dto != null) bindDTO(dto);
+        if (dto != null)
+            bindDTO(dto);
         applyMode();
         setVisible(true);
     }
@@ -100,13 +100,13 @@ public class PromotionDialog extends JDialog {
         txtName = createTextField();
         txtValue = createTextField();
 
-        cbbType = createCombo(new String[]{"PERCENT", "FIXED", "FREESHIP"});
+        cbbType = createCombo(new String[] { "PERCENT", "FIXED", "FREESHIP" });
         txtStartAt = createTextField();
-        txtEndAt   = createTextField();
+        txtEndAt = createTextField();
 
         lblStatus = createStatusLabel();
 
-        cbbCustomerTier =  createCustomerTierCombo() ;
+        cbbCustomerTier = createCustomerTierCombo();
         txtMaxUses = createTextField();
         txtMinOrderAmount = createTextField();
 
@@ -116,7 +116,7 @@ public class PromotionDialog extends JDialog {
         txtUpdatedAt = createTextField();
 
         addRow(form, "ID", txtId);
-         addRow(form, "Code", txtCode);
+        addRow(form, "Code", txtCode);
         addRow(form, "Tên khuyến mãi", txtName);
         addRow(form, "Loại", cbbType);
         addRow(form, "Giá trị", txtValue);
@@ -169,8 +169,7 @@ public class PromotionDialog extends JDialog {
         txt.setPreferredSize(new Dimension(200, 36));
         txt.setBorder(BorderFactory.createCompoundBorder(
                 BorderFactory.createLineBorder(BORDER),
-                BorderFactory.createEmptyBorder(0, 10, 0, 10)
-        ));
+                BorderFactory.createEmptyBorder(0, 10, 0, 10)));
         return txt;
     }
 
@@ -208,13 +207,11 @@ public class PromotionDialog extends JDialog {
 
         btnAdd = new CustomButton("Thêm",
                 ImageUtil.scaleIcon(
-                        new ImageIcon(getClass().getResource("/icon/plus.png")), 18, 18)
-        );
+                        new ImageIcon(getClass().getResource("/icon/plus.png")), 18, 18));
 
         btnEdit = new CustomButton("Sửa",
                 ImageUtil.scaleIcon(
-                        new ImageIcon(getClass().getResource("/icon/edit.png")), 18, 18)
-        );
+                        new ImageIcon(getClass().getResource("/icon/edit.png")), 18, 18));
 
         btnAdd.setBackgroundColor(PRIMARY);
         btnEdit.setBackgroundColor(PRIMARY_DARK);
@@ -257,34 +254,31 @@ public class PromotionDialog extends JDialog {
 
     private void hideRow(String key) {
         JPanel row = rows.get(key);
-        if (row != null) row.setVisible(false);
+        if (row != null)
+            row.setVisible(false);
     }
 
     /* ================= DTO ================= */
     private void bindDTO(PromotionResponseDTO dto) {
         txtId.setText(dto.getId() == null ? "" : dto.getId().toString());
-        txtCode.setT
+        txtCode.setText(dto.getCode());
         txtName.setText(dto.getName());
         cbbType.setSelectedItem(dto.getType());
         txtValue.setText(dto.getValue() == null ? "" : dto.getValue().toString());
-
         txtStartAt.setText(dto.getStartAt() == null ? "" : dto.getStartAt().format(UI_DATE));
         txtEndAt.setText(dto.getEndAt() == null ? "" : dto.getEndAt().format(UI_DATE));
-
-        setStatus(dto);
-
         cbbCustomerTier.setSelectedItem(dto.getCustomerTier());
         txtMaxUses.setText(dto.getMaxUses() == null ? "" : dto.getMaxUses().toString());
         txtMinOrderAmount.setText(dto.getMinOrderAmount() == null ? "" : dto.getMinOrderAmount().toString());
-
         txtNote.setText(dto.getNote());
-
         txtCreatedAt.setText(dto.getCreatedAt() == null ? "" : dto.getCreatedAt().format(UI_DATE));
         txtUpdatedAt.setText(dto.getUpdatedAt() == null ? "" : dto.getUpdatedAt().format(UI_DATE));
+        setStatus(dto);
     }
 
     private void setStatus(PromotionResponseDTO dto) {
-        boolean active = dto.getIsActive() == 1 && dto.getDeletedAt() == null;
+        boolean active = dto.getIsActive() == 1
+                && (dto.getEndAt() == null || dto.getEndAt().isAfter(java.time.LocalDateTime.now()));
 
         lblStatus.setText(active ? "Đang hoạt động" : "Ngưng hoạt động");
         lblStatus.setForeground(active ? new Color(22, 101, 52) : new Color(153, 27, 27));
@@ -293,23 +287,22 @@ public class PromotionDialog extends JDialog {
 
     private String getTitleByMode() {
         return switch (mode) {
-            case MODE_ADD  -> "Thêm khuyến mãi";
+            case MODE_ADD -> "Thêm khuyến mãi";
             case MODE_EDIT -> "Sửa khuyến mãi";
-            default        -> "Xem khuyến mãi";
+            default -> "Xem khuyến mãi";
         };
     }
 
     private JComboBox<ComboItem<CustomerTier>> createCustomerTierCombo() {
-            JComboBox<ComboItem<CustomerTier>> combo = new JComboBox<>();
+        JComboBox<ComboItem<CustomerTier>> combo = new JComboBox<>();
 
-            combo.addItem(new ComboItem<>(null, "Tất cả"));
+        combo.addItem(new ComboItem<>(null, "Tất cả"));
 
-            for (CustomerTier status : CustomerTier.values()) {
-                    combo.addItem(
-                            new ComboItem<>(status, status.getDisplayName())
-                    );
-            }
+        for (CustomerTier status : CustomerTier.values()) {
+            combo.addItem(
+                    new ComboItem<>(status, status.getDisplayName()));
+        }
 
-            return combo;
+        return combo;
     }
 }

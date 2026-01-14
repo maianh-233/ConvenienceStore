@@ -11,9 +11,8 @@ import java.math.BigDecimal;
 @Setter
 public class PaymentRequestDTO {
 
-    private Long id;          // null = create, có = update
-    private Long orderId;     // dùng cho map đầy đủ
-
+    private Long id;          
+    private Long orderId;     
     private BigDecimal amount;
     private PaymentMethod method;
     private String transactionRef;

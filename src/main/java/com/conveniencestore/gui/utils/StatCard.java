@@ -53,21 +53,21 @@ public class StatCard extends JPanel {
     private void adjustLayout() {
         int w = getWidth();
 
-        if (w < 200) { 
+        if (w < 200) {
             // Panel nhỏ → chữ nhỏ, icon nhỏ
             lblValue.setFont(new Font("Segoe UI", Font.BOLD, 18));
             lblTitle.setFont(new Font("Segoe UI", Font.PLAIN, 12));
-            lblIcon.setBorder(BorderFactory.createEmptyBorder(5,5,5,5));
+            lblIcon.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
         } else if (w < defaultWidth) {
             // Panel trung bình → chữ vừa
             lblValue.setFont(new Font("Segoe UI", Font.BOLD, 22));
             lblTitle.setFont(new Font("Segoe UI", Font.PLAIN, 13));
-            lblIcon.setBorder(BorderFactory.createEmptyBorder(8,8,8,8));
+            lblIcon.setBorder(BorderFactory.createEmptyBorder(8, 8, 8, 8));
         } else {
             // Panel chuẩn → trở về mặc định
             lblValue.setFont(new Font("Segoe UI", Font.BOLD, 26));
             lblTitle.setFont(new Font("Segoe UI", Font.PLAIN, 14));
-            lblIcon.setBorder(BorderFactory.createEmptyBorder(10,10,10,10));
+            lblIcon.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         }
 
         revalidate();

@@ -12,5 +12,4 @@ public class UnitRequestDTO {
     private String description;
     private int isDeleted;    // 0 = active, 1 = inactive
     
-  
 }

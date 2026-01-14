@@ -22,7 +22,8 @@ public class FilterDateUtil {
     private static final Color BUTTON_BG = new Color(99, 102, 241);
     private static final Color BUTTON_HOVER = new Color(79, 70, 229);
 
-    private FilterDateUtil() {}
+    private FilterDateUtil() {
+    }
 
     // ===================== MAIN =====================
     public static JPanel createFilterDatePanel(
@@ -30,8 +31,7 @@ public class FilterDateUtil {
             JSpinner spFrom,
             JLabel lblTo,
             JSpinner spTo,
-            JButton btnFilter
-    ) {
+            JButton btnFilter) {
 
         JPanel panel = new JPanel();
         panel.setOpaque(false);
@@ -72,15 +72,11 @@ public class FilterDateUtil {
 
                 spFrom.setPreferredSize(new Dimension(
                         small ? SPINNER_WIDTH_SMALL : SPINNER_WIDTH_LARGE,
-                        COMPONENT_HEIGHT
-                ));
+                        COMPONENT_HEIGHT));
 
                 spTo.setPreferredSize(new Dimension(
                         small ? SPINNER_WIDTH_SMALL : SPINNER_WIDTH_LARGE,
-                        COMPONENT_HEIGHT
-                ));
-
-                
+                        COMPONENT_HEIGHT));
 
                 panel.revalidate();
                 panel.repaint();
@@ -103,11 +99,9 @@ public class FilterDateUtil {
 
         if (spinner.getEditor() instanceof JSpinner.DefaultEditor editor) {
             editor.getTextField().setFont(
-                    new Font("Segoe UI", Font.PLAIN, 13)
-            );
+                    new Font("Segoe UI", Font.PLAIN, 13));
             editor.getTextField().setBorder(
-                    BorderFactory.createEmptyBorder(0, 8, 0, 8)
-            );
+                    BorderFactory.createEmptyBorder(0, 8, 0, 8));
         }
     }
 
@@ -133,12 +127,10 @@ public class FilterDateUtil {
         btn.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
     }
 
-
     // ===================== FACTORY =====================
     public static CustomButton createFilterButton(String iconPath) {
         ImageIcon icon = ImageUtil.scaleIcon(
-                new ImageIcon(iconPath), 18, 18
-        );
+                new ImageIcon(iconPath), 18, 18);
         CustomButton btn = new CustomButton("Lọc", icon);
         btn.setToolTipText("Lọc theo ngày");
         return btn;

@@ -14,11 +14,9 @@ public class PaymentResponseDTO {
 
     private Long id;
     private Long orderId;
-
     private BigDecimal amount;
     private PaymentMethod method;
     private String transactionRef;
     private PaymentStatus status;
-
     private LocalDateTime createdAt;
 }

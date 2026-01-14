@@ -23,14 +23,14 @@ import javax.swing.JPanel;
 public class PaginationUtil {
 
     // ===================== CẤU HÌNH =====================
-    private static final Color BUTTON_BG    = new Color(245, 158, 11); // amber-500
-    private static final Color BUTTON_HOVER = new Color(217, 119, 6);  // amber-600
-
+    private static final Color BUTTON_BG = new Color(245, 158, 11); // amber-500
+    private static final Color BUTTON_HOVER = new Color(217, 119, 6); // amber-600
 
     // Ngưỡng width để ẩn/hiện text
     private static final int MIN_WIDTH_SHOW_TEXT = 200;
 
-    private PaginationUtil() {}
+    private PaginationUtil() {
+    }
 
     /**
      * Tạo panel phân trang responsive
@@ -53,8 +53,6 @@ public class PaginationUtil {
 
         panel.add(btnPrev);
         panel.add(btnNext);
-
-      
 
         return panel;
     }
@@ -91,14 +89,3 @@ public class PaginationUtil {
         return btn;
     }
 }
-/*
-CustomButton btnPrev = PaginationUtil.createPrevButton("icons/prev.png");
-CustomButton btnNext = PaginationUtil.createNextButton("icons/next.png");
-
-btnPrev.addActionListener(e -> prevPage());
-btnNext.addActionListener(e -> nextPage());
-
-JPanel pagination = PaginationUtil.createPaginationPanel(btnPrev, btnNext);
-panel.add(pagination, BorderLayout.SOUTH);
-
-*/

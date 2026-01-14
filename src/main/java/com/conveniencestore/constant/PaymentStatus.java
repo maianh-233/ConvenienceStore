@@ -5,21 +5,21 @@ package com.conveniencestore.constant;
  * Dùng để tránh viết trực tiếp String "pending", "completed", "failed", ...
  */
 public enum PaymentStatus {
-    PENDING("Đang chờ"),
-    COMPLETED("Hoàn thành"),
-    FAILED("Thất bại"),
-    CANCELLED("Đã hủy");
+	PENDING("Đang chờ"),
+	COMPLETED("Hoàn thành"),
+	FAILED("Thất bại"),
+	CANCELLED("Đã hủy");
 
-    private final String displayName;
+	private final String displayName;
 
-    PaymentStatus(String displayName) {
-        this.displayName = displayName;
-    }
+	PaymentStatus(String displayName) {
+		this.displayName = displayName;
+	}
 
-    /**
-     * Lấy tên hiển thị trạng thái thanh toán
-     */
-    public String getDisplayName() {
-        return displayName;
-    }
+	/**
+	 * Lấy tên hiển thị trạng thái thanh toán
+	 */
+	public String getDisplayName() {
+		return displayName;
+	}
 }

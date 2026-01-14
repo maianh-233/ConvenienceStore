@@ -30,7 +30,6 @@ public class InventoryExport {
     @Column(nullable = false, unique = true, length = 30)
     private String code; // PXK-2026-0001
 
-    private LocalDateTime exportDate;
 
     // ================== NGƯỜI THỰC HIỆN ==================
     @ManyToOne(fetch = FetchType.LAZY)
@@ -60,7 +59,6 @@ public class InventoryExport {
     @PrePersist
     void onCreate() {
         createdAt = updatedAt = LocalDateTime.now();
-        if (exportDate == null) exportDate = LocalDateTime.now();
         if (status == null) status = ExportStatus.SUCCESS;
     }
 

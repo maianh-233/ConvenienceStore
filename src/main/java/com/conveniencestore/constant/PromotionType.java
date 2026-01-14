@@ -6,16 +6,16 @@ package com.conveniencestore.constant;
  */
 public enum PromotionType {
 
-    PERCENT("Giảm theo phần trăm"),   // Ví dụ: 10%
-    AMOUNT("Giảm theo số tiền");       // Ví dụ: 50.000đ
+	PERCENT("Giảm theo phần trăm"), // Ví dụ: 10%
+	AMOUNT("Giảm theo số tiền"); // Ví dụ: 50.000đ
 
-    private final String displayName;
+	private final String displayName;
 
-    PromotionType(String displayName) {
-        this.displayName = displayName;
-    }
+	PromotionType(String displayName) {
+		this.displayName = displayName;
+	}
 
-    public String getDisplayName() {
-        return displayName;
-    }
+	public String getDisplayName() {
+		return displayName;
+	}
 }

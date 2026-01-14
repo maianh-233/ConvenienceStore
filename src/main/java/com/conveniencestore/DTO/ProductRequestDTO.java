@@ -10,20 +10,15 @@ import java.math.BigDecimal;
 public class ProductRequestDTO {
 
     private Long id;
-
     private String sku;
     private String barcode;
     private String productName;
-
     private Long categoryId;
     private Long supplierId;
     private Long unitId;
-
     private BigDecimal price;
     private BigDecimal cost;
-
     private String description;
     private String imageUrl;
-
     private int isActive;
 }

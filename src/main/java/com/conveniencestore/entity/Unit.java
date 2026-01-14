@@ -26,7 +26,7 @@ public class Unit {
     private String name; // Tên đơn vị: hộp, chiếc, cái, chai...
 
     @Column(length = 255)
-    private String description; // Mô tả đơn vị (tuỳ chọn)
+    private String description; // Mô tả đơn vị
 
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;

@@ -19,13 +19,9 @@ public class UserResponseDTO {
     private String address;
     private String imgUrl;
     private int gender;
-
     private Long roleId;
     private String roleName;
-
     private int active;
-
-
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
     private LocalDateTime lastLogin;

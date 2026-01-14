@@ -52,23 +52,16 @@ public class Promotion {
 
     @Column(name = "is_active", nullable = false)
     private int isActive = 1; // 1 = đang hoạt động, 0 = hết hạn / tạm dừng
-
-
-
+    // ================== Điều kiện áp dụng ==================
     @Column(length = 50)
     private CustomerTier customerTier; // Loại khách hàng áp dụng: 'regular', 'vip', ...
-
     @Column(name = "max_uses")
     private Integer maxUses; // Số lần tối đa áp dụng khuyến mãi
-
     @Column(name = "min_order_amount", precision = 12, scale = 2)
     private BigDecimal minOrderAmount; // Giá trị đơn tối thiểu để áp dụng
-
     @Column(length = 500)
     private String note; // Ghi chú thêm
-
-  
-
+    
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 

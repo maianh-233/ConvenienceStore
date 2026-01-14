@@ -6,20 +6,20 @@ package com.conveniencestore.constant;
  */
 public enum ExportStatus {
 
-    SUCCESS("Thành công"),      // Xuất kho thành công
-    FAILED("Thất bại"),         // Xuất kho thất bại (hết hàng, lỗi hệ thống...)
-    CANCELED("Đã hủy");         // Phiếu xuất kho bị hủy
+	SUCCESS("Thành công"), // Xuất kho thành công
+	FAILED("Thất bại"), // Xuất kho thất bại (hết hàng, lỗi hệ thống...)
+	CANCELED("Đã hủy"); // Phiếu xuất kho bị hủy
 
-    private final String displayName; // Tên hiển thị trạng thái
+	private final String displayName; // Tên hiển thị trạng thái
 
-    ExportStatus(String displayName) {
-        this.displayName = displayName;
-    }
+	ExportStatus(String displayName) {
+		this.displayName = displayName;
+	}
 
-    /**
-     * Lấy tên hiển thị trạng thái xuất kho
-     */
-    public String getDisplayName() {
-        return displayName;
-    }
+	/**
+	 * Lấy tên hiển thị trạng thái xuất kho
+	 */
+	public String getDisplayName() {
+		return displayName;
+	}
 }

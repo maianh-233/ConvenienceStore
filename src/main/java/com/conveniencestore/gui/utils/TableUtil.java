@@ -14,19 +14,18 @@ import java.awt.*;
 public class TableUtil {
 
     // ===================== MÀU SẮC =====================
-    public static final Color HEADER_BG = new Color(22, 163, 74);   // Xanh lá chủ đạo
+    public static final Color HEADER_BG = new Color(22, 163, 74); // Xanh lá chủ đạo
     public static final Color HEADER_FG = Color.WHITE;
 
-    public static final Color ROW_EVEN = new Color(240, 253, 244);  // Xanh nhạt
-    public static final Color ROW_ODD  = Color.WHITE;
+    public static final Color ROW_EVEN = new Color(240, 253, 244); // Xanh nhạt
+    public static final Color ROW_ODD = Color.WHITE;
 
     public static final Color GRID_COLOR = new Color(229, 231, 235);
 
     // ===================== FONT =====================
     public static final Font HEADER_FONT = new Font("Segoe UI", Font.BOLD, 14);
-    public static final Font BODY_FONT   = new Font("Segoe UI", Font.PLAIN, 13);
+    public static final Font BODY_FONT = new Font("Segoe UI", Font.PLAIN, 13);
 
-   
     private TableUtil() {
         // Không cho tạo instance
     }
@@ -36,18 +35,17 @@ public class TableUtil {
 
         // ===== AUTO CREATE HEADER IF EMPTY =====
         if (table.getModel() == null
-            || table.getColumnCount() == 0) {
+                || table.getColumnCount() == 0) {
 
-            DefaultTableModel emptyModel =
-                new DefaultTableModel(
-                    new Object[][]{},
-                    new String[]{" "} // 1 cột giả để header xuất hiện
-                ) {
-                    @Override
-                    public boolean isCellEditable(int r, int c) {
-                        return false;
-                    }
-                };
+            DefaultTableModel emptyModel = new DefaultTableModel(
+                    new Object[][] {},
+                    new String[] { " " } // 1 cột giả để header xuất hiện
+            ) {
+                @Override
+                public boolean isCellEditable(int r, int c) {
+                    return false;
+                }
+            };
 
             table.setModel(emptyModel);
         }
@@ -59,14 +57,13 @@ public class TableUtil {
         styleBehavior(table);
     }
 
-
     // ===================== HEADER =====================
     private static void styleHeader(JTable table) {
         JTableHeader header = table.getTableHeader();
 
         header.setPreferredSize(new Dimension(header.getWidth(), 42));
         header.setReorderingAllowed(false); // Không cho kéo đổi vị trí cột
-        header.setResizingAllowed(true);    // CHO resize cột
+        header.setResizingAllowed(true); // CHO resize cột
 
         header.setDefaultRenderer(new DefaultTableCellRenderer() {
             @Override
@@ -143,17 +140,3 @@ public class TableUtil {
         table.setFocusable(false);
     }
 }
-/*
-JTable table = new JTable(tableModel);
-
-// Custom style dùng chung
-TableUtil.style(table);
-
-JScrollPane scrollPane = new JScrollPane(table);
-scrollPane.setBorder(BorderFactory.createEmptyBorder());
-scrollPane.getViewport().setBackground(Color.WHITE);
-
-// ScrollBar custom của bạn (nếu có)
-scrollPane.getVerticalScrollBar().setUI(new ModernScrollBarUI());
-
-*/

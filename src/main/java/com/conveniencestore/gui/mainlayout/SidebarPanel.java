@@ -15,8 +15,6 @@ public class SidebarPanel extends JPanel {
     private final List<SidebarButton> buttons = new ArrayList<>();
     private boolean collapsed = false;
 
-
-
     public SidebarPanel() {
         setBackground(AppColor.SIDEBAR_BG);
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
@@ -25,8 +23,6 @@ public class SidebarPanel extends JPanel {
         setMinimumSize(new Dimension(70, 0));
 
         add(Box.createVerticalStrut(10));
-
-
 
         addMenu("/icon/Home.png", "Home", "HOME");
         addMenu("/icon/orders.png", "Sales", "ORDER");
@@ -49,7 +45,6 @@ public class SidebarPanel extends JPanel {
         this.listener = listener;
     }
 
-
     private void addMenu(String icon, String text, String key) {
         SidebarButton btn = new SidebarButton(icon, text);
 
@@ -71,17 +66,15 @@ public class SidebarPanel extends JPanel {
         activeBtn.setBackground(AppColor.PRIMARY_DARK);
     }
 
-
-
     public void collapse(boolean collapse) {
-        if (this.collapsed == collapse) return;
+        if (this.collapsed == collapse)
+            return;
 
         this.collapsed = collapse;
 
         setPreferredSize(
-            collapse ? new Dimension(70, getHeight())
-                     : new Dimension(150, getHeight())
-        );
+                collapse ? new Dimension(70, getHeight())
+                        : new Dimension(150, getHeight()));
 
         for (SidebarButton btn : buttons) {
             btn.showText(!collapse);
@@ -91,6 +84,4 @@ public class SidebarPanel extends JPanel {
         repaint();
     }
 
-
-   
 }

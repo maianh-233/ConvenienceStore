@@ -1,7 +1,7 @@
 package com.conveniencestore.gui;
 
-
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 
 import java.awt.*;
 import java.util.List;
@@ -35,231 +35,211 @@ import com.conveniencestore.gui.utils.TableUtil;
  * Panel quản lý đơn hàng
  * - Tự khởi tạo toàn bộ component
  * - Sử dụng các Util:
- *   HeaderPanelUtil
- *   SearchPanelUtil
- *   FilterDateUtil
- *   ButtonPanelUtil
- *   TableUtil
- *   PaginationUtil
+ * HeaderPanelUtil
+ * SearchPanelUtil
+ * FilterDateUtil
+ * ButtonPanelUtil
+ * TableUtil
+ * PaginationUtil
  */
 public class PanelOrder extends JPanel {
-    private JFrame parentFrame;
-    // ================= HEADER =================
-    private String titlePanel = "Quản lý đơn hàng";
-    private CustomButton btnReload;
+        private JFrame parentFrame;
+        // ================= HEADER =================
+        private String titlePanel = "Quản lý đơn hàng";
+        private CustomButton btnReload;
 
-    // ================= FILTERSTATUS =================
-    private JLabel lblStatus;
-    private JLabel lblPaymentStatus;
-    private JLabel lblPaymentMethod;
-    private JComboBox cbStatus;
-    private JComboBox cbPaymentStatus;
-    private JComboBox cbPaymentMethod;
+        // ================= FILTERSTATUS =================
+        private JLabel lblStatus;
+        private JLabel lblPaymentStatus;
+        private JLabel lblPaymentMethod;
+        private JComboBox cbStatus;
+        private JComboBox cbPaymentStatus;
+        private JComboBox cbPaymentMethod;
 
-    private CustomButton btnFilterStatus;
+        private CustomButton btnFilterStatus;
 
+        // ================= SEARCH =================
+        private JTextField txtSearch;
+        private CustomButton btnSearch;
 
-    // ================= SEARCH =================
-    private JTextField txtSearch;
-    private CustomButton btnSearch;
+        // ================= FILTER DATE =================
+        private JLabel lblFrom;
+        private JLabel lblTo;
+        private JSpinner spFrom;
+        private JSpinner spTo;
+        private CustomButton btnFilter;
 
-    // ================= FILTER DATE =================
-    private JLabel lblFrom;
-    private JLabel lblTo;
-    private JSpinner spFrom;
-    private JSpinner spTo;
-    private CustomButton btnFilter;
+        // ================= BUTTON ACTION =================
+        private CustomButton btnView;
+        private CustomButton btnAdd;
+        private CustomButton btnDelete;
+        private CustomButton btnEdit;
+        private CustomButton btnRestore;
 
-    // ================= BUTTON ACTION =================
-    private CustomButton btnView;
-    private CustomButton btnAdd;
-    private CustomButton btnDelete;
-    private CustomButton btnEdit;
-    private CustomButton btnRestore;
-  
+        // ================= TABLE =================
+        private JTable table;
 
-    // ================= TABLE =================
-    private JTable table;
+        // ================= PAGINATION =================
+        private CustomButton btnPrev;
+        private CustomButton btnNext;
 
-    // ================= PAGINATION =================
-    private CustomButton btnPrev;
-    private CustomButton btnNext;
+        public PanelOrder(JFrame parentFrame) {
+                this.parentFrame = parentFrame;
+                initComponent();
+                initLayout();
+                initEvent();
+        }
 
-    public PanelOrder(JFrame parentFrame) {
-        this.parentFrame = parentFrame;
-        initComponent();
-        initLayout();
-        initEvent();
-    }
-    private URL getIconUrl(String path){
-         return getClass().getResource(path);
-       
-    }
+        private URL getIconUrl(String path) {
+                return getClass().getResource(path);
 
-    // ================= KHỞI TẠO COMPONENT =================
-    private void initComponent() {
+        }
 
-        // ===== HEADER =====
-        btnReload = new CustomButton(
-                "Reload",
-                ImageUtil.scaleIcon(
-                        new ImageIcon(getIconUrl("/icon/load.png")), 18, 18
-                )
-        );
+        // ================= KHỞI TẠO COMPONENT =================
+        private void initComponent() {
 
-        // ===== FILTER STATUS =====
-       
-        lblStatus = new JLabel("Order Status:");
-        cbStatus = createOrderStatusCombo();
+                // ===== HEADER =====
+                btnReload = new CustomButton(
+                                "Reload",
+                                ImageUtil.scaleIcon(
+                                                new ImageIcon(getIconUrl("/icon/load.png")), 18, 18));
 
-        lblPaymentStatus = new JLabel("Payment Status");
-        cbPaymentStatus = createPaymentStatusCombo();
+                // ===== FILTER STATUS =====
 
-        lblPaymentMethod = new JLabel("Payment Method:");
-        cbPaymentMethod = createPaymentMethodCombo();
+                lblStatus = new JLabel("Order Status:");
+                cbStatus = createOrderStatusCombo();
 
+                lblPaymentStatus = new JLabel("Payment Status");
+                cbPaymentStatus = createPaymentStatusCombo();
 
-        btnFilterStatus = new CustomButton(
-                "Lọc",
-                ImageUtil.scaleIcon(
-                        new ImageIcon(getIconUrl("/icon/filter.png")), 18, 18
-                )
-        );
+                lblPaymentMethod = new JLabel("Payment Method:");
+                cbPaymentMethod = createPaymentMethodCombo();
 
-       
+                btnFilterStatus = new CustomButton(
+                                "Lọc",
+                                ImageUtil.scaleIcon(
+                                                new ImageIcon(getIconUrl("/icon/filter.png")), 18, 18));
 
+                // ===== SEARCH =====
+                txtSearch = new JTextField(20);
+                btnSearch = new CustomButton(
+                                "Tìm Kiếm",
+                                ImageUtil.scaleIcon(
+                                                new ImageIcon(getIconUrl("/icon/search.png")), 18, 18));
 
+                // ===== FILTER DATE =====
+                lblFrom = new JLabel("Từ");
+                lblTo = new JLabel("Đến");
 
-        // ===== SEARCH =====
-        txtSearch = new JTextField(20);
-        btnSearch = new CustomButton(
-                "Tìm Kiếm",
-                ImageUtil.scaleIcon(
-                        new ImageIcon(getIconUrl("/icon/search.png")), 18, 18
-                )
-        );
+                spFrom = createDateSpinner();
+                spTo = createDateSpinner();
 
-        // ===== FILTER DATE =====
-        lblFrom = new JLabel("Từ");
-        lblTo   = new JLabel("Đến");
+                btnFilter = new CustomButton(
+                                "Lọc",
+                                ImageUtil.scaleIcon(
+                                                new ImageIcon(getIconUrl("/icon/filter.png")), 18, 18));
 
-        spFrom = createDateSpinner();
-        spTo   = createDateSpinner();
+                // ===== BUTTON ACTION =====
+                btnView = new CustomButton("Xem", loadIcon("see"));
+                btnAdd = new CustomButton("Thêm", loadIcon("plus"));
+                btnDelete = new CustomButton("Xóa", loadIcon("delete"));
+                btnEdit = new CustomButton("Sửa", loadIcon("edit"));
+                btnRestore = new CustomButton("Restore", loadIcon("restore"));
 
-        btnFilter = new CustomButton(
-                "Lọc",
-                ImageUtil.scaleIcon(
-                        new ImageIcon(getIconUrl("/icon/filter.png")), 18, 18
-                )
-        );
+                // ===== TABLE =====
+                table = new JTable();
+                TableUtil.style(table);
+                // Tạo header bảng
+                DefaultTableModel tableModel = new DefaultTableModel();
+                tableModel.addColumn("Date");
+                tableModel.addColumn("ID");
+                tableModel.addColumn("Customer");
+                tableModel.addColumn("Employee");
+                tableModel.addColumn("Total");
+                tableModel.addColumn("Payment Method");
+                tableModel.addColumn("Order Status");
+                tableModel.addColumn("Payment Status");
+                tableModel.addColumn("Active");
+                table.setModel(tableModel);
 
-        // ===== BUTTON ACTION =====
-        btnView   = new CustomButton("Xem",   loadIcon("see"));
-        btnAdd    = new CustomButton("Thêm",  loadIcon("plus"));
-        btnDelete = new CustomButton("Xóa",   loadIcon("delete"));
-        btnEdit   = new CustomButton("Sửa",   loadIcon("edit"));
-        btnRestore   = new CustomButton("Restore",   loadIcon("restore"));
+                // ===== PAGINATION =====
+                btnPrev = new CustomButton(
+                                "Trước",
+                                ImageUtil.scaleIcon(
+                                                new ImageIcon(getIconUrl("/icon/previous.png")), 16, 16));
 
-       
+                btnNext = new CustomButton(
+                                "Sau",
+                                ImageUtil.scaleIcon(
+                                                new ImageIcon(getIconUrl("/icon/next.png")), 16, 16));
+        }
 
-        // ===== TABLE =====
-        table = new JTable();
-        TableUtil.style(table);
+        // ================= LAYOUT =================
+        private void initLayout() {
 
-        // ===== PAGINATION =====
-        btnPrev = new CustomButton(
-                "Trước",
-                ImageUtil.scaleIcon(
-                        new ImageIcon(getIconUrl("/icon/previous.png")), 16, 16
-                )
-        );
+                setLayout(new BorderLayout(10, 10));
+                setOpaque(false);
+                setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
 
-        btnNext = new CustomButton(
-                "Sau",
-                ImageUtil.scaleIcon(
-                        new ImageIcon(getIconUrl("/icon/next.png")), 16, 16
-                )
-        );
-    }
+                // ================= TOP =================
+                JPanel topPanel = new JPanel();
+                topPanel.setLayout(new BoxLayout(topPanel, BoxLayout.Y_AXIS));
+                topPanel.setOpaque(false);
 
-    // ================= LAYOUT =================
-    private void initLayout() {
+                // Header
+                topPanel.add(
+                                HeaderPanelUtil.createHeaderPanel(titlePanel, btnReload));
+                topPanel.add(Box.createVerticalStrut(10));
 
-        setLayout(new BorderLayout(10, 10));
-        setOpaque(false);
-        setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
+                // Search + Filter
+                topPanel.add(
+                                PanelOrderFilterStatus.create(
+                                                lblStatus, cbStatus,
+                                                lblPaymentStatus, cbPaymentStatus,
+                                                lblPaymentMethod, cbPaymentMethod,
+                                                btnFilterStatus)
 
-        // ================= TOP =================
-        JPanel topPanel = new JPanel();
-        topPanel.setLayout(new BoxLayout(topPanel, BoxLayout.Y_AXIS));
-        topPanel.setOpaque(false);
+                );
+                topPanel.add(Box.createVerticalStrut(10));
 
-        // Header
-        topPanel.add(
-                HeaderPanelUtil.createHeaderPanel(titlePanel, btnReload)
-        );
-        topPanel.add(Box.createVerticalStrut(10));
+                topPanel.add(
+                                SearchPanelUtil.createSearchPanel(txtSearch, btnSearch));
+                topPanel.add(Box.createVerticalStrut(10));
 
-        
+                // ===== FILTER DATE =====
+                topPanel.add(
+                                FilterDateUtil.createFilterDatePanel(
+                                                lblFrom, spFrom,
+                                                lblTo, spTo,
+                                                btnFilter));
+                topPanel.add(Box.createVerticalStrut(10));
 
-        // Search + Filter
-        topPanel.add(
-                PanelOrderFilterStatus.create(
-                lblStatus, cbStatus,
-                lblPaymentStatus, cbPaymentStatus,
-                lblPaymentMethod, cbPaymentMethod,
-                btnFilterStatus
-                )
+                // Button action
+                topPanel.add(
+                                ButtonPanelUtil.createButtonPanel(
+                                                btnView,
+                                                btnAdd,
+                                                btnDelete,
+                                                btnEdit,
+                                                btnRestore));
 
-        );
-        topPanel.add(Box.createVerticalStrut(10));
+                add(topPanel, BorderLayout.NORTH);
 
-        topPanel.add(
-                SearchPanelUtil.createSearchPanel(txtSearch, btnSearch)
-        );
-        topPanel.add(Box.createVerticalStrut(10));
+                // ================= CENTER (TABLE) =================
+                JScrollPane scrollPane = new JScrollPane(table);
+                scrollPane.getViewport().setBackground(Color.WHITE);
+                scrollPane.setBorder(
+                                BorderFactory.createLineBorder(new Color(229, 231, 235)));
 
-        // ===== FILTER DATE =====
-        topPanel.add(
-                FilterDateUtil.createFilterDatePanel(
-                        lblFrom, spFrom,
-                        lblTo, spTo,
-                        btnFilter
-                )
-        );
-        topPanel.add(Box.createVerticalStrut(10));
+                add(scrollPane, BorderLayout.CENTER);
 
+                // ================= BOTTOM (PAGINATION) =================
+                add(
+                                PaginationUtil.createPaginationPanel(btnPrev, btnNext),
+                                BorderLayout.SOUTH);
+        }
 
-        // Button action
-        topPanel.add(
-                ButtonPanelUtil.createButtonPanel(
-                        btnView,
-                        btnAdd,
-                        btnDelete,
-                        btnEdit,
-                        btnRestore
-                )
-        );
-
-        add(topPanel, BorderLayout.NORTH);
-
-        // ================= CENTER (TABLE) =================
-        JScrollPane scrollPane = new JScrollPane(table);
-        scrollPane.getViewport().setBackground(Color.WHITE);
-        scrollPane.setBorder(
-                BorderFactory.createLineBorder(new Color(229, 231, 235))
-        );
-
-        add(scrollPane, BorderLayout.CENTER);
-
-        // ================= BOTTOM (PAGINATION) =================
-        add(
-                PaginationUtil.createPaginationPanel(btnPrev, btnNext),
-                BorderLayout.SOUTH
-        );
-    }
-
-    // ================= HELPER =================
+        // ================= HELPER =================
         private JSpinner createDateSpinner() {
                 JSpinner spinner = new JSpinner(new SpinnerDateModel());
                 spinner.setEditor(new JSpinner.DateEditor(spinner, "dd/MM/yyyy"));
@@ -269,9 +249,8 @@ public class PanelOrder extends JPanel {
 
         private Icon loadIcon(String name) {
                 return ImageUtil.scaleIcon(
-                        new ImageIcon(getIconUrl("/icon/" + name + ".png")),
-                        18, 18
-                );
+                                new ImageIcon(getIconUrl("/icon/" + name + ".png")),
+                                18, 18);
         }
 
         private JComboBox<ComboItem<OrderStatus>> createOrderStatusCombo() {
@@ -281,8 +260,7 @@ public class PanelOrder extends JPanel {
 
                 for (OrderStatus status : OrderStatus.values()) {
                         combo.addItem(
-                                new ComboItem<>(status, status.getDisplayName())
-                        );
+                                        new ComboItem<>(status, status.getDisplayName()));
                 }
 
                 return combo;
@@ -295,8 +273,7 @@ public class PanelOrder extends JPanel {
 
                 for (PaymentStatus status : PaymentStatus.values()) {
                         combo.addItem(
-                                new ComboItem<>(status, status.getDisplayName())
-                        );
+                                        new ComboItem<>(status, status.getDisplayName()));
                 }
 
                 return combo;
@@ -305,13 +282,11 @@ public class PanelOrder extends JPanel {
         private JComboBox<ComboItem<PaymentMethod>> createPaymentMethodCombo() {
                 JComboBox<ComboItem<PaymentMethod>> combo = new JComboBox<>();
 
-             
                 combo.addItem(new ComboItem<>(null, "Tất cả"));
 
                 for (PaymentMethod method : PaymentMethod.values()) {
                         combo.addItem(
-                                new ComboItem<>(method, method.getDisplayName())
-                        );
+                                        new ComboItem<>(method, method.getDisplayName()));
                 }
 
                 return combo;
@@ -343,88 +318,70 @@ public class PanelOrder extends JPanel {
         }
 
         private OrderResponseDTO mockOrderResponse() {
-        OrderResponseDTO dto = new OrderResponseDTO();
+                OrderResponseDTO dto = new OrderResponseDTO();
 
-        dto.setId(1L);
-        dto.setOrderNumber("ORD-2026-0001");
+                dto.setId(1L);
+                dto.setOrderNumber("ORD-2026-0001");
 
-        dto.setCustomerId(10L);
-        dto.setCustomerName("Nguyễn Văn A");
+                dto.setCustomerId(10L);
+                dto.setCustomerName("Nguyễn Văn A");
 
-        dto.setStaffId(3L);
-        dto.setStaffName("Trần Thị B");
+                dto.setStaffId(3L);
+                dto.setStaffName("Trần Thị B");
 
-        dto.setPromotionId(2L);
-        dto.setPromotionCode("SALE10");
+                dto.setPromotionId(2L);
+                dto.setPromotionCode("SALE10");
 
-        dto.setStatus(OrderStatus.PROCESSING);
+                dto.setStatus(OrderStatus.PROCESSING);
 
-        dto.setSubtotal(new BigDecimal("150000"));
-        dto.setDiscount(new BigDecimal("15000"));
-        dto.setTotalAmount(new BigDecimal("135000"));
+                dto.setSubtotal(new BigDecimal("150000"));
+                dto.setDiscount(new BigDecimal("15000"));
+                dto.setTotalAmount(new BigDecimal("135000"));
 
-        dto.setNote("Giao hàng trước 18h");
-        dto.setShippingAddress("123 Lê Lợi, Q1");
+                dto.setNote("Giao hàng trước 18h");
+                dto.setShippingAddress("123 Lê Lợi, Q1");
 
-        dto.setIsOnline(1);
-        dto.setIsDeleted(0);
+                dto.setIsOnline(1);
+                dto.setIsDeleted(0);
 
-        dto.setCreatedAt(LocalDateTime.now().minusDays(1));
-        dto.setUpdatedAt(LocalDateTime.now());
+                dto.setCreatedAt(LocalDateTime.now().minusDays(1));
+                dto.setUpdatedAt(LocalDateTime.now());
 
-        // ====== THANH TOÁN (ENUM) ======
-        dto.setPaymentMethod(PaymentMethod.VNPAY);
-        dto.setPaymentStatus(PaymentStatus.COMPLETED);
+                // ====== THANH TOÁN (ENUM) ======
+                dto.setPaymentMethod(PaymentMethod.VNPAY);
+                dto.setPaymentStatus(PaymentStatus.COMPLETED);
 
-        return dto;
+                return dto;
         }
 
-
-
-
-        private Map<Long, String> mockPromotions() {
-                Map<Long, String> map = new LinkedHashMap<>();
-                map.put(1L, "Không áp dụng");
-                map.put(2L, "SALE10 - Giảm 10%");
-                map.put(3L, "SALE20 - Giảm 20%");
-                return map;
-        }
-
-            // ACTION EVENT
+        // ACTION EVENT
         private void initEvent() {
                 // TEST ADD
                 btnAdd.addActionListener(e -> {
                         new OrderDialog(
-                        parentFrame,
-                        OrderDialog.MODE_ADD,
-                        null,
-                        new ArrayList<>()
-                        );
+                                        parentFrame,
+                                        OrderDialog.MODE_ADD,
+                                        null,
+                                        new ArrayList<>());
                 });
 
                 // TEST EDIT
                 btnEdit.addActionListener(e -> {
                         new OrderDialog(
-                        parentFrame,
-                        OrderDialog.MODE_EDIT,
-                        mockOrderResponse(),
-                        mockOrderItems()
-                        );
+                                        parentFrame,
+                                        OrderDialog.MODE_EDIT,
+                                        mockOrderResponse(),
+                                        mockOrderItems());
                 });
 
                 // TEST VIEW
                 btnView.addActionListener(e -> {
                         new OrderDialog(
-                        parentFrame,
-                        OrderDialog.MODE_VIEW,
-                        mockOrderResponse(),
-                        mockOrderItems()
-                        );
+                                        parentFrame,
+                                        OrderDialog.MODE_VIEW,
+                                        mockOrderResponse(),
+                                        mockOrderItems());
                 });
         }
-
-
-
-
 
 }

@@ -35,7 +35,7 @@ public class InventoryExportItem {
 
     // ================== SỐ LƯỢNG ==================
     @Column(nullable = false)
-    private int quantity; // số lượng xuất (>0)
+    private int quantity; 
 
 
     // ================== GHI CHÚ ==================

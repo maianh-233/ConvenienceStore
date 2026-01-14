@@ -50,14 +50,11 @@ public class User {
     @JoinColumn(name = "role_id", nullable = false)
     private Role role;
 
-
     @Column(nullable = false)
     private int active = 1;
   
-
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
-    
     private LocalDateTime lastLogin;
 
     @Column(name = "refresh_token_hash", length = 512)

@@ -3,16 +3,15 @@ package com.conveniencestore.DTO;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.time.LocalDateTime;
-
 @Getter
 @Setter
-public class InventoryResponseDTO {
-
+public class InventoryExportItemResponseDTO {
     private Long id;
+    private Long exportId;
+    private String exportCode;
     private Long productId;
+    private String productCode;
     private String productName;
     private int quantity;
-    private LocalDateTime lastCheckedAt;
-    private LocalDateTime updatedAt;
+    private String note;
 }

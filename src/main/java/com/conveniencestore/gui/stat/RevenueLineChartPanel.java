@@ -42,16 +42,13 @@ public class RevenueLineChartPanel extends JPanel {
 
     private ChartPanel createChart(Map<String, Long> data) {
         DefaultCategoryDataset dataset = new DefaultCategoryDataset();
-        data.forEach((day, value) ->
-                dataset.addValue(value, "Doanh thu", day)
-        );
+        data.forEach((day, value) -> dataset.addValue(value, "Doanh thu", day));
 
         JFreeChart chart = ChartFactory.createLineChart(
                 null,
                 "Ngày",
                 "Doanh thu (VNĐ)",
-                dataset
-        );
+                dataset);
 
         chart.setBackgroundPaint(Color.WHITE);
 
@@ -76,7 +73,8 @@ public class RevenueLineChartPanel extends JPanel {
         renderer.setSeriesShape(0, new java.awt.geom.Ellipse2D.Double(-4, -4, 8, 8));
         renderer.setSeriesShapesFilled(0, true);
         renderer.setSeriesShapesVisible(0, true);
-        renderer.setDefaultToolTipGenerator(new StandardCategoryToolTipGenerator("Ngày {1}: {2} VNĐ", NumberFormat.getInstance()));
+        renderer.setDefaultToolTipGenerator(
+                new StandardCategoryToolTipGenerator("Ngày {1}: {2} VNĐ", NumberFormat.getInstance()));
 
         plot.setRenderer(renderer);
 

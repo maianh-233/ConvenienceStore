@@ -1,4 +1,5 @@
 package com.conveniencestore.gui;
+
 import javax.swing.*;
 
 import java.awt.*;
@@ -16,242 +17,222 @@ import com.conveniencestore.gui.utils.ImageUtil;
 import com.conveniencestore.gui.utils.PaginationUtil;
 import com.conveniencestore.gui.utils.SearchPanelUtil;
 import com.conveniencestore.gui.utils.TableUtil;
-public class PanelProduct extends JPanel{
-    private JFrame parentFrame;
-    // ================= HEADER =================
-    private String titlePanel = "Quản lý sản phẩm";
-    private CustomButton btnReload;
 
-    // ================= SEARCH =================
-    private JTextField txtSearch;
-    private CustomButton btnSearch;
+public class PanelProduct extends JPanel {
+        private JFrame parentFrame;
+        // ================= HEADER =================
+        private String titlePanel = "Quản lý sản phẩm";
+        private CustomButton btnReload;
 
-    // ================= STAT =================
-    private ProductStatPanel productStatPanel;
+        // ================= SEARCH =================
+        private JTextField txtSearch;
+        private CustomButton btnSearch;
 
+        // ================= STAT =================
+        private ProductStatPanel productStatPanel;
 
-    // ================= BUTTON ACTION =================
-    private CustomButton btnView;
-    private CustomButton btnAdd;
-    private CustomButton btnDelete;
-    private CustomButton btnEdit;
-    private CustomButton btnRestore;
-    
-    // ================= TABLE =================
-    private JTable table;
+        // ================= BUTTON ACTION =================
+        private CustomButton btnView;
+        private CustomButton btnAdd;
+        private CustomButton btnDelete;
+        private CustomButton btnEdit;
+        private CustomButton btnRestore;
 
-    // ================= PAGINATION =================
-    private CustomButton btnPrev;
-    private CustomButton btnNext;
+        // ================= TABLE =================
+        private JTable table;
 
-    public PanelProduct (JFrame parentFrame) {
-        this.parentFrame = parentFrame;
-        initComponent();
-        initLayout();
-        initEvent();
-    }
-    private URL getIconUrl(String path){
-         return getClass().getResource(path);
-       
-    }
+        // ================= PAGINATION =================
+        private CustomButton btnPrev;
+        private CustomButton btnNext;
 
-    // ================= KHỞI TẠO COMPONENT =================
-    private void initComponent() {
+        public PanelProduct(JFrame parentFrame) {
+                this.parentFrame = parentFrame;
+                initComponent();
+                initLayout();
+                initEvent();
+        }
 
-        // ===== HEADER =====
-        btnReload = new CustomButton(
-                "Reload",
-                ImageUtil.scaleIcon(
-                        new ImageIcon(getIconUrl("/icon/load.png")), 18, 18
-                )
-        );
+        private URL getIconUrl(String path) {
+                return getClass().getResource(path);
 
-        // ===== SEARCH =====
-        txtSearch = new JTextField(20);
-        btnSearch = new CustomButton(
-                "Tìm Kiếm",
-                ImageUtil.scaleIcon(
-                        new ImageIcon(getIconUrl("/icon/search.png")), 18, 18
-                )
-        );
+        }
 
+        // ================= KHỞI TẠO COMPONENT =================
+        private void initComponent() {
 
-        // ===== BUTTON ACTION =====
-        btnView   = new CustomButton("Xem",   loadIcon("see"));
-        btnAdd    = new CustomButton("Thêm",  loadIcon("plus"));
-        btnDelete = new CustomButton("Xóa",   loadIcon("delete"));
-        btnEdit   = new CustomButton("Sửa",   loadIcon("edit"));
-        btnRestore   = new CustomButton("Restore",   loadIcon("restore"));
-        
+                // ===== HEADER =====
+                btnReload = new CustomButton(
+                                "Reload",
+                                ImageUtil.scaleIcon(
+                                                new ImageIcon(getIconUrl("/icon/load.png")), 18, 18));
 
-        // ===== TABLE =====
-        table = new JTable();
-        TableUtil.style(table);
+                // ===== SEARCH =====
+                txtSearch = new JTextField(20);
+                btnSearch = new CustomButton(
+                                "Tìm Kiếm",
+                                ImageUtil.scaleIcon(
+                                                new ImageIcon(getIconUrl("/icon/search.png")), 18, 18));
 
-        // Tạo header bảng
-        DefaultTableModel tableModel = new DefaultTableModel();
-        tableModel.addColumn("ID");
-        tableModel.addColumn("Tên sản phẩm");
-        tableModel.addColumn("Mã SKU");
-        tableModel.addColumn("Mã vạch");
-        tableModel.addColumn("Số lượng tồn");
-        tableModel.addColumn("Trạng thái");
-        table.setModel(tableModel);
+                // ===== BUTTON ACTION =====
+                btnView = new CustomButton("Xem", loadIcon("see"));
+                btnAdd = new CustomButton("Thêm", loadIcon("plus"));
+                btnDelete = new CustomButton("Xóa", loadIcon("delete"));
+                btnEdit = new CustomButton("Sửa", loadIcon("edit"));
+                btnRestore = new CustomButton("Restore", loadIcon("restore"));
 
-        // ===== PAGINATION =====
-        btnPrev = new CustomButton(
-                "Trước",
-                ImageUtil.scaleIcon(
-                        new ImageIcon(getIconUrl("/icon/previous.png")), 16, 16
-                )
-        );
+                // ===== TABLE =====
+                table = new JTable();
+                TableUtil.style(table);
 
-        btnNext = new CustomButton(
-                "Sau",
-                ImageUtil.scaleIcon(
-                        new ImageIcon(getIconUrl("/icon/next.png")), 16, 16
-                )
-        );
+                // Tạo header bảng
+                DefaultTableModel tableModel = new DefaultTableModel();
+                tableModel.addColumn("ID");
+                tableModel.addColumn("Tên sản phẩm");
+                tableModel.addColumn("Mã SKU");
+                tableModel.addColumn("Mã vạch");
+                tableModel.addColumn("Số lượng tồn");
+                tableModel.addColumn("Trạng thái");
+                table.setModel(tableModel);
 
-        // ===== STAT PANEL =====
-        productStatPanel = new ProductStatPanel();
+                // ===== PAGINATION =====
+                btnPrev = new CustomButton(
+                                "Trước",
+                                ImageUtil.scaleIcon(
+                                                new ImageIcon(getIconUrl("/icon/previous.png")), 16, 16));
 
-        // ví dụ test dữ liệu
-        productStatPanel.setActiveProduct(120);
-        productStatPanel.setInActiveProduct(5);
-        productStatPanel.setInStock(98);
-        productStatPanel.setOutOfStock(27);
-    }
+                btnNext = new CustomButton(
+                                "Sau",
+                                ImageUtil.scaleIcon(
+                                                new ImageIcon(getIconUrl("/icon/next.png")), 16, 16));
 
-    // ================= LAYOUT =================
-    private void initLayout() {
+                // ===== STAT PANEL =====
+                productStatPanel = new ProductStatPanel();
 
-        setLayout(new BorderLayout(10, 10));
-        setOpaque(false);
-        setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
+                // ví dụ test dữ liệu
+                productStatPanel.setActiveProduct(120);
+                productStatPanel.setInActiveProduct(5);
+                productStatPanel.setInStock(98);
+                productStatPanel.setOutOfStock(27);
+        }
 
-        // ================= TOP =================
-        JPanel topPanel = new JPanel();
-        topPanel.setLayout(new BoxLayout(topPanel, BoxLayout.Y_AXIS));
-        topPanel.setOpaque(false);
+        // ================= LAYOUT =================
+        private void initLayout() {
 
-        // Header
-        topPanel.add(
-                HeaderPanelUtil.createHeaderPanel(titlePanel, btnReload)
-        );
-        topPanel.add(Box.createVerticalStrut(10));
+                setLayout(new BorderLayout(10, 10));
+                setOpaque(false);
+                setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
 
-        // Search + Filter
-        
-        /* ================= INVENTORY STAT ================= */
-        topPanel.add(productStatPanel);
-        topPanel.add(Box.createVerticalStrut(15));
-       
-        topPanel.add(
-                SearchPanelUtil.createSearchPanel(txtSearch, btnSearch)
-        );
-        topPanel.add(Box.createVerticalStrut(10));
+                // ================= TOP =================
+                JPanel topPanel = new JPanel();
+                topPanel.setLayout(new BoxLayout(topPanel, BoxLayout.Y_AXIS));
+                topPanel.setOpaque(false);
 
+                // Header
+                topPanel.add(
+                                HeaderPanelUtil.createHeaderPanel(titlePanel, btnReload));
+                topPanel.add(Box.createVerticalStrut(10));
 
-        // Button action
-        topPanel.add(
-                ButtonPanelUtil.createButtonPanel(
-                        btnView,
-                        btnAdd,
-                        btnDelete,
-                        btnEdit,
-                        btnRestore
-                )
-        );
+                // Search + Filter
 
-        add(topPanel, BorderLayout.NORTH);
+                /* ================= INVENTORY STAT ================= */
+                topPanel.add(productStatPanel);
+                topPanel.add(Box.createVerticalStrut(15));
 
-        // ================= CENTER (TABLE) =================
-        JScrollPane scrollPane = new JScrollPane(table);
-        scrollPane.getViewport().setBackground(Color.WHITE);
-        scrollPane.setBorder(
-                BorderFactory.createLineBorder(new Color(229, 231, 235))
-        );
+                topPanel.add(
+                                SearchPanelUtil.createSearchPanel(txtSearch, btnSearch));
+                topPanel.add(Box.createVerticalStrut(10));
 
-        add(scrollPane, BorderLayout.CENTER);
+                // Button action
+                topPanel.add(
+                                ButtonPanelUtil.createButtonPanel(
+                                                btnView,
+                                                btnAdd,
+                                                btnDelete,
+                                                btnEdit,
+                                                btnRestore));
 
-        // ================= BOTTOM (PAGINATION) =================
-        add(
-                PaginationUtil.createPaginationPanel(btnPrev, btnNext),
-                BorderLayout.SOUTH
-        );
-    }
+                add(topPanel, BorderLayout.NORTH);
 
-    // ================= HELPER =================
+                // ================= CENTER (TABLE) =================
+                JScrollPane scrollPane = new JScrollPane(table);
+                scrollPane.getViewport().setBackground(Color.WHITE);
+                scrollPane.setBorder(
+                                BorderFactory.createLineBorder(new Color(229, 231, 235)));
 
-    private Icon loadIcon(String name) {
-        return ImageUtil.scaleIcon(
-                new ImageIcon(getIconUrl("/icon/" + name + ".png")),
-                18, 18
-        );
-    } 
+                add(scrollPane, BorderLayout.CENTER);
 
-    private ProductResponseDTO mockProductResponseDTO() {
-        ProductResponseDTO dto = new ProductResponseDTO();
+                // ================= BOTTOM (PAGINATION) =================
+                add(
+                                PaginationUtil.createPaginationPanel(btnPrev, btnNext),
+                                BorderLayout.SOUTH);
+        }
 
-        dto.setId(101L);
-        dto.setSku("SP001");
-        dto.setBarcode("8938505974192");
-        dto.setProductName("Nước ngọt Coca-Cola 330ml");
+        // ================= HELPER =================
 
-        dto.setCategoryId(1L);
-        dto.setCategoryName("Đồ uống");
+        private Icon loadIcon(String name) {
+                return ImageUtil.scaleIcon(
+                                new ImageIcon(getIconUrl("/icon/" + name + ".png")),
+                                18, 18);
+        }
 
-        dto.setSupplierId(2L);
-        dto.setSupplierName("Coca-Cola Việt Nam");
+        private ProductResponseDTO mockProductResponseDTO() {
+                ProductResponseDTO dto = new ProductResponseDTO();
 
-        dto.setUnitId(1L);
-        dto.setUnitName("Lon");
+                dto.setId(101L);
+                dto.setSku("SP001");
+                dto.setBarcode("8938505974192");
+                dto.setProductName("Nước ngọt Coca-Cola 330ml");
 
-        dto.setPrice(new java.math.BigDecimal("10000"));
-        dto.setCost(new java.math.BigDecimal("7500"));
+                dto.setCategoryId(1L);
+                dto.setCategoryName("Đồ uống");
 
-        dto.setDescription("Nước ngọt có gas Coca-Cola lon 330ml, giải khát tức thì.");
+                dto.setSupplierId(2L);
+                dto.setSupplierName("Coca-Cola Việt Nam");
 
-        dto.setImageUrl("/icon/product.png"); 
-        // set null để test ảnh mặc định
+                dto.setUnitId(1L);
+                dto.setUnitName("Lon");
 
-        dto.setIsActive(1); // 1 = đang bán, 0 = ngưng bán
+                dto.setPrice(new java.math.BigDecimal("10000"));
+                dto.setCost(new java.math.BigDecimal("7500"));
 
-        dto.setCreatedAt(java.time.LocalDateTime.now().minusDays(15));
-        dto.setUpdatedAt(java.time.LocalDateTime.now().minusDays(2));
+                dto.setDescription("Nước ngọt có gas Coca-Cola lon 330ml, giải khát tức thì.");
 
-        return dto;
-    }
+                dto.setImageUrl("/icon/product.png");
+                // set null để test ảnh mặc định
+
+                dto.setIsActive(1); // 1 = đang bán, 0 = ngưng bán
+
+                dto.setCreatedAt(java.time.LocalDateTime.now().minusDays(15));
+                dto.setUpdatedAt(java.time.LocalDateTime.now().minusDays(2));
+
+                return dto;
+        }
 
         // ACTION EVENT
-    private void initEvent() {
-        // TEST ADD
-        btnAdd.addActionListener(e -> {
-                new ProductDialog(
-                        parentFrame,
-                        ProductDialog.MODE_ADD,
-                        null
-                );
-        });
+        private void initEvent() {
+                // TEST ADD
+                btnAdd.addActionListener(e -> {
+                        new ProductDialog(
+                                        parentFrame,
+                                        ProductDialog.MODE_ADD,
+                                        null);
+                });
 
-        // TEST EDIT
-        btnEdit.addActionListener(e -> {
-                new ProductDialog(
-                        parentFrame,
-                        ProductDialog.MODE_EDIT,
-                        mockProductResponseDTO()
-                );
-        });
+                // TEST EDIT
+                btnEdit.addActionListener(e -> {
+                        new ProductDialog(
+                                        parentFrame,
+                                        ProductDialog.MODE_EDIT,
+                                        mockProductResponseDTO());
+                });
 
-        // TEST VIEW
-        btnView.addActionListener(e -> {
-                new ProductDialog(
-                        parentFrame,
-                        ProductDialog.MODE_VIEW,
-                        mockProductResponseDTO()
-                );
-        });
-   }
+                // TEST VIEW
+                btnView.addActionListener(e -> {
+                        new ProductDialog(
+                                        parentFrame,
+                                        ProductDialog.MODE_VIEW,
+                                        mockProductResponseDTO());
+                });
+        }
 
 }

@@ -16,8 +16,7 @@ public class PanelHome extends JPanel {
 
     private ImageIcon originalLogo;
 
-    private final String fullText =
-            "Chào mừng bạn đến với hệ thống quản lí cửa hàng FreshMart";
+    private final String fullText = "Chào mừng bạn đến với hệ thống quản lí cửa hàng FreshMart";
     private int charIndex = 0;
 
     public PanelHome() {
@@ -33,8 +32,7 @@ public class PanelHome extends JPanel {
         lblLogo.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         originalLogo = new ImageIcon(
-                getClass().getResource("/icon/logo.png")
-        );
+                getClass().getResource("/icon/logo.png"));
         lblLogo.setIcon(originalLogo);
 
         // ================= TEXT =================
@@ -80,15 +78,14 @@ public class PanelHome extends JPanel {
         int panelWidth = getWidth();
         int panelHeight = getHeight();
 
-        if (panelWidth <= 0 || panelHeight <= 0) return;
+        if (panelWidth <= 0 || panelHeight <= 0)
+            return;
 
         int targetWidth = (int) (Math.min(panelWidth, panelHeight) / 2);
 
-
         ImageIcon scaled = ImageUtil.scaleIconKeepRatioWidth(
                 originalLogo,
-                targetWidth
-        );
+                targetWidth);
         lblLogo.setIcon(scaled);
     }
 }

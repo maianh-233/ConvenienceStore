@@ -9,8 +9,8 @@ import java.awt.*;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 
-public class FilterExportStatusPanel  {
-     // ===================== CONFIG =====================
+public class FilterExportStatusPanel {
+    // ===================== CONFIG =====================
     private static final int MIN_WIDTH_SHOW_LABEL = 520;
     private static final int COMPONENT_HEIGHT = 44;
 
@@ -18,10 +18,11 @@ public class FilterExportStatusPanel  {
     private static final int COMBO_WIDTH_SMALL = 110;
 
     // 🎨 XÁM MODERN
-    private static final Color BUTTON_BG    = new Color(55, 65, 81);
+    private static final Color BUTTON_BG = new Color(55, 65, 81);
     private static final Color BUTTON_HOVER = new Color(31, 41, 55);
 
-    private FilterExportStatusPanel() {}
+    private FilterExportStatusPanel() {
+    }
 
     // ===================== MAIN =====================
     public static JPanel create(
@@ -31,9 +32,7 @@ public class FilterExportStatusPanel  {
             JLabel lblType,
             JComboBox<?> cbType,
 
-
-            JButton btnFilter
-    ) {
+            JButton btnFilter) {
 
         JPanel panel = new JPanel();
         panel.setOpaque(false);
@@ -90,8 +89,7 @@ public class FilterExportStatusPanel  {
     private static void resizeCombo(JComboBox<?> combo, boolean small) {
         combo.setPreferredSize(new Dimension(
                 small ? COMBO_WIDTH_SMALL : COMBO_WIDTH_LARGE,
-                COMPONENT_HEIGHT
-        ));
+                COMPONENT_HEIGHT));
     }
 
     // ===================== STYLE =====================
@@ -100,7 +98,7 @@ public class FilterExportStatusPanel  {
         label.setForeground(new Color(75, 85, 99));
     }
 
-   private static void styleCombo(JComboBox<?> combo, int width) {
+    private static void styleCombo(JComboBox<?> combo, int width) {
 
         combo.setPreferredSize(new Dimension(width, COMPONENT_HEIGHT));
         combo.setMinimumSize(new Dimension(90, COMPONENT_HEIGHT));
@@ -109,7 +107,6 @@ public class FilterExportStatusPanel  {
         combo.setFont(new Font("Segoe UI", Font.PLAIN, 13));
         combo.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 
-     
         combo.setBackground(Color.WHITE);
         combo.setOpaque(true);
 
@@ -121,8 +118,7 @@ public class FilterExportStatusPanel  {
                     boolean isSelected, boolean cellHasFocus) {
 
                 JLabel lbl = (JLabel) super.getListCellRendererComponent(
-                        list, value, index, isSelected, cellHasFocus
-                );
+                        list, value, index, isSelected, cellHasFocus);
 
                 if (isSelected) {
                     lbl.setBackground(new Color(229, 231, 235)); // xám nhạt modern
@@ -139,7 +135,6 @@ public class FilterExportStatusPanel  {
         // Viền gọn gàng
         combo.setBorder(BorderFactory.createLineBorder(new Color(209, 213, 219)));
     }
-
 
     private static void styleButton(JButton btn) {
 
@@ -165,8 +160,7 @@ public class FilterExportStatusPanel  {
     // ===================== FACTORY =====================
     public static CustomButton createFilterButton(String iconPath) {
         ImageIcon icon = ImageUtil.scaleIcon(
-                new ImageIcon(iconPath), 18, 18
-        );
+                new ImageIcon(iconPath), 18, 18);
         return new CustomButton("Lọc", icon);
     }
 }

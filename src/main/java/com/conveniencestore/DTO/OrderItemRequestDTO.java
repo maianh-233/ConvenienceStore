@@ -9,10 +9,9 @@ import java.math.BigDecimal;
 @Setter
 public class OrderItemRequestDTO {
 
-    private Long id;          // null = create, có = update
-    private Long orderId;     // dùng cho map phức tạp
+    private Long id;        
+    private Long orderId;     
     private Long productId;
-
     private int quantity;
     private BigDecimal unitPrice;
     private BigDecimal totalPrice;

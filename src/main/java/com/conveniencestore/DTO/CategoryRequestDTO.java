@@ -7,9 +7,9 @@ import lombok.Setter;
 @Setter
 public class CategoryRequestDTO {
 
-    private Long id;          // null khi thêm, có khi sửa
-    private String name;      // tên danh mục
-    private String description;
-    private int isDeleted;    // 0 = active, 1 = inactive
-     
+	private Long id;         
+	private String name;     
+	private String description;
+	private int isDeleted;   
+	 
 }

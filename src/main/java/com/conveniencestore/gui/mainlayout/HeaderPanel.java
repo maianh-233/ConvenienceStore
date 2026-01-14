@@ -1,4 +1,5 @@
 package com.conveniencestore.gui.mainlayout;
+
 import javax.swing.*;
 
 import java.awt.*;
@@ -13,9 +14,6 @@ import com.conveniencestore.gui.utils.ImageUtil;
 
 public class HeaderPanel extends JPanel {
 
-
-   
-    
     public HeaderPanel() {
         setPreferredSize(new Dimension(0, 70));
         setBackground(AppColor.HEADER_BG);
@@ -24,7 +22,6 @@ public class HeaderPanel extends JPanel {
         // LEFT
         JPanel left = new JPanel(new FlowLayout(FlowLayout.LEFT, 15, 15));
         left.setOpaque(false);
-
 
         JLabel title = new JLabel("Freshman Convenience Store");
         title.setForeground(Color.WHITE);
@@ -36,22 +33,20 @@ public class HeaderPanel extends JPanel {
         JPanel right = new JPanel(new FlowLayout(FlowLayout.RIGHT, 15, 15));
         right.setOpaque(false);
 
-         // Load + scale icon
+        // Load + scale icon
         ImageIcon notifyIcon = ImageUtil.scaleIcon(
                 new ImageIcon(getClass().getResource("/icon/notification.png")),
-                20, 20
-        );
+                20, 20);
 
         ImageIcon logoutIcon = ImageUtil.scaleIcon(
                 new ImageIcon(getClass().getResource("/icon/logout.png")),
-                20, 20
-        );
+                20, 20);
 
         // Create buttons (icon only)
         CustomButton btnNotify = new CustomButton("", notifyIcon);
         CustomButton btnLogout = new CustomButton("", logoutIcon);
 
-         Dimension btnSize = new Dimension(40, 40);
+        Dimension btnSize = new Dimension(40, 40);
         btnNotify.setPreferredSize(btnSize);
         btnLogout.setPreferredSize(btnSize);
 
@@ -73,6 +68,5 @@ public class HeaderPanel extends JPanel {
         add(left, BorderLayout.WEST);
         add(right, BorderLayout.EAST);
     }
-
 
 }

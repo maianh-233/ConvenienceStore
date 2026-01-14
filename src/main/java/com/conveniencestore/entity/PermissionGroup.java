@@ -19,9 +19,7 @@ public class PermissionGroup {
 
     @Column(nullable = false, length = 50)
     private String code;
-    // ORDER, PRODUCT, CUSTOMER
 
     @Column(nullable = false, length = 100)
     private String name;
-    // Quản lý đơn hàng, Quản lý sản phẩm
 }

@@ -12,7 +12,6 @@ import java.awt.*;
 import java.util.List;
 import javax.swing.table.JTableHeader;
 
-
 public class InventoryAlertPanel extends JPanel {
 
     private JTable table;
@@ -38,9 +37,8 @@ public class InventoryAlertPanel extends JPanel {
 
         add(title, BorderLayout.NORTH);
         JScrollPane scroll = new JScrollPane(table);
-        
-        add( scroll, BorderLayout.CENTER);
-   
+
+        add(scroll, BorderLayout.CENTER);
 
     }
 
@@ -84,14 +82,13 @@ public class InventoryAlertPanel extends JPanel {
         });
     }
 
-
     // ================= LOAD DATA =================
     private void loadData(List<InventoryAlertDTO> items) {
 
         DefaultTableModel model = new DefaultTableModel(
-                new String[]{"Mã SP", "Tên sản phẩm", "Số lượng"}, 0) {
+                new String[] { "Mã SP", "Tên sản phẩm", "Số lượng" }, 0) {
 
-            //Không cho sửa
+            // Không cho sửa
             @Override
             public boolean isCellEditable(int row, int column) {
                 return false;
@@ -99,7 +96,7 @@ public class InventoryAlertPanel extends JPanel {
         };
 
         for (InventoryAlertDTO item : items) {
-            model.addRow(new Object[]{
+            model.addRow(new Object[] {
                     item.productCode,
                     item.productName,
                     item.quantity

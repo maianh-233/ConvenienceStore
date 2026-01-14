@@ -1,4 +1,5 @@
 package com.conveniencestore.gui.unit;
+
 import java.time.format.DateTimeFormatter;
 
 import javax.swing.*;
@@ -11,10 +12,10 @@ import com.conveniencestore.DTO.UnitResponseDTO;
 import com.conveniencestore.gui.utils.CustomButton;
 import com.conveniencestore.gui.utils.ImageUtil;
 
-public class UnitDialog extends JDialog  {
-    
+public class UnitDialog extends JDialog {
+
     public static final int MODE_VIEW = 0;
-    public static final int MODE_ADD  = 1;
+    public static final int MODE_ADD = 1;
     public static final int MODE_EDIT = 2;
 
     private final int mode;
@@ -22,8 +23,8 @@ public class UnitDialog extends JDialog  {
 
     private JTextField txtId;
     private JTextField txtName;
-    private JTextArea  txtDescription;
-    private JLabel     lblStatus;
+    private JTextArea txtDescription;
+    private JLabel lblStatus;
     private JTextField txtCreatedAt;
     private JTextField txtUpdatedAt;
 
@@ -31,15 +32,13 @@ public class UnitDialog extends JDialog  {
     private CustomButton btnEdit;
 
     // ===== GREEN THEME =====
-    private static final Color PRIMARY       = new Color(22, 163, 74);   // emerald-600
-    private static final Color PRIMARY_DARK  = new Color(21, 128, 61);   // emerald-700
+    private static final Color PRIMARY = new Color(22, 163, 74); // emerald-600
+    private static final Color PRIMARY_DARK = new Color(21, 128, 61); // emerald-700
 
-    private static final Color BORDER        = new Color(187, 247, 208); // emerald-200
-    private static final Color LABEL_COLOR   = new Color(22, 101, 52);   // emerald-800
+    private static final Color BORDER = new Color(187, 247, 208); // emerald-200
+    private static final Color LABEL_COLOR = new Color(22, 101, 52); // emerald-800
 
-    private static final DateTimeFormatter UI_DATE =
-        DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
-
+    private static final DateTimeFormatter UI_DATE = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
 
     // ===== STYLE =====
     private static final Font TITLE_FONT = new Font("Segoe UI", Font.BOLD, 20);
@@ -54,7 +53,7 @@ public class UnitDialog extends JDialog  {
         this.mode = mode;
         this.dto = dto;
 
-        getContentPane().setBackground(Color.WHITE); 
+        getContentPane().setBackground(Color.WHITE);
 
         setTitle(getTitleByMode());
         setSize(540, 540);
@@ -65,12 +64,11 @@ public class UnitDialog extends JDialog  {
         add(createForm(), BorderLayout.CENTER);
         add(createButtons(), BorderLayout.SOUTH);
 
-        if (dto != null) bindDTO(dto);
+        if (dto != null)
+            bindDTO(dto);
         applyMode();
         setVisible(true);
     }
-
-
 
     // ================= HEADER =================
     private JPanel createHeader() {
@@ -84,29 +82,27 @@ public class UnitDialog extends JDialog  {
 
         panel.add(title);
         panel.setBorder(
-                BorderFactory.createMatteBorder(0, 0, 2, 0, PRIMARY)
-        );
+                BorderFactory.createMatteBorder(0, 0, 2, 0, PRIMARY));
 
         return panel;
     }
-
 
     // ================= FORM =================
     private JPanel createForm() {
         JPanel wrapper = new JPanel(new BorderLayout());
         wrapper.setBorder(BorderFactory.createEmptyBorder(10, 16, 10, 16));
-        wrapper.setBackground(Color.WHITE); 
-        wrapper.setOpaque(true);   
+        wrapper.setBackground(Color.WHITE);
+        wrapper.setOpaque(true);
         JPanel form = new JPanel();
         form.setLayout(new BoxLayout(form, BoxLayout.Y_AXIS));
         form.setBackground(Color.WHITE);
 
-        txtId          = createTextField();
-        txtName        = createTextField();
+        txtId = createTextField();
+        txtName = createTextField();
         txtDescription = createTextArea();
-        lblStatus      = createStatusLabel();
-        txtCreatedAt   = createTextField();
-        txtUpdatedAt   = createTextField();
+        lblStatus = createStatusLabel();
+        txtCreatedAt = createTextField();
+        txtUpdatedAt = createTextField();
 
         addRow(form, "ID", txtId);
         addRow(form, "Tên danh mục", txtName);
@@ -128,7 +124,6 @@ public class UnitDialog extends JDialog  {
         lbl.setForeground(LABEL_COLOR);
         lbl.setPreferredSize(new Dimension(120, 36));
 
-
         row.add(lbl, BorderLayout.WEST);
         row.add(field, BorderLayout.CENTER);
 
@@ -144,11 +139,9 @@ public class UnitDialog extends JDialog  {
         txt.setPreferredSize(new Dimension(200, 36));
         txt.setBorder(BorderFactory.createCompoundBorder(
                 BorderFactory.createLineBorder(BORDER),
-                BorderFactory.createEmptyBorder(0, 10, 0, 10)
-        ));
+                BorderFactory.createEmptyBorder(0, 10, 0, 10)));
         return txt;
     }
-
 
     private JTextArea createTextArea() {
         JTextArea area = new JTextArea(4, 20);
@@ -157,11 +150,9 @@ public class UnitDialog extends JDialog  {
         area.setWrapStyleWord(true);
         area.setBackground(new Color(240, 253, 244)); // emerald-50
         area.setBorder(
-                BorderFactory.createLineBorder(BORDER)
-        );
+                BorderFactory.createLineBorder(BORDER));
         return area;
     }
-
 
     private JLabel createStatusLabel() {
         JLabel lbl = new JLabel("", SwingConstants.CENTER);
@@ -176,23 +167,19 @@ public class UnitDialog extends JDialog  {
     private JPanel createButtons() {
         JPanel panel = new JPanel(new FlowLayout(FlowLayout.RIGHT, 10, 10));
         panel.setBorder(BorderFactory.createMatteBorder(1, 0, 0, 0, BORDER));
-        panel.setBackground(Color.WHITE); 
-        panel.setOpaque(true);            
+        panel.setBackground(Color.WHITE);
+        panel.setOpaque(true);
         btnAdd = new CustomButton(
                 "Thêm",
                 ImageUtil.scaleIcon(
                         new ImageIcon(getClass().getResource("/icon/plus.png")),
-                        18, 18
-                )
-        );
+                        18, 18));
 
         btnEdit = new CustomButton(
                 "Sửa",
                 ImageUtil.scaleIcon(
                         new ImageIcon(getClass().getResource("/icon/edit.png")),
-                        18, 18
-                )
-        );
+                        18, 18));
         btnAdd.setBackgroundColor(PRIMARY);
         btnEdit.setBackgroundColor(PRIMARY_DARK);
 
@@ -231,6 +218,7 @@ public class UnitDialog extends JDialog  {
             }
         }
     }
+
     private void setViewOnly() {
         // TextField
         txtId.setEditable(false);
@@ -249,7 +237,6 @@ public class UnitDialog extends JDialog  {
         txtUpdatedAt.setFocusable(false);
     }
 
-
     private void setEditable(boolean value) {
         txtName.setEnabled(value);
         txtDescription.setEnabled(value);
@@ -257,7 +244,8 @@ public class UnitDialog extends JDialog  {
 
     private void hideRow(String key) {
         JPanel row = rows.get(key);
-        if (row != null) row.setVisible(false);
+        if (row != null)
+            row.setVisible(false);
     }
 
     // ================= BUSINESS =================
@@ -266,20 +254,16 @@ public class UnitDialog extends JDialog  {
 
         lblStatus.setText(active ? "Đang hoạt động" : "Ngưng hoạt động");
         lblStatus.setForeground(
-                active ? new Color(22, 101, 52) : new Color(153, 27, 27)
-        );
+                active ? new Color(22, 101, 52) : new Color(153, 27, 27));
         lblStatus.setBackground(
-                active ? new Color(220, 252, 231) : new Color(254, 226, 226)
-        );
+                active ? new Color(220, 252, 231) : new Color(254, 226, 226));
     }
-
-
 
     private String getTitleByMode() {
         return switch (mode) {
-            case MODE_ADD  -> "Thêm đơn vị";
+            case MODE_ADD -> "Thêm đơn vị";
             case MODE_EDIT -> "Sửa đơn vị";
-            default        -> "Xem đơn vị";
+            default -> "Xem đơn vị";
         };
     }
 
@@ -291,17 +275,14 @@ public class UnitDialog extends JDialog  {
         txtCreatedAt.setText(
                 dto.getCreatedAt() == null
                         ? ""
-                        : dto.getCreatedAt().format(UI_DATE)
-        );
+                        : dto.getCreatedAt().format(UI_DATE));
 
         txtUpdatedAt.setText(
                 dto.getUpdatedAt() == null
                         ? ""
-                        : dto.getUpdatedAt().format(UI_DATE)
-        );
+                        : dto.getUpdatedAt().format(UI_DATE));
 
         setIsDeleted(dto.getIsDeleted());
     }
 
-    
 }

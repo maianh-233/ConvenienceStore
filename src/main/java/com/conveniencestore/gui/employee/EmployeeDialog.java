@@ -16,7 +16,7 @@ public class EmployeeDialog extends JDialog {
 
     /* ========== MODE ========== */
     public static final int MODE_VIEW = 0;
-    public static final int MODE_ADD  = 1;
+    public static final int MODE_ADD = 1;
     public static final int MODE_EDIT = 2;
 
     private final int mode;
@@ -38,17 +38,16 @@ public class EmployeeDialog extends JDialog {
     private CustomButton btnAdd, btnEdit;
 
     /* ========== THEME ========== */
-    private static final Color PRIMARY      = new Color(22, 163, 74);
+    private static final Color PRIMARY = new Color(22, 163, 74);
     private static final Color PRIMARY_DARK = new Color(21, 128, 61);
-    private static final Color BORDER       = new Color(187, 247, 208);
-    private static final Color LABEL_COLOR  = new Color(22, 101, 52);
+    private static final Color BORDER = new Color(187, 247, 208);
+    private static final Color LABEL_COLOR = new Color(22, 101, 52);
 
     private static final Font TITLE_FONT = new Font("Segoe UI", Font.BOLD, 20);
     private static final Font LABEL_FONT = new Font("Segoe UI", Font.BOLD, 14);
     private static final Font FIELD_FONT = new Font("Segoe UI", Font.PLAIN, 14);
 
-    private static final DateTimeFormatter UI_DATE =
-            DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+    private static final DateTimeFormatter UI_DATE = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
 
     /* ========== ROW MAP ========== */
     private final Map<String, JPanel> rows = new LinkedHashMap<>();
@@ -69,7 +68,8 @@ public class EmployeeDialog extends JDialog {
         add(createContent(), BorderLayout.CENTER);
         add(createButtons(), BorderLayout.SOUTH);
 
-        if (dto != null) bindDTO(dto);
+        if (dto != null)
+            bindDTO(dto);
         applyMode();
         setVisible(true);
     }
@@ -119,8 +119,7 @@ public class EmployeeDialog extends JDialog {
         }
 
         lblImg.setIcon(
-            ImageUtil.scaleIcon(icon, 150, 150)
-        );
+                ImageUtil.scaleIcon(icon, 150, 150));
     }
 
     private JPanel createImagePanel() {
@@ -142,9 +141,7 @@ public class EmployeeDialog extends JDialog {
                 "Chọn ảnh",
                 ImageUtil.scaleIcon(
                         new ImageIcon(getClass().getResource("/icon/image.png")),
-                        16, 16
-                )
-        );
+                        16, 16));
         btnChonAnh.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         panel.add(lblImg);
@@ -153,7 +150,6 @@ public class EmployeeDialog extends JDialog {
 
         return panel;
     }
-
 
     /* ================= FORM ================= */
     private JPanel createFormPanel() {
@@ -215,8 +211,7 @@ public class EmployeeDialog extends JDialog {
         txt.setPreferredSize(new Dimension(200, 36));
         txt.setBorder(BorderFactory.createCompoundBorder(
                 BorderFactory.createLineBorder(BORDER),
-                BorderFactory.createEmptyBorder(0, 10, 0, 10)
-        ));
+                BorderFactory.createEmptyBorder(0, 10, 0, 10)));
         return txt;
     }
 
@@ -298,14 +293,15 @@ public class EmployeeDialog extends JDialog {
 
     private void hideRow(String key) {
         JPanel row = rows.get(key);
-        if (row != null) row.setVisible(false);
+        if (row != null)
+            row.setVisible(false);
     }
 
     private String getTitleByMode() {
         return switch (mode) {
-            case MODE_ADD  -> "Thêm nhân viên";
+            case MODE_ADD -> "Thêm nhân viên";
             case MODE_EDIT -> "Sửa nhân viên";
-            default        -> "Xem nhân viên";
+            default -> "Xem nhân viên";
         };
     }
 

@@ -9,8 +9,8 @@ import java.time.LocalDateTime;
 @Setter
 public class InventoryRequestDTO {
 
-    private Long id;          // null = create, có = update
-    private Long productId;   // dùng khi map phức tạp
+    private Long id;         
+    private Long productId;   
     private int quantity;
     private LocalDateTime lastCheckedAt;
 }

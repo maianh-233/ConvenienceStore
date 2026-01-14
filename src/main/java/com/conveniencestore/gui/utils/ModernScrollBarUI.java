@@ -44,20 +44,18 @@ public class ModernScrollBarUI extends BasicScrollBarUI {
 
     @Override
     protected void paintThumb(Graphics g, JComponent c, Rectangle r) {
-        if (!scrollbar.isEnabled() || r.height <= 0) return;
+        if (!scrollbar.isEnabled() || r.height <= 0)
+            return;
 
         Graphics2D g2 = (Graphics2D) g.create();
         g2.setRenderingHint(
                 RenderingHints.KEY_ANTIALIASING,
-                RenderingHints.VALUE_ANTIALIAS_ON
-        );
+                RenderingHints.VALUE_ANTIALIAS_ON);
 
         // 👉 SET ALPHA TRƯỚC
         g2.setComposite(
                 AlphaComposite.getInstance(
-                        AlphaComposite.SRC_OVER, ALPHA
-                )
-        );
+                        AlphaComposite.SRC_OVER, ALPHA));
 
         g2.setColor(thumbColor);
 
@@ -69,8 +67,7 @@ public class ModernScrollBarUI extends BasicScrollBarUI {
                 THUMB_WIDTH,
                 r.height,
                 ARC,
-                ARC
-        );
+                ARC);
 
         g2.dispose();
     }

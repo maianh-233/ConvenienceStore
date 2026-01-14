@@ -14,65 +14,62 @@ import java.awt.event.ComponentEvent;
 import org.apache.commons.compress.harmony.unpack200.bytecode.forms.ThisFieldRefForm;
 
 public class MainFrame extends JFrame implements SidebarListener {
-    private SidebarPanel sidebar;
-    private MainContentPanel mainContent;
+	private SidebarPanel sidebar;
+	private MainContentPanel mainContent;
 
-    private Dimension screenSize;
-    public MainFrame() {
-        setTitle("Freshman Convenience Store");
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
+	private Dimension screenSize;
 
-        // Lấy kích thước màn hình
-        screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+	public MainFrame() {
+		setTitle("Freshman Convenience Store");
+		setDefaultCloseOperation(EXIT_ON_CLOSE);
 
-        // Set kích thước ban đầu = màn hình
-        setSize(screenSize);
+		// Lấy kích thước màn hình
+		screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 
-        // Giới hạn thu nhỏ
-        setMinimumSize(new Dimension(1100, 650));
+		// Set kích thước ban đầu = màn hình
+		setSize(screenSize);
 
-        
-        setLayout(new BorderLayout());
+		// Giới hạn thu nhỏ
+		setMinimumSize(new Dimension(1100, 650));
 
-        HeaderPanel header = new HeaderPanel();
-        sidebar = new SidebarPanel();
-        sidebar.setSidebarListener(this);
+		setLayout(new BorderLayout());
 
-        mainContent = new MainContentPanel(this);
+		HeaderPanel header = new HeaderPanel();
+		sidebar = new SidebarPanel();
+		sidebar.setSidebarListener(this);
 
-        JPanel body = new JPanel(new BorderLayout());
-        body.add(sidebar, BorderLayout.WEST);
-        body.add(mainContent, BorderLayout.CENTER);
+		mainContent = new MainContentPanel(this);
 
-        add(header, BorderLayout.NORTH);
-        add(body, BorderLayout.CENTER);
+		JPanel body = new JPanel(new BorderLayout());
+		body.add(sidebar, BorderLayout.WEST);
+		body.add(mainContent, BorderLayout.CENTER);
 
-        // Resize listener theo kích thước màn hình
-        addComponentListener(new ComponentAdapter() {
-            @Override
-            public void componentResized(ComponentEvent e) {
-                handleResize();
-            }
-        });
-    }
+		add(header, BorderLayout.NORTH);
+		add(body, BorderLayout.CENTER);
 
-    // Kế thừa phương thúc của interface => Lắng nghe sự kiện chọn ở sidebar
-    @Override
-    public void onMenuSelected(String menuKey) {
-        mainContent.showPage(menuKey);
-    }
+		// Resize listener theo kích thước màn hình
+		addComponentListener(new ComponentAdapter() {
+			@Override
+			public void componentResized(ComponentEvent e) {
+				handleResize();
+			}
+		});
+	}
 
-    // Thu nhỏ sidebar khi người dùng resize
-    private void handleResize() {
-        int frameWidth = getWidth();
-        int screenWidth = screenSize.width;
+	// Kế thừa phương thúc của interface => Lắng nghe sự kiện chọn ở sidebar
+	@Override
+	public void onMenuSelected(String menuKey) {
+		mainContent.showPage(menuKey);
+	}
 
-        boolean shouldCollapse = frameWidth < screenWidth;
+	// Thu nhỏ sidebar khi người dùng resize
+	private void handleResize() {
+		int frameWidth = getWidth();
+		int screenWidth = screenSize.width;
 
-        sidebar.collapse(shouldCollapse);
-    }
+		boolean shouldCollapse = frameWidth < screenWidth;
 
-
-    
+		sidebar.collapse(shouldCollapse);
+	}
 
 }

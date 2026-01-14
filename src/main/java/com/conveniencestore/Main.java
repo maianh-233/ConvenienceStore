@@ -1,7 +1,6 @@
 package com.conveniencestore;
 
 import com.conveniencestore.gui.MainFrame;
-
 import javax.swing.SwingUtilities;
 
 public class Main {

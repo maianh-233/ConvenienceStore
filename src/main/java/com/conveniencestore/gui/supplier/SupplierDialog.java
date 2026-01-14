@@ -13,7 +13,7 @@ import java.util.Map;
 public class SupplierDialog extends JDialog {
 
     public static final int MODE_VIEW = 0;
-    public static final int MODE_ADD  = 1;
+    public static final int MODE_ADD = 1;
     public static final int MODE_EDIT = 2;
 
     private final int mode;
@@ -23,24 +23,22 @@ public class SupplierDialog extends JDialog {
     private JTextField txtName;
     private JTextField txtEmail;
     private JTextField txtPhone;
-    private JTextArea  txtAddress;
-    private JLabel     lblStatus;
+    private JTextArea txtAddress;
+    private JLabel lblStatus;
     private JTextField txtCreatedAt;
     private JTextField txtUpdatedAt;
     private JTextArea txtNote;
-
 
     private CustomButton btnAdd;
     private CustomButton btnEdit;
 
     // ===== GREEN THEME =====
-    private static final Color PRIMARY       = new Color(22, 163, 74);
-    private static final Color PRIMARY_DARK  = new Color(21, 128, 61);
-    private static final Color BORDER        = new Color(187, 247, 208);
-    private static final Color LABEL_COLOR   = new Color(22, 101, 52);
+    private static final Color PRIMARY = new Color(22, 163, 74);
+    private static final Color PRIMARY_DARK = new Color(21, 128, 61);
+    private static final Color BORDER = new Color(187, 247, 208);
+    private static final Color LABEL_COLOR = new Color(22, 101, 52);
 
-    private static final DateTimeFormatter UI_DATE =
-            DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+    private static final DateTimeFormatter UI_DATE = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
 
     // ===== STYLE =====
     private static final Font TITLE_FONT = new Font("Segoe UI", Font.BOLD, 20);
@@ -65,7 +63,8 @@ public class SupplierDialog extends JDialog {
         add(createForm(), BorderLayout.CENTER);
         add(createButtons(), BorderLayout.SOUTH);
 
-        if (dto != null) bindDTO(dto);
+        if (dto != null)
+            bindDTO(dto);
         applyMode();
         setVisible(true);
     }
@@ -96,14 +95,14 @@ public class SupplierDialog extends JDialog {
         form.setLayout(new BoxLayout(form, BoxLayout.Y_AXIS));
         form.setBackground(Color.WHITE);
 
-        txtId        = createTextField();
-        txtName      = createTextField();
-        txtEmail     = createTextField();
-        txtPhone     = createTextField();
-        txtAddress   = createTextArea();
-        txtNote = createTextArea(); 
+        txtId = createTextField();
+        txtName = createTextField();
+        txtEmail = createTextField();
+        txtPhone = createTextField();
+        txtAddress = createTextArea();
+        txtNote = createTextArea();
 
-        lblStatus    = createStatusLabel();
+        lblStatus = createStatusLabel();
         txtCreatedAt = createTextField();
         txtUpdatedAt = createTextField();
 
@@ -145,8 +144,7 @@ public class SupplierDialog extends JDialog {
         txt.setPreferredSize(new Dimension(200, 36));
         txt.setBorder(BorderFactory.createCompoundBorder(
                 BorderFactory.createLineBorder(BORDER),
-                BorderFactory.createEmptyBorder(0, 10, 0, 10)
-        ));
+                BorderFactory.createEmptyBorder(0, 10, 0, 10)));
         return txt;
     }
 
@@ -177,12 +175,10 @@ public class SupplierDialog extends JDialog {
 
         btnAdd = new CustomButton(
                 "Thêm",
-                ImageUtil.scaleIcon(new ImageIcon(getClass().getResource("/icon/plus.png")), 18, 18)
-        );
+                ImageUtil.scaleIcon(new ImageIcon(getClass().getResource("/icon/plus.png")), 18, 18));
         btnEdit = new CustomButton(
                 "Sửa",
-                ImageUtil.scaleIcon(new ImageIcon(getClass().getResource("/icon/edit.png")), 18, 18)
-        );
+                ImageUtil.scaleIcon(new ImageIcon(getClass().getResource("/icon/edit.png")), 18, 18));
 
         btnAdd.setBackgroundColor(PRIMARY);
         btnEdit.setBackgroundColor(PRIMARY_DARK);
@@ -244,7 +240,8 @@ public class SupplierDialog extends JDialog {
 
     private void hideRow(String key) {
         JPanel row = rows.get(key);
-        if (row != null) row.setVisible(false);
+        if (row != null)
+            row.setVisible(false);
     }
 
     // ================= BUSINESS =================
@@ -258,9 +255,9 @@ public class SupplierDialog extends JDialog {
 
     private String getTitleByMode() {
         return switch (mode) {
-            case MODE_ADD  -> "Thêm nhà cung cấp";
+            case MODE_ADD -> "Thêm nhà cung cấp";
             case MODE_EDIT -> "Sửa nhà cung cấp";
-            default        -> "Xem nhà cung cấp";
+            default -> "Xem nhà cung cấp";
         };
     }
 

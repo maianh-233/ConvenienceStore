@@ -1,21 +1,21 @@
-package com.conveniencestore.gui.order;
+package com.conveniencestore.gui.exportcomponent;
 
 import javax.swing.*;
+
 import java.awt.*;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.List;
 
-import com.conveniencestore.DTO.OrderItemResponseDTO;
-import com.conveniencestore.DTO.OrderResponseDTO;
-import com.conveniencestore.constant.OrderStatus;
-import com.conveniencestore.constant.PaymentMethod;
-import com.conveniencestore.constant.PaymentStatus;
+import com.conveniencestore.DTO.InventoryExportItemResponseDTO;
+import com.conveniencestore.DTO.InventoryExportResponseDTO;
+import com.conveniencestore.constant.ExportStatus;
+import com.conveniencestore.constant.ExportType;
 import com.conveniencestore.gui.utils.CustomButton;
 import com.conveniencestore.gui.utils.ImageUtil;
 import com.conveniencestore.gui.utils.ModernScrollBarUI;
 
-public class OrderDialog extends JDialog {
+public class ExportDialog extends JDialog {
 
     /* ================= MODE ================= */
     public static final int MODE_VIEW = 0;
@@ -23,35 +23,24 @@ public class OrderDialog extends JDialog {
     public static final int MODE_EDIT = 2;
 
     private final int mode;
-    private final OrderResponseDTO dto;
-    private final List<OrderItemResponseDTO> orderItems;
+    private final InventoryExportResponseDTO dto;
+    private final List<InventoryExportItemResponseDTO> exportItems;
 
     /* ================= FORMAT ================= */
     private static final DateTimeFormatter UI_DATE = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
 
     /* ================= COMPONENTS ================= */
     private JTextField txtId;
-    private JTextField txtOrderNumber;
-    private JTextField txtCustomer;
-    private JTextField txtStaff;
-
-    private JLabel lblOrderStatus;
-    private JLabel lblIsDeleted;
-
-    private JTextField txtCreatedAt;
-    private JTextField txtUpdatedAt;
+    private JTextField txtExportCode;
+    private JLabel lblExportStatus;
+    private JComboBox cbbExportType;
     private JTextArea txtNote;
+    private JLabel lblIsDeleted;
+    private JTextField txtStaff;
+    private JTextField txtUpdatedAt;
+    private JTextField txtCreatedAt;
 
-    private JComboBox<String> cmbPromotion;
-    private JTextField txtSubtotal;
-    private JTextField txtDiscount;
-    private JTextField txtTotal;
-
-    private JComboBox<PaymentMethod> cmbPaymentMethod;
-    private JTextField txtTransactionRef;
-    private JLabel lblPaymentStatus;
-
-    private OrderItemPanel orderItemPanel;
+    private ExportItemPanel exportItemPanel;
 
     private CustomButton btnSave;
     private CustomButton btnEdit;
@@ -70,15 +59,15 @@ public class OrderDialog extends JDialog {
     private final Map<String, JPanel> rows = new LinkedHashMap<>();
 
     /* ================= CONSTRUCTOR ================= */
-    public OrderDialog(
+    public ExportDialog(
             JFrame parent,
             int mode,
-            OrderResponseDTO dto,
-            List<OrderItemResponseDTO> orderItems) {
+            InventoryExportResponseDTO dto,
+            List<InventoryExportItemResponseDTO> exportItems) {
         super(parent, true);
         this.mode = mode;
         this.dto = dto;
-        this.orderItems = orderItems;
+        this.exportItems = exportItems;
 
         setTitle(getTitleByMode());
         setSize(760, 720);
@@ -119,38 +108,24 @@ public class OrderDialog extends JDialog {
 
         // ===== Fields =====
         txtId = createTextField();
-        txtOrderNumber = createTextField();
-        txtCustomer = createTextField();
+        txtExportCode = createTextField();
         txtStaff = createTextField();
-
-        lblOrderStatus = createStatusLabel();
+        lblExportStatus = createStatusLabel();
         lblIsDeleted = createStatusLabel();
 
+        cbbExportType = new JComboBox<>(ExportType.values());
+        cbbExportType.setFont(FIELD_FONT);
         txtCreatedAt = createTextField();
         txtUpdatedAt = createTextField();
 
         txtNote = createTextArea();
 
-        cmbPromotion = new JComboBox<>();
-        cmbPromotion.setFont(FIELD_FONT);
-
-        txtSubtotal = createTextField();
-        txtDiscount = createTextField();
-        txtTotal = createTextField();
-
-        cmbPaymentMethod = new JComboBox<>(PaymentMethod.values());
-        cmbPaymentMethod.setFont(FIELD_FONT);
-
-        txtTransactionRef = createTextField();
-        lblPaymentStatus = createStatusLabel();
-
         // ===== Rows =====
         addRow(form, "ID", txtId);
-        addRow(form, "Mã đơn", txtOrderNumber);
-        addRow(form, "Khách hàng", txtCustomer);
+        addRow(form, "Mã đơn", txtExportCode);
         addRow(form, "Nhân viên", txtStaff);
-
-        addRow(form, "Trạng thái đơn", lblOrderStatus);
+        addRow(form, "Loại xuất", cbbExportType);
+        addRow(form, "Trạng thái đơn", lblExportStatus);
         addRow(form, "Xóa", lblIsDeleted);
 
         addRow(form, "Ngày tạo", txtCreatedAt);
@@ -159,25 +134,15 @@ public class OrderDialog extends JDialog {
         addRow(form, "Ghi chú", new JScrollPane(txtNote));
 
         addSectionTitle(form, "Danh sách sản phẩm");
-        orderItemPanel = new OrderItemPanel();
-        form.add(orderItemPanel);
+        exportItemPanel = new ExportItemPanel();
+        form.add(exportItemPanel);
         form.add(Box.createVerticalStrut(12));
-
-        addSectionTitle(form, "Thanh toán");
-        form.add(Box.createVerticalStrut(12));
-        addRow(form, "Khuyến mãi", cmbPromotion);
-        addRow(form, "Tạm tính", txtSubtotal);
-        addRow(form, "Giảm giá", txtDiscount);
-        addRow(form, "Tổng tiền", txtTotal);
-        addRow(form, "PT thanh toán", cmbPaymentMethod);
-        addRow(form, "Mã GD", txtTransactionRef);
-        addRow(form, "TT thanh toán", lblPaymentStatus);
 
         JScrollPane scroll = new JScrollPane(form);
         scroll.setBorder(null);
         scroll.getVerticalScrollBar().setUnitIncrement(18);
 
-        // 🔥 GẮN MODERN SCROLLBAR
+        // GẮN MODERN SCROLLBAR
         scroll.getVerticalScrollBar().setUI(new ModernScrollBarUI());
         scroll.getVerticalScrollBar().setPreferredSize(new Dimension(10, Integer.MAX_VALUE));
 
@@ -288,13 +253,13 @@ public class OrderDialog extends JDialog {
     private void applyMode() {
         switch (mode) {
             case MODE_VIEW -> {
-                orderItemPanel.setViewData(orderItems);
+                exportItemPanel.setViewData(exportItems);
                 setViewOnly();
                 btnSave.setVisible(false);
                 btnEdit.setVisible(false);
             }
             case MODE_ADD -> {
-                orderItemPanel.setAddMode();
+                exportItemPanel.setAddMode();
                 hideRow("ID");
                 hideRow("Trạng thái đơn");
                 hideRow("Xóa");
@@ -303,7 +268,7 @@ public class OrderDialog extends JDialog {
                 btnEdit.setVisible(false);
             }
             case MODE_EDIT -> {
-                orderItemPanel.setEditData(orderItems, new ArrayList<>());
+                exportItemPanel.setEditData(exportItems, new ArrayList<>());
                 hideRow("Ngày tạo");
                 hideRow("Ngày cập nhật");
                 btnSave.setVisible(false);
@@ -325,20 +290,10 @@ public class OrderDialog extends JDialog {
     }
 
     /* ================= STATUS CUSTOM ================= */
-    private void setOrderStatus(OrderStatus status) {
-        lblOrderStatus.setText(status.getDisplayName());
-        lblOrderStatus.setForeground(new Color(22, 101, 52));
-        lblOrderStatus.setBackground(new Color(220, 252, 231));
-    }
-
-    private void setPaymentStatus(PaymentStatus status) {
-        lblPaymentStatus.setText(status.getDisplayName());
-        Color bg = switch (status) {
-            case COMPLETED -> new Color(220, 252, 231);
-            case FAILED, CANCELLED -> new Color(254, 226, 226);
-            default -> new Color(254, 249, 195);
-        };
-        lblPaymentStatus.setBackground(bg);
+    private void setExportStatus(ExportStatus status) {
+        lblExportStatus.setText(status.getDisplayName());
+        lblExportStatus.setForeground(new Color(22, 101, 52));
+        lblExportStatus.setBackground(new Color(220, 252, 231));
     }
 
     private void setIsDeleted(int value) {
@@ -349,35 +304,23 @@ public class OrderDialog extends JDialog {
     }
 
     /* ================= BIND DTO ================= */
-    private void bindDTO(OrderResponseDTO dto) {
+    private void bindDTO(InventoryExportResponseDTO dto) {
+
         txtId.setText(String.valueOf(dto.getId()));
-        txtOrderNumber.setText(dto.getOrderNumber());
-        txtCustomer.setText(dto.getCustomerName());
-        txtStaff.setText(dto.getStaffName());
-
-        setOrderStatus(dto.getStatus());
+        txtExportCode.setText(dto.getCode());
+        cbbExportType.setSelectedItem(dto.getExportType());
+        txtStaff.setText(dto.getCreatedByName());
+        setExportStatus(dto.getStatus());
         setIsDeleted(dto.getIsDeleted());
-
-        if (dto.getCreatedAt() != null) {
-            txtCreatedAt.setText(dto.getCreatedAt().format(UI_DATE));
-        }
-
-        if (dto.getUpdatedAt() != null) {
-            txtUpdatedAt.setText(dto.getUpdatedAt().format(UI_DATE));
-        }
-
+        txtCreatedAt.setText(
+                dto.getCreatedAt() != null
+                        ? dto.getCreatedAt().format(UI_DATE)
+                        : "");
+        txtUpdatedAt.setText(
+                dto.getUpdatedAt() != null
+                        ? dto.getUpdatedAt().format(UI_DATE)
+                        : "");
         txtNote.setText(dto.getNote());
-
-        txtSubtotal.setText(
-                dto.getSubtotal() != null ? dto.getSubtotal().toString() : "0");
-        txtDiscount.setText(
-                dto.getDiscount() != null ? dto.getDiscount().toString() : "0");
-        txtTotal.setText(
-                dto.getTotalAmount() != null ? dto.getTotalAmount().toString() : "0");
-
-        // ===== Payment =====
-        cmbPaymentMethod.setSelectedItem(dto.getPaymentMethod());
-        setPaymentStatus(dto.getPaymentStatus());
     }
 
     private String getTitleByMode() {

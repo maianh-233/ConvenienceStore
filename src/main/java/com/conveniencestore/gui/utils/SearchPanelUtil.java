@@ -18,8 +18,8 @@ import javax.swing.SwingConstants;
 /**
  * SearchPanelUtil - Search panel responsive
  *
- * - Panel nhỏ  : chỉ icon search
- * - Panel lớn  : icon + text
+ * - Panel nhỏ : chỉ icon search
+ * - Panel lớn : icon + text
  * - Không bị "..."
  * - Không xử lý logic tìm kiếm
  */
@@ -38,7 +38,8 @@ public class SearchPanelUtil {
     private static final Color BUTTON_BG = new Color(22, 163, 74);
     private static final Color BUTTON_HOVER = new Color(21, 128, 61);
 
-    private SearchPanelUtil() {}
+    private SearchPanelUtil() {
+    }
 
     // ===================== CREATE SEARCH PANEL =====================
     public static JPanel createSearchPanel(JTextField txtSearch, JButton btnSearch) {
@@ -74,13 +75,11 @@ public class SearchPanelUtil {
                 if (width < MIN_WIDTH_SHOW_TEXT) {
                     setButtonIconOnly(btnSearch);
                     txtSearch.setPreferredSize(
-                            new Dimension(TEXTFIELD_MIN_WIDTH, TEXTFIELD_HEIGHT)
-                    );
+                            new Dimension(TEXTFIELD_MIN_WIDTH, TEXTFIELD_HEIGHT));
                 } else {
                     setButtonWithText(btnSearch, originalText);
                     txtSearch.setPreferredSize(
-                            new Dimension(TEXTFIELD_MAX_WIDTH, TEXTFIELD_HEIGHT)
-                    );
+                            new Dimension(TEXTFIELD_MAX_WIDTH, TEXTFIELD_HEIGHT));
                 }
 
                 panel.revalidate();

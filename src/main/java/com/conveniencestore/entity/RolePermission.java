@@ -25,5 +25,5 @@ public class RolePermission {
     private Permission permission;
 
     @Column(name = "is_active", nullable = false)
-    private int isActive; // 0 / 1
+    private int isActive; 
 }
