@@ -1,12 +1,10 @@
 package com.conveniencestore.gui.exportcomponent;
 
 import javax.swing.*;
-
 import java.awt.*;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.List;
-
 import com.conveniencestore.DTO.InventoryExportItemResponseDTO;
 import com.conveniencestore.DTO.InventoryExportResponseDTO;
 import com.conveniencestore.constant.ExportStatus;
@@ -39,9 +37,7 @@ public class ExportDialog extends JDialog {
     private JTextField txtStaff;
     private JTextField txtUpdatedAt;
     private JTextField txtCreatedAt;
-
     private ExportItemPanel exportItemPanel;
-
     private CustomButton btnSave;
     private CustomButton btnEdit;
     private CustomButton btnClose;
@@ -112,12 +108,10 @@ public class ExportDialog extends JDialog {
         txtStaff = createTextField();
         lblExportStatus = createStatusLabel();
         lblIsDeleted = createStatusLabel();
-
         cbbExportType = new JComboBox<>(ExportType.values());
         cbbExportType.setFont(FIELD_FONT);
         txtCreatedAt = createTextField();
         txtUpdatedAt = createTextField();
-
         txtNote = createTextArea();
 
         // ===== Rows =====
@@ -142,11 +136,8 @@ public class ExportDialog extends JDialog {
         scroll.setBorder(null);
         scroll.getVerticalScrollBar().setUnitIncrement(18);
 
-        // GẮN MODERN SCROLLBAR
         scroll.getVerticalScrollBar().setUI(new ModernScrollBarUI());
         scroll.getVerticalScrollBar().setPreferredSize(new Dimension(10, Integer.MAX_VALUE));
-
-        // (Optional) nếu không cần scroll ngang
         scroll.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         scroll.getHorizontalScrollBar().setPreferredSize(new Dimension(0, 0));
 
@@ -181,7 +172,6 @@ public class ExportDialog extends JDialog {
         lbl.setForeground(PRIMARY_DARK);
         lbl.setBorder(BorderFactory.createEmptyBorder(12, 0, 6, 0));
 
-        // Thanh nhấn bên trái
         JPanel accent = new JPanel();
         accent.setPreferredSize(new Dimension(4, 1));
         accent.setBackground(PRIMARY);

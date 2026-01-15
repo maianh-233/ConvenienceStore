@@ -6,8 +6,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.LinkedHashMap;
 import java.util.Map;
-
-import com.conveniencestore.DTO.CategoryResponseDTO;
 import com.conveniencestore.DTO.UnitResponseDTO;
 import com.conveniencestore.gui.utils.CustomButton;
 import com.conveniencestore.gui.utils.ImageUtil;

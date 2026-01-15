@@ -99,19 +99,14 @@ public class PromotionDialog extends JDialog {
         txtCode = createTextField();
         txtName = createTextField();
         txtValue = createTextField();
-
         cbbType = createCombo(new String[] { "PERCENT", "FIXED", "FREESHIP" });
         txtStartAt = createTextField();
         txtEndAt = createTextField();
-
         lblStatus = createStatusLabel();
-
         cbbCustomerTier = createCustomerTierCombo();
         txtMaxUses = createTextField();
         txtMinOrderAmount = createTextField();
-
         txtNote = createTextArea();
-
         txtCreatedAt = createTextField();
         txtUpdatedAt = createTextField();
 

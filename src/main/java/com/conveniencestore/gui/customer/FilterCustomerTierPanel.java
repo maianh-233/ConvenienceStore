@@ -1,13 +1,26 @@
 package com.conveniencestore.gui.customer;
 
-import javax.swing.*;
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.Cursor;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.Insets;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
+import javax.swing.BorderFactory;
+import javax.swing.Box;
+import javax.swing.BoxLayout;
+import javax.swing.DefaultListCellRenderer;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JLabel;
+import javax.swing.JList;
+import javax.swing.JPanel;
 
 import com.conveniencestore.gui.utils.CustomButton;
 import com.conveniencestore.gui.utils.ImageUtil;
-
-import java.awt.*;
-import java.awt.event.ComponentAdapter;
-import java.awt.event.ComponentEvent;
 
 public class FilterCustomerTierPanel {
 
@@ -100,7 +113,6 @@ public class FilterCustomerTierPanel {
         combo.setFont(new Font("Segoe UI", Font.PLAIN, 13));
         combo.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 
-        // QUAN TRỌNG
         combo.setBackground(Color.WHITE);
         combo.setOpaque(true);
 
@@ -115,7 +127,7 @@ public class FilterCustomerTierPanel {
                         list, value, index, isSelected, cellHasFocus);
 
                 if (isSelected) {
-                    lbl.setBackground(new Color(229, 231, 235)); // xám nhạt modern
+                    lbl.setBackground(new Color(229, 231, 235)); 
                 } else {
                     lbl.setBackground(Color.WHITE);
                 }

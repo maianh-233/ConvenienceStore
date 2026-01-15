@@ -2,11 +2,9 @@ package com.conveniencestore.gui.importcomponent;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
-
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
-
 import com.conveniencestore.DTO.ImportItemRequestDTO;
 import com.conveniencestore.DTO.ImportItemResponseDTO;
 import com.conveniencestore.gui.utils.CustomButton;
@@ -52,34 +50,9 @@ public class ImportItemPanel extends JPanel {
     private static final Color LABEL_COLOR = new Color(22, 101, 52);
 
     /* ================= THEME ================= */
-
-    // ===== SUCCESS (Hoàn tất / OK) =====
     private static final Color SUCCESS = new Color(34, 197, 94);
-    private static final Color SUCCESS_BG = new Color(220, 252, 231);
-
-    // ===== INFO (Xem / Chi tiết) =====
-    private static final Color INFO = new Color(37, 99, 235); // Xanh dương
-    private static final Color INFO_BG = new Color(219, 234, 254);
-
-    // ===== WARNING (Chú ý / Tạm thời) =====
-    private static final Color WARNING = new Color(217, 119, 6); // Cam
-    private static final Color WARNING_BG = new Color(254, 249, 195);
-
-    // ===== DANGER (Xóa / Huỷ) =====
-    private static final Color DANGER_BG = new Color(254, 226, 226);
-
-    // ===== NEUTRAL (Đóng / Huỷ / Phụ) =====
-    private static final Color NEUTRAL = new Color(107, 114, 128); // Xám
-    private static final Color NEUTRAL_BG = new Color(243, 244, 246);
-
-    // ===== TEXT =====
-    private static final Color TEXT_PRIMARY = new Color(31, 41, 55);
-    private static final Color TEXT_MUTED = new Color(107, 114, 128);
-
-    // ===== BORDER / BACKGROUND =====
-    private static final Color BORDER_LIGHT = new Color(209, 250, 229);
-    private static final Color BG_LIGHT = new Color(240, 253, 244);
-
+    private static final Color WARNING = new Color(217, 119, 6); 
+    private static final Color NEUTRAL = new Color(107, 114, 128); 
     private static final Font LABEL_FONT = new Font("Segoe UI", Font.BOLD, 14);
     private static final Font FIELD_FONT = new Font("Segoe UI", Font.PLAIN, 14);
 
@@ -92,7 +65,6 @@ public class ImportItemPanel extends JPanel {
         applyParentMode();
     }
 
-    /* ================= API – CHA GỌI ================= */
     public void setViewData(List<ImportItemResponseDTO> items) {
         parentMode = MODE_VIEW;
         responseItems.clear();
@@ -100,7 +72,7 @@ public class ImportItemPanel extends JPanel {
         requestItems.clear();
 
         setBorder(BorderFactory.createLineBorder(
-                new Color(187, 247, 208), // BORDER
+                new Color(187, 247, 208), 
                 1));
 
         applyParentMode();
@@ -215,13 +187,9 @@ public class ImportItemPanel extends JPanel {
     /* ================= APPLY MODE ================= */
     private void applyParentMode() {
         boolean editable = parentMode != MODE_VIEW;
-
-        // 🔥 ẨN HẲN FORM KHI VIEW
         formSection.setVisible(editable);
-
         btnEdit.setVisible(editable);
         btnDelete.setVisible(editable);
-
         table.setEnabled(editable);
 
         if (!editable)

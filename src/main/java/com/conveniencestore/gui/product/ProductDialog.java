@@ -5,7 +5,6 @@ import com.conveniencestore.gui.utils.ComboItem;
 import com.conveniencestore.gui.utils.CustomButton;
 import com.conveniencestore.gui.utils.ImageUtil;
 import com.conveniencestore.gui.utils.ModernScrollBarUI;
-
 import javax.swing.*;
 import java.awt.*;
 import java.time.format.DateTimeFormatter;

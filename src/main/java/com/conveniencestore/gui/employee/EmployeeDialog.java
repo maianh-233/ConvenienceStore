@@ -5,7 +5,6 @@ import com.conveniencestore.gui.utils.ComboItem;
 import com.conveniencestore.gui.utils.CustomButton;
 import com.conveniencestore.gui.utils.ImageUtil;
 import com.conveniencestore.gui.utils.ModernScrollBarUI;
-
 import javax.swing.*;
 import java.awt.*;
 import java.time.format.DateTimeFormatter;
@@ -25,16 +24,12 @@ public class EmployeeDialog extends JDialog {
     /* ========== COMPONENT ========== */
     private JLabel lblImg;
     private CustomButton btnChonAnh;
-
     private JTextField txtId, txtUsername, txtFullName;
     private JTextField txtDob, txtEmail, txtPhone;
     private JTextField txtCreatedAt, txtUpdatedAt;
-
     private JComboBox<ComboItem<Integer>> cbbGender;
     private JComboBox<ComboItem<Long>> cbbRole;
-
     private JLabel lblActive;
-
     private CustomButton btnAdd, btnEdit;
 
     /* ========== THEME ========== */
@@ -145,7 +140,7 @@ public class EmployeeDialog extends JDialog {
         btnChonAnh.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         panel.add(lblImg);
-        panel.add(Box.createVerticalStrut(10)); // khoảng cách
+        panel.add(Box.createVerticalStrut(10));
         panel.add(btnChonAnh);
 
         return panel;
@@ -166,10 +161,8 @@ public class EmployeeDialog extends JDialog {
         txtPhone = createTextField();
         txtCreatedAt = createTextField();
         txtUpdatedAt = createTextField();
-
         cbbGender = createGenderCombo();
         cbbRole = createRoleCombo();
-
         lblActive = createStatusLabel();
 
         addRow(form, "ID", txtId);

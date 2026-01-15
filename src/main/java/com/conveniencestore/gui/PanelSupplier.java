@@ -1,12 +1,9 @@
 package com.conveniencestore.gui;
 
 import javax.swing.*;
-
 import java.awt.*;
 import java.net.URL;
-
 import javax.swing.table.DefaultTableModel;
-
 import com.conveniencestore.DTO.SupplierResponseDTO;
 import com.conveniencestore.gui.supplier.SupplierDialog;
 import com.conveniencestore.gui.utils.ButtonPanelUtil;

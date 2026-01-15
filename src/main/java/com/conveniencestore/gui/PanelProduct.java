@@ -1,12 +1,9 @@
 package com.conveniencestore.gui;
 
 import javax.swing.*;
-
 import java.awt.*;
 import java.net.URL;
-
 import javax.swing.table.DefaultTableModel;
-
 import com.conveniencestore.DTO.ProductResponseDTO;
 import com.conveniencestore.gui.product.ProductDialog;
 import com.conveniencestore.gui.product.ProductStatPanel;
@@ -198,7 +195,6 @@ public class PanelProduct extends JPanel {
                 dto.setDescription("Nước ngọt có gas Coca-Cola lon 330ml, giải khát tức thì.");
 
                 dto.setImageUrl("/icon/product.png");
-                // set null để test ảnh mặc định
 
                 dto.setIsActive(1); // 1 = đang bán, 0 = ngưng bán
 

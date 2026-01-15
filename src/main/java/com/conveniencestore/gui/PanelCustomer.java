@@ -1,12 +1,9 @@
 package com.conveniencestore.gui;
 
 import javax.swing.*;
-
 import java.awt.*;
 import java.net.URL;
-
 import javax.swing.table.DefaultTableModel;
-
 import com.conveniencestore.DTO.CustomerResponseDTO;
 import com.conveniencestore.constant.CustomerTier;
 import com.conveniencestore.gui.customer.CustomerDialog;

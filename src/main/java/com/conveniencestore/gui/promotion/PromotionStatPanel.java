@@ -18,7 +18,6 @@ public class PromotionStatPanel extends JPanel {
         setOpaque(false);
         setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
-        // Icon (bạn đổi path theo project)
         Icon iconcardActivePromotion = ImageUtil.scaleIcon(
                 new ImageIcon(getIconUrl("/icon/active.png")), 20, 20);
         Icon iconcardInActivePromotion = ImageUtil.scaleIcon(
@@ -34,7 +33,6 @@ public class PromotionStatPanel extends JPanel {
                 "0",
                 iconcardInActivePromotion);
 
-        // Tuỳ chỉnh màu icon nền cho dễ phân biệt
         cardActivePromotion.setBackground(StatTheme.CARD_BG);
         cardInActivePromotion.setBackground(StatTheme.CARD_BG);
 
@@ -42,7 +40,6 @@ public class PromotionStatPanel extends JPanel {
         add(cardInActivePromotion);
     }
 
-    /* ================= API cho PanelInventory ================= */
 
     public void setcardActivePromotion(int value) {
         cardActivePromotion.setValue(String.valueOf(value));

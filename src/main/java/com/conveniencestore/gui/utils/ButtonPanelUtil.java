@@ -40,7 +40,7 @@ public class ButtonPanelUtil {
         add(panel, buttons, style(btnEdit, new Color(124, 58, 237))); // Tím đậm
         add(panel, buttons, style(btnRestore, new Color(14, 165, 233))); // Xanh
 
-        // ====== NÚT MỞ RỘNG (CÓ THỂ 0 NÚT) ======
+        // ====== NÚT MỞ RỘNG ======
         if (extraButtons != null) {
             for (JButton btn : extraButtons) {
                 if (btn != null) {
@@ -95,7 +95,7 @@ public class ButtonPanelUtil {
             return new Color(4, 120, 87);
         if (text.contains("export"))
             return new Color(136, 19, 55);
-
-        return new Color(100, 116, 139); // mặc định
+        
+        return new Color(100, 116, 139); 
     }
 }

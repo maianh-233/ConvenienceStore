@@ -122,25 +122,18 @@ public class OrderDialog extends JDialog {
         txtOrderNumber = createTextField();
         txtCustomer = createTextField();
         txtStaff = createTextField();
-
         lblOrderStatus = createStatusLabel();
         lblIsDeleted = createStatusLabel();
-
         txtCreatedAt = createTextField();
         txtUpdatedAt = createTextField();
-
         txtNote = createTextArea();
-
         cmbPromotion = new JComboBox<>();
         cmbPromotion.setFont(FIELD_FONT);
-
         txtSubtotal = createTextField();
         txtDiscount = createTextField();
         txtTotal = createTextField();
-
         cmbPaymentMethod = new JComboBox<>(PaymentMethod.values());
         cmbPaymentMethod.setFont(FIELD_FONT);
-
         txtTransactionRef = createTextField();
         lblPaymentStatus = createStatusLabel();
 
@@ -149,20 +142,15 @@ public class OrderDialog extends JDialog {
         addRow(form, "Mã đơn", txtOrderNumber);
         addRow(form, "Khách hàng", txtCustomer);
         addRow(form, "Nhân viên", txtStaff);
-
         addRow(form, "Trạng thái đơn", lblOrderStatus);
         addRow(form, "Xóa", lblIsDeleted);
-
         addRow(form, "Ngày tạo", txtCreatedAt);
         addRow(form, "Ngày cập nhật", txtUpdatedAt);
-
         addRow(form, "Ghi chú", new JScrollPane(txtNote));
-
         addSectionTitle(form, "Danh sách sản phẩm");
         orderItemPanel = new OrderItemPanel();
         form.add(orderItemPanel);
         form.add(Box.createVerticalStrut(12));
-
         addSectionTitle(form, "Thanh toán");
         form.add(Box.createVerticalStrut(12));
         addRow(form, "Khuyến mãi", cmbPromotion);
@@ -177,11 +165,9 @@ public class OrderDialog extends JDialog {
         scroll.setBorder(null);
         scroll.getVerticalScrollBar().setUnitIncrement(18);
 
-        // 🔥 GẮN MODERN SCROLLBAR
         scroll.getVerticalScrollBar().setUI(new ModernScrollBarUI());
         scroll.getVerticalScrollBar().setPreferredSize(new Dimension(10, Integer.MAX_VALUE));
 
-        // (Optional) nếu không cần scroll ngang
         scroll.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         scroll.getHorizontalScrollBar().setPreferredSize(new Dimension(0, 0));
 

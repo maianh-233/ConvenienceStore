@@ -6,13 +6,9 @@ import java.awt.*;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.List;
-
 import com.conveniencestore.DTO.ImportItemResponseDTO;
 import com.conveniencestore.DTO.ImportResponseDTO;
-import com.conveniencestore.DTO.OrderItemResponseDTO;
-import com.conveniencestore.DTO.OrderResponseDTO;
 import com.conveniencestore.constant.ImportStatus;
-import com.conveniencestore.gui.order.OrderItemPanel;
 import com.conveniencestore.gui.utils.CustomButton;
 import com.conveniencestore.gui.utils.ImageUtil;
 import com.conveniencestore.gui.utils.ModernScrollBarUI;
@@ -115,15 +111,11 @@ public class ImportDialog extends JDialog {
         txtImportNumber = createTextField();
         txtSupplier = createTextField();
         txtStaff = createTextField();
-
         lblImportStatus = createStatusLabel();
         lblIsDeleted = createStatusLabel();
-
         txtCreatedAt = createTextField();
         txtUpdatedAt = createTextField();
-
         txtNote = createTextArea();
-
         txtTotalAmount = createTextField();
 
         // ===== Rows =====
@@ -131,16 +123,13 @@ public class ImportDialog extends JDialog {
         addRow(form, "Mã đơn", txtImportNumber);
         addRow(form, "Nhà cung cấp", txtSupplier);
         addRow(form, "Nhân viên", txtStaff);
-
         addRow(form, "Trạng thái đơn", lblImportStatus);
         addRow(form, "Xóa", lblIsDeleted);
-
         addRow(form, "Ngày tạo", txtCreatedAt);
         addRow(form, "Ngày cập nhật", txtUpdatedAt);
-
         addRow(form, "Ghi chú", new JScrollPane(txtNote));
-
         addSectionTitle(form, "Danh sách sản phẩm");
+
         importItemPanel = new ImportItemPanel();
         form.add(importItemPanel);
         form.add(Box.createVerticalStrut(12));
@@ -152,12 +141,9 @@ public class ImportDialog extends JDialog {
         JScrollPane scroll = new JScrollPane(form);
         scroll.setBorder(null);
         scroll.getVerticalScrollBar().setUnitIncrement(18);
-
-        // 🔥 GẮN MODERN SCROLLBAR
         scroll.getVerticalScrollBar().setUI(new ModernScrollBarUI());
         scroll.getVerticalScrollBar().setPreferredSize(new Dimension(10, Integer.MAX_VALUE));
 
-        // (Optional) nếu không cần scroll ngang
         scroll.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         scroll.getHorizontalScrollBar().setPreferredSize(new Dimension(0, 0));
 

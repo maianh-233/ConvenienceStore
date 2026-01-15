@@ -3,7 +3,6 @@ package com.conveniencestore.gui.product;
 import javax.swing.*;
 import java.awt.*;
 import java.net.URL;
-
 import com.conveniencestore.gui.utils.StatCard;
 import com.conveniencestore.gui.utils.StatTheme;
 import com.conveniencestore.gui.utils.ImageUtil;

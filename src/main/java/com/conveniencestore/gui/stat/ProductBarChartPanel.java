@@ -2,12 +2,8 @@ package com.conveniencestore.gui.stat;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.geom.RoundRectangle2D;
 import java.text.NumberFormat;
 import java.util.Map;
-import java.awt.geom.Rectangle2D;
-import java.awt.geom.RoundRectangle2D;
-
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
@@ -17,7 +13,6 @@ import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.chart.renderer.category.BarRenderer;
 import org.jfree.chart.ui.RectangleInsets;
 import org.jfree.data.category.DefaultCategoryDataset;
-
 import com.conveniencestore.gui.utils.StatTheme;
 
 public class ProductBarChartPanel extends JPanel {

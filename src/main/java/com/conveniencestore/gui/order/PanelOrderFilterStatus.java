@@ -9,17 +9,6 @@ import java.awt.*;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 
-/**
- * PanelOrderFilterStatus
- *
- * CHỈ dùng cho PanelOrder
- *
- * Cấu trúc:
- * Trạng thái + cbStatus
- * Thanh toán + cbPaymentStatus
- * Phương thức + cbPaymentMethod
- * Button Lọc
- */
 public class PanelOrderFilterStatus {
 
     // ===================== CONFIG =====================
@@ -29,7 +18,6 @@ public class PanelOrderFilterStatus {
     private static final int COMBO_WIDTH_LARGE = 150;
     private static final int COMBO_WIDTH_SMALL = 110;
 
-    // XÁM MODERN
     private static final Color BUTTON_BG = new Color(55, 65, 81);
     private static final Color BUTTON_HOVER = new Color(31, 41, 55);
 
@@ -156,7 +144,6 @@ public class PanelOrderFilterStatus {
             }
         });
 
-        // Viền gọn gàng
         combo.setBorder(BorderFactory.createLineBorder(new Color(209, 213, 219)));
     }
 

@@ -3,12 +3,7 @@ package com.conveniencestore.gui.utils;
 import javax.swing.*;
 import javax.swing.table.DefaultTableCellRenderer;
 
-/**
- * Renderer dùng để:
- * - Cắt chuỗi quá dài trong JTable
- * - Hiển thị dạng: 20 ký tự đầu + "..."
- * - Không làm thay đổi dữ liệu trong TableModel
- */
+
 public class EllipsisCellRenderer extends DefaultTableCellRenderer {
 
     private final int maxLength;

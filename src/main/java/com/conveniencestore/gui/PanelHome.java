@@ -5,7 +5,6 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
-
 import com.conveniencestore.gui.utils.AppColor;
 import com.conveniencestore.gui.utils.ImageUtil;
 

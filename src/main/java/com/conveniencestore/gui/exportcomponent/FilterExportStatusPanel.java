@@ -1,10 +1,8 @@
 package com.conveniencestore.gui.exportcomponent;
 
 import javax.swing.*;
-
 import com.conveniencestore.gui.utils.CustomButton;
 import com.conveniencestore.gui.utils.ImageUtil;
-
 import java.awt.*;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
@@ -17,7 +15,6 @@ public class FilterExportStatusPanel {
     private static final int COMBO_WIDTH_LARGE = 150;
     private static final int COMBO_WIDTH_SMALL = 110;
 
-    // 🎨 XÁM MODERN
     private static final Color BUTTON_BG = new Color(55, 65, 81);
     private static final Color BUTTON_HOVER = new Color(31, 41, 55);
 

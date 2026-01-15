@@ -5,18 +5,11 @@ import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-/**
- * CustomButton – JButton tùy biến (SAFE VERSION)
- * - Không cắt text / icon
- * - Tương thích mọi Layout
- * - Bo góc + hover
- * - Tự đo preferred size chính xác
- */
 public class CustomButton extends JButton {
 
     // ================= CONFIG =================
-    private Color backgroundColor = new Color(37, 99, 235); // Blue-600
-    private Color hoverColor = new Color(29, 78, 216); // Blue-700
+    private Color backgroundColor = new Color(37, 99, 235); 
+    private Color hoverColor = new Color(29, 78, 216); 
     private Color textColor = Color.WHITE;
 
     private int cornerRadius = 10;
@@ -87,16 +80,12 @@ public class CustomButton extends JButton {
         super.paintComponent(g);
     }
 
-    // ================= SIZE (IMPORTANT) =================
+    // ================= SIZE =================
     @Override
     public Dimension getPreferredSize() {
 
         Dimension d = super.getPreferredSize();
-
-        // Ép chiều cao đồng bộ toàn UI
         d.height = HEIGHT;
-
-        // Padding trái phải cho icon + text
         d.width += H_PADDING;
 
         return d;

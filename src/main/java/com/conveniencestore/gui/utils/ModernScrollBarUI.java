@@ -52,7 +52,6 @@ public class ModernScrollBarUI extends BasicScrollBarUI {
                 RenderingHints.KEY_ANTIALIASING,
                 RenderingHints.VALUE_ANTIALIAS_ON);
 
-        // 👉 SET ALPHA TRƯỚC
         g2.setComposite(
                 AlphaComposite.getInstance(
                         AlphaComposite.SRC_OVER, ALPHA));

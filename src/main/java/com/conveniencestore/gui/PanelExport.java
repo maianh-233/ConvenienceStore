@@ -2,28 +2,17 @@ package com.conveniencestore.gui;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
-
 import java.awt.*;
-import java.math.BigDecimal;
 import java.net.URL;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-
-import com.conveniencestore.DTO.ImportItemResponseDTO;
-import com.conveniencestore.DTO.ImportResponseDTO;
 import com.conveniencestore.DTO.InventoryExportItemResponseDTO;
 import com.conveniencestore.DTO.InventoryExportResponseDTO;
 import com.conveniencestore.constant.ExportStatus;
 import com.conveniencestore.constant.ExportType;
-import com.conveniencestore.constant.ImportStatus;
-import com.conveniencestore.constant.OrderStatus;
-import com.conveniencestore.constant.PaymentStatus;
 import com.conveniencestore.gui.exportcomponent.ExportDialog;
 import com.conveniencestore.gui.exportcomponent.FilterExportStatusPanel;
-import com.conveniencestore.gui.importcomponent.ImportDialog;
-import com.conveniencestore.gui.mainlayout.SidebarButton;
-import com.conveniencestore.gui.order.PanelOrderFilterStatus;
 import com.conveniencestore.gui.utils.ButtonPanelUtil;
 import com.conveniencestore.gui.utils.ComboItem;
 import com.conveniencestore.gui.utils.CustomButton;
@@ -300,7 +289,7 @@ public class PanelExport extends JPanel {
 		dto.setCreatedById(3L);
 		dto.setCreatedByName("Trần Thị B");
 
-		dto.setType(ExportType.SALE); // hoặc INTERNAL / TRANSFER tùy enum
+		dto.setType(ExportType.SALE); 
 		dto.setStatus(ExportStatus.SUCCESS);
 
 		dto.setNote("Xuất hàng buổi sáng");

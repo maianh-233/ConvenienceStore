@@ -1,13 +1,7 @@
 package com.conveniencestore.gui.mainlayout;
 
 import javax.swing.*;
-
 import java.awt.*;
-import java.awt.event.MouseAdapter;
-
-import java.awt.event.FocusAdapter;
-import java.awt.event.MouseEvent;
-
 import com.conveniencestore.gui.utils.AppColor;
 import com.conveniencestore.gui.utils.CustomButton;
 import com.conveniencestore.gui.utils.ImageUtil;
@@ -42,7 +36,6 @@ public class HeaderPanel extends JPanel {
                 new ImageIcon(getClass().getResource("/icon/logout.png")),
                 20, 20);
 
-        // Create buttons (icon only)
         CustomButton btnNotify = new CustomButton("", notifyIcon);
         CustomButton btnLogout = new CustomButton("", logoutIcon);
 

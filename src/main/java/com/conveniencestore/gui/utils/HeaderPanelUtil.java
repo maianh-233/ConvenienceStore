@@ -8,14 +8,12 @@ import java.awt.event.ComponentEvent;
 public class HeaderPanelUtil {
 
         // ===================== CONFIG =====================
-        private static final int MIN_WIDTH_SHOW_TEXT = 220;
 
         private static final Font TITLE_FONT = new Font("Segoe UI", Font.BOLD, 18);
 
-        // 🎨 Modern Blue
-        private static final Color BUTTON_BG = new Color(37, 99, 235); // #2563EB
+        private static final Color BUTTON_BG = new Color(37, 99, 235); 
 
-        private static final Color BUTTON_HOVER = new Color(29, 78, 216); // #1D4ED8
+        private static final Color BUTTON_HOVER = new Color(29, 78, 216); 
 
         private HeaderPanelUtil() {
         }
@@ -31,7 +29,7 @@ public class HeaderPanelUtil {
                 // ===== TITLE =====
                 JLabel lblTitle = new JLabel(title);
                 lblTitle.setFont(TITLE_FONT);
-                lblTitle.setForeground(new Color(55, 65, 81)); // Gray-700
+                lblTitle.setForeground(new Color(55, 65, 81)); 
 
                 // ===== BUTTON =====
                 String text = btnReload.getText();

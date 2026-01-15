@@ -1,12 +1,9 @@
 package com.conveniencestore.gui;
 
 import javax.swing.*;
-
 import java.awt.*;
 import java.net.URL;
-
 import javax.swing.table.DefaultTableModel;
-
 import com.conveniencestore.DTO.UserResponseDTO;
 import com.conveniencestore.gui.employee.EmployeeDialog;
 import com.conveniencestore.gui.employee.EmployeeStatPanel;
@@ -182,19 +179,14 @@ public class PanelEmployee extends JPanel {
                 dto.setUsername("nv001");
                 dto.setFullName("Trần Thị B");
                 dto.setPasswordHash("$2a$10$mocked_password_hash");
-
                 dto.setDateOfBirth(java.time.LocalDate.of(1997, 8, 15));
                 dto.setEmail("tranthib@gmail.com");
                 dto.setPhone("0909123456");
                 dto.setAddress("456 Nguyễn Trãi, Quận 5, TP.HCM");
-
                 dto.setImgUrl("/icon/user.png"); // hoặc null để test ảnh mặc định
                 dto.setGender(1); // 0 = Nam, 1 = Nữ, 2 = Khác
-
                 dto.setRoleId(2L);
-
                 dto.setActive(1); // 1 = hoạt động, 0 = ngưng
-
                 dto.setCreatedAt(java.time.LocalDateTime.now().minusDays(20));
                 dto.setUpdatedAt(java.time.LocalDateTime.now().minusDays(1));
 

@@ -4,7 +4,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.text.NumberFormat;
 import java.util.Map;
-
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;

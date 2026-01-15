@@ -4,7 +4,6 @@ import com.conveniencestore.DTO.CategoryResponseDTO;
 import com.conveniencestore.gui.utils.CustomButton;
 import com.conveniencestore.gui.utils.ImageUtil;
 import java.time.format.DateTimeFormatter;
-
 import javax.swing.*;
 import java.awt.*;
 import java.util.LinkedHashMap;
@@ -43,7 +42,7 @@ public class CategoryDialog extends JDialog {
     private static final Font LABEL_FONT = new Font("Segoe UI", Font.BOLD, 14);
     private static final Font FIELD_FONT = new Font("Segoe UI", Font.PLAIN, 14);
 
-    // lưu row để hide/show gọn
+    
     private final Map<String, JPanel> rows = new LinkedHashMap<>();
 
     public CategoryDialog(JFrame parent, int mode, CategoryResponseDTO dto) {
@@ -146,7 +145,7 @@ public class CategoryDialog extends JDialog {
         area.setFont(FIELD_FONT);
         area.setLineWrap(true);
         area.setWrapStyleWord(true);
-        area.setBackground(new Color(240, 253, 244)); // emerald-50
+        area.setBackground(new Color(240, 253, 244));
         area.setBorder(
                 BorderFactory.createLineBorder(BORDER));
         return area;

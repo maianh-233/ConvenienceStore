@@ -2,11 +2,9 @@ package com.conveniencestore.gui.exportcomponent;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
-
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
-
 import com.conveniencestore.DTO.ImportItemRequestDTO;
 import com.conveniencestore.DTO.ImportItemResponseDTO;
 import com.conveniencestore.DTO.InventoryExportItemRequestDTO;
@@ -34,56 +32,24 @@ public class ExportItemPanel extends JPanel {
 	private JTextField txtProduct;
 	private JSpinner spQuantity;
 	private JTextArea txtDescription;
-
 	private JTextField txtInventoryOriginal;
 	private JTextField txtInventoryAfter;
-
 	private CustomButton btnSelectProduct;
 	private CustomButton btnAdd;
 	private CustomButton btnSaveEdit;
 	private CustomButton btnEdit;
 	private CustomButton btnDelete;
-
 	private JPanel formSection;
-
 	private JTable table;
 
 	/* ================= THEME ================= */
-	private static final Color PRIMARY = new Color(22, 163, 74);
 	private static final Color PRIMARY_DARK = new Color(21, 128, 61);
 	private static final Color DANGER = new Color(153, 27, 27);
 	private static final Color BORDER = new Color(187, 247, 208);
 	private static final Color LABEL_COLOR = new Color(22, 101, 52);
-
-	/* ================= THEME ================= */
-
-	// ===== SUCCESS (Hoàn tất / OK) =====
 	private static final Color SUCCESS = new Color(34, 197, 94);
-	private static final Color SUCCESS_BG = new Color(220, 252, 231);
-
-	// ===== INFO (Xem / Chi tiết) =====
-	private static final Color INFO = new Color(37, 99, 235); // Xanh dương
-	private static final Color INFO_BG = new Color(219, 234, 254);
-
-	// ===== WARNING (Chú ý / Tạm thời) =====
-	private static final Color WARNING = new Color(217, 119, 6); // Cam
-	private static final Color WARNING_BG = new Color(254, 249, 195);
-
-	// ===== DANGER (Xóa / Huỷ) =====
-	private static final Color DANGER_BG = new Color(254, 226, 226);
-
-	// ===== NEUTRAL (Đóng / Huỷ / Phụ) =====
-	private static final Color NEUTRAL = new Color(107, 114, 128); // Xám
-	private static final Color NEUTRAL_BG = new Color(243, 244, 246);
-
-	// ===== TEXT =====
-	private static final Color TEXT_PRIMARY = new Color(31, 41, 55);
-	private static final Color TEXT_MUTED = new Color(107, 114, 128);
-
-	// ===== BORDER / BACKGROUND =====
-	private static final Color BORDER_LIGHT = new Color(209, 250, 229);
-	private static final Color BG_LIGHT = new Color(240, 253, 244);
-
+	private static final Color WARNING = new Color(217, 119, 6); 
+	private static final Color NEUTRAL = new Color(107, 114, 128); 
 	private static final Font LABEL_FONT = new Font("Segoe UI", Font.BOLD, 14);
 	private static final Font FIELD_FONT = new Font("Segoe UI", Font.PLAIN, 14);
 
@@ -96,7 +62,6 @@ public class ExportItemPanel extends JPanel {
 		applyParentMode();
 	}
 
-	/* ================= API – CHA GỌI ================= */
 	public void setViewData(List<InventoryExportItemResponseDTO> items) {
 		parentMode = MODE_VIEW;
 		responseItems.clear();
@@ -104,7 +69,7 @@ public class ExportItemPanel extends JPanel {
 		requestItems.clear();
 
 		setBorder(BorderFactory.createLineBorder(
-				new Color(187, 247, 208), // BORDER
+				new Color(187, 247, 208), 
 				1));
 
 		applyParentMode();
@@ -171,7 +136,7 @@ public class ExportItemPanel extends JPanel {
 		txtDescription.setBorder(BorderFactory.createEmptyBorder(8, 8, 8, 8));
 
 		JScrollPane noteScroll = new JScrollPane(txtDescription);
-		noteScroll.setPreferredSize(new Dimension(200, 90)); // 🔥 chỉnh lớn tại đây
+		noteScroll.setPreferredSize(new Dimension(200, 90));
 		noteScroll.setBorder(BorderFactory.createLineBorder(BORDER));
 
 		btnSelectProduct = createButton("Chọn SP", "/icon/search.png", NEUTRAL);
@@ -226,7 +191,6 @@ public class ExportItemPanel extends JPanel {
 	private void applyParentMode() {
 		boolean editable = parentMode != MODE_VIEW;
 
-		// 🔥 ẨN HẲN FORM KHI VIEW
 		formSection.setVisible(editable);
 
 		btnEdit.setVisible(editable);

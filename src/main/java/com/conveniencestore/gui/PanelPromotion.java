@@ -181,12 +181,12 @@ public class PanelPromotion extends JPanel {
                 dto.setId(1L);
                 dto.setCode("KHAITRUONG2024");
                 dto.setName("Giảm giá khai trương");
-                dto.setType(PromotionType.PERCENT); // PERCENT | FIXED | FREESHIP
+                dto.setType(PromotionType.PERCENT); 
                 dto.setValue(new java.math.BigDecimal("10")); // 10%
                 dto.setStartAt(java.time.LocalDateTime.now().minusDays(1));
                 dto.setEndAt(java.time.LocalDateTime.now().plusDays(7));
                 dto.setIsActive(1); // 1 = active, 0 = inactive
-                dto.setCustomerTier(CustomerTier.PREMIUM); // ALL | SILVER | GOLD | PLATINUM
+                dto.setCustomerTier(CustomerTier.PREMIUM);
                 dto.setMaxUses(100);
                 dto.setMinOrderAmount(new java.math.BigDecimal("50000"));
                 dto.setNote("Áp dụng cho toàn bộ khách hàng trong tuần khai trương");

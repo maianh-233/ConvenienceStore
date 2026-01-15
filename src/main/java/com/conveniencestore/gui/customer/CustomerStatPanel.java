@@ -2,12 +2,10 @@ package com.conveniencestore.gui.customer;
 
 import java.awt.GridLayout;
 import java.net.URL;
-
 import javax.swing.BorderFactory;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
-
 import com.conveniencestore.gui.utils.ImageUtil;
 import com.conveniencestore.gui.utils.StatCard;
 import com.conveniencestore.gui.utils.StatTheme;
@@ -53,7 +51,7 @@ public class CustomerStatPanel extends JPanel {
                                 "0",
                                 iconcardPREMIUMCustomer);
 
-                // Tuỳ chỉnh màu icon nền cho dễ phân biệt
+                
                 cardActiveCustomer.setBackground(StatTheme.CARD_BG);
                 cardVIPCustomer.setBackground(StatTheme.CARD_BG);
                 cardREGULARCustomer.setBackground(StatTheme.CARD_BG);

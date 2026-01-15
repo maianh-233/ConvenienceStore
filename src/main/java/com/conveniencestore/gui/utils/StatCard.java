@@ -1,7 +1,6 @@
 package com.conveniencestore.gui.utils;
 
 import javax.swing.*;
-
 import java.awt.*;
 
 public class StatCard extends JPanel {

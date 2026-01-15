@@ -5,9 +5,7 @@ import java.awt.*;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 
-/**
- * FilterDateUtil - Panel lọc theo ngày RESPONSIVE
- */
+
 public class FilterDateUtil {
 
     // ===================== CONFIG =====================
@@ -18,7 +16,6 @@ public class FilterDateUtil {
     private static final int SPINNER_WIDTH_LARGE = 140;
     private static final int SPINNER_WIDTH_SMALL = 90;
 
-    // 🎨 TÍM XÁM MODERN
     private static final Color BUTTON_BG = new Color(99, 102, 241);
     private static final Color BUTTON_HOVER = new Color(79, 70, 229);
 
@@ -111,7 +108,7 @@ public class FilterDateUtil {
 
         btn.setPreferredSize(size);
         btn.setMinimumSize(new Dimension(COMPONENT_HEIGHT, 36));
-        btn.setMaximumSize(new Dimension(COMPONENT_HEIGHT, 36)); // 🔥 FIX
+        btn.setMaximumSize(new Dimension(COMPONENT_HEIGHT, 36));
 
         btn.setMargin(new Insets(0, 18, 0, 18));
 

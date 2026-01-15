@@ -17,7 +17,6 @@ public class FilterImportStatusPanel {
     private static final int COMBO_WIDTH_LARGE = 150;
     private static final int COMBO_WIDTH_SMALL = 110;
 
-    // XÁM MODERN
     private static final Color BUTTON_BG = new Color(55, 65, 81);
     private static final Color BUTTON_HOVER = new Color(31, 41, 55);
 
@@ -99,7 +98,6 @@ public class FilterImportStatusPanel {
         combo.setFont(new Font("Segoe UI", Font.PLAIN, 13));
         combo.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 
-        // QUAN TRỌNG
         combo.setBackground(Color.WHITE);
         combo.setOpaque(true);
 
@@ -114,7 +112,7 @@ public class FilterImportStatusPanel {
                         list, value, index, isSelected, cellHasFocus);
 
                 if (isSelected) {
-                    lbl.setBackground(new Color(229, 231, 235)); // xám nhạt modern
+                    lbl.setBackground(new Color(229, 231, 235)); 
                 } else {
                     lbl.setBackground(Color.WHITE);
                 }
@@ -125,7 +123,6 @@ public class FilterImportStatusPanel {
             }
         });
 
-        // Viền gọn gàng
         combo.setBorder(BorderFactory.createLineBorder(new Color(209, 213, 219)));
     }
 

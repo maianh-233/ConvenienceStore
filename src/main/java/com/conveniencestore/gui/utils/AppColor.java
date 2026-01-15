@@ -3,7 +3,7 @@ package com.conveniencestore.gui.utils;
 import java.awt.Color;
 
 public class AppColor {
-    public static final Color PRIMARY = new Color(34, 139, 34);      // Xanh lá đậm
+    public static final Color PRIMARY = new Color(34, 139, 34);     
     public static final Color PRIMARY_DARK = new Color(25, 100, 25);
     public static final Color PRIMARY_LIGHT = new Color(220, 245, 220);
 

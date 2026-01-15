@@ -4,7 +4,6 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
-
 import com.conveniencestore.gui.stat.*;
 import com.conveniencestore.gui.stat.mock.StatDTO;
 import com.conveniencestore.gui.stat.mock.StatMockDAO;
@@ -53,7 +52,7 @@ public class PanelStat extends JPanel {
         boolean compact = width < 1100;
 
         // --- Stat Cards ---
-        if (compact) { // màn hình nhỏ, dọc
+        if (compact) {
             statCardsPanel.setLayout(new BoxLayout(statCardsPanel, BoxLayout.Y_AXIS));
             for (Component c : statCardsPanel.getComponents()) {
                 if (c instanceof StatCard card) {
@@ -80,7 +79,7 @@ public class PanelStat extends JPanel {
         } else {
             bottomPanel.setLayout(new GridLayout(1, 2, 15, 15));
             for (Component c : bottomPanel.getComponents()) {
-                ((JComponent) c).setMaximumSize(null); // GridLayout tự resize
+                ((JComponent) c).setMaximumSize(null); 
             }
         }
 

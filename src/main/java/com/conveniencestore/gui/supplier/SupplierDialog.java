@@ -28,7 +28,6 @@ public class SupplierDialog extends JDialog {
     private JTextField txtCreatedAt;
     private JTextField txtUpdatedAt;
     private JTextArea txtNote;
-
     private CustomButton btnAdd;
     private CustomButton btnEdit;
 
@@ -101,7 +100,6 @@ public class SupplierDialog extends JDialog {
         txtPhone = createTextField();
         txtAddress = createTextArea();
         txtNote = createTextArea();
-
         lblStatus = createStatusLabel();
         txtCreatedAt = createTextField();
         txtUpdatedAt = createTextField();
@@ -268,10 +266,8 @@ public class SupplierDialog extends JDialog {
         txtPhone.setText(dto.getPhone());
         txtAddress.setText(dto.getAddress());
         txtNote.setText(dto.getNote());
-
         txtCreatedAt.setText(dto.getCreatedAt() == null ? "" : dto.getCreatedAt().format(UI_DATE));
         txtUpdatedAt.setText(dto.getUpdatedAt() == null ? "" : dto.getUpdatedAt().format(UI_DATE));
-
         setIsDeleted(dto.getIsDeleted());
     }
 }

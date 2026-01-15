@@ -29,19 +29,6 @@ import com.conveniencestore.gui.utils.PaginationUtil;
 import com.conveniencestore.gui.utils.SearchPanelUtil;
 import com.conveniencestore.gui.utils.TableUtil;
 
-/**
- * PanelOrder
- *
- * Panel quản lý đơn hàng
- * - Tự khởi tạo toàn bộ component
- * - Sử dụng các Util:
- * HeaderPanelUtil
- * SearchPanelUtil
- * FilterDateUtil
- * ButtonPanelUtil
- * TableUtil
- * PaginationUtil
- */
 public class PanelOrder extends JPanel {
         private JFrame parentFrame;
         // ================= HEADER =================

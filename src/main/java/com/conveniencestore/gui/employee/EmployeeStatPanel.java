@@ -3,7 +3,6 @@ package com.conveniencestore.gui.employee;
 import javax.swing.*;
 import java.awt.*;
 import java.net.URL;
-
 import com.conveniencestore.gui.utils.StatCard;
 import com.conveniencestore.gui.utils.StatTheme;
 import com.conveniencestore.gui.utils.ImageUtil;
@@ -32,7 +31,6 @@ public class EmployeeStatPanel extends JPanel {
                 "0",
                 iconcardUnActiveEmployee);
 
-        // Tuỳ chỉnh màu icon nền cho dễ phân biệt
         cardActiveEmployee.setBackground(StatTheme.CARD_BG);
         cardUnActiveEmployee.setBackground(StatTheme.CARD_BG);
 

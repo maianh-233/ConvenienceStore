@@ -2,13 +2,10 @@ package com.conveniencestore.gui;
 
 import com.conveniencestore.gui.utils.CustomButton;
 import com.conveniencestore.gui.utils.ImageUtil;
-
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.MouseAdapter;
-
 import java.awt.event.FocusAdapter;
-import java.awt.event.MouseEvent;
+
 
 public class LoginFrame extends JFrame {
 
