@@ -33,19 +33,46 @@ public final class HibernateUtil {
         private static SessionFactory buildSessionFactory() {
             try {
                 Configuration configuration = new Configuration();
-                configuration.configure(); // Tìm resources/hibernate.cfg.xml
+                configuration.configure(); 
 
-                // Có thể log config cho dev
+                //THÊM ENTITY TẠI ĐÂY
+                configuration.addAnnotatedClass(com.conveniencestore.entity.User.class);
+                configuration.addAnnotatedClass(com.conveniencestore.entity.Role.class);
+                configuration.addAnnotatedClass(com.conveniencestore.entity.Product.class);
+                configuration.addAnnotatedClass(com.conveniencestore.entity.Customer.class);
+                configuration.addAnnotatedClass(com.conveniencestore.entity.Payment.class);
+                configuration.addAnnotatedClass(com.conveniencestore.entity.Inventory.class);
+                configuration.addAnnotatedClass(com.conveniencestore.entity.Unit.class);
+                configuration.addAnnotatedClass(com.conveniencestore.entity.Category.class);
+                configuration.addAnnotatedClass(com.conveniencestore.entity.Supplier.class);
+                configuration.addAnnotatedClass(com.conveniencestore.entity.Promotion.class);
+                configuration.addAnnotatedClass(com.conveniencestore.entity.RolePermission.class);
+                configuration.addAnnotatedClass(com.conveniencestore.entity.Permission.class);
+                configuration.addAnnotatedClass(com.conveniencestore.entity.Order.class);
+                configuration.addAnnotatedClass(com.conveniencestore.entity.OrderItem.class);
+                configuration.addAnnotatedClass(com.conveniencestore.entity.Payment.class);
+                configuration.addAnnotatedClass(com.conveniencestore.entity.Import.class);
+                configuration.addAnnotatedClass(com.conveniencestore.entity.ImportItem.class);
+                configuration.addAnnotatedClass(com.conveniencestore.entity.InventoryExport.class);
+                configuration.addAnnotatedClass(com.conveniencestore.entity.InventoryExportItem.class);
+                configuration.addAnnotatedClass(com.conveniencestore.entity.Permission.class);
+                configuration.addAnnotatedClass(com.conveniencestore.entity.PermissionGroup.class);
+
+
+                
+
                 LOGGER.info("Hibernate Configuration loaded successfully");
 
                 SessionFactory sessionFactory = configuration.buildSessionFactory();
                 LOGGER.info("SessionFactory created successfully");
                 return sessionFactory;
+
             } catch (HibernateException e) {
                 LOGGER.error("Lỗi khởi tạo Hibernate SessionFactory", e);
                 throw new ExceptionInInitializerError(e);
             }
         }
+
     }
 
     /**

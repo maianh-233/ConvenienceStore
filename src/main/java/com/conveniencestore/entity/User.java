@@ -1,18 +1,31 @@
 package com.conveniencestore.entity;
-import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.PrePersist;
+import jakarta.persistence.PreUpdate;
+import jakarta.persistence.Table;
+import lombok.Getter;
+import lombok.Setter;
+import jakarta.persistence.Index;
+
 
 
 @Entity
 @Table(
     name = "users",
-    uniqueConstraints = {
-        @UniqueConstraint(name = "ux_users_username", columnNames = "username"),
-        @UniqueConstraint(name = "ux_users_email", columnNames = "email"),
-        @UniqueConstraint(name = "ux_users_phone", columnNames = "phone")
+    indexes = {
+        @Index(name = "idx_users_created_id", columnList = "created_at DESC, id DESC"),
+        @Index(name = "idx_users_active", columnList = "active"),
+        @Index(name = "idx_users_role", columnList = "role_id")
     }
 )
 @Getter
@@ -29,7 +42,7 @@ public class User {
     @Column(name = "password_hash", nullable = false, length = 255)
     private String passwordHash;
 
-    @Column(name = "full_name", length = 255, nullable = false)
+    @Column(name = "fullName", length = 255, nullable = false)
     private String fullName;
 
     private LocalDate dateOfBirth;
@@ -41,18 +54,26 @@ public class User {
 
     private String address;
     
-    private String img_url;
+    @Column(name = "img_url")
+    private String imgUrl;
+
+    // Thêm thuộc tính để có thể xóa file trên cloudinary
+    @Column(name = "img_urlID")
+    private String imgUrlID;
+
 
     private int gender;
 
     // ================== ROLE ==================
-    @ManyToOne(fetch = FetchType.EAGER)
+
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "role_id", nullable = false)
     private Role role;
 
     @Column(nullable = false)
     private int active = 1;
   
+    @Column(nullable = false, updatable = false)
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
     private LocalDateTime lastLogin;

@@ -1,5 +1,6 @@
 package com.conveniencestore.gui;
 
+import com.conveniencestore.bus.AuthBUS;
 import com.conveniencestore.gui.utils.CustomButton;
 import com.conveniencestore.gui.utils.ImageUtil;
 import javax.swing.*;
@@ -8,6 +9,8 @@ import java.awt.event.FocusAdapter;
 
 
 public class LoginFrame extends JFrame {
+	// Khai báo BUS
+	private final AuthBUS authBUS = new AuthBUS();
 
 	// Màu custom
 	private final Color primaryGreen = new Color(34, 139, 34);
@@ -18,6 +21,8 @@ public class LoginFrame extends JFrame {
 
 	private JTextField txtUsername;
 	private JPasswordField txtPassword;
+	private CustomButton btnLogin;
+	private JButton btnForgot;
 
 	public LoginFrame() {
 		initUI();
@@ -135,12 +140,12 @@ public class LoginFrame extends JFrame {
 		gbc.gridy = 4;
 		gbc.gridwidth = 2;
 		gbc.weightx = 1.0;
-		CustomButton btnLogin = createLoginButton();
+		btnLogin = createLoginButton();
 		rightPanel.add(btnLogin, gbc);
 
 		// 5. FORGOT PASSWORD
 		gbc.gridy = 5;
-		JButton btnForgot = createForgotButton();
+		btnForgot = createForgotButton();
 		rightPanel.add(btnForgot, gbc);
 
 		return rightPanel;
@@ -238,32 +243,49 @@ public class LoginFrame extends JFrame {
 	}
 
 	private void addEvents() {
-		// Event Login (Demo)
-		for (Component c : getComponents()) {
-			if (c instanceof JPanel) {
-				for (Component child : ((JPanel) c).getComponents()) {
-					if (child instanceof CustomButton && "ĐĂNG NHẬP".equals(((CustomButton) child).getText())) {
-						((CustomButton) child).addActionListener(e -> {
-							String username = txtUsername.getText().trim();
-							String password = new String(txtPassword.getPassword()).trim();
+		// Xử lý nút Đăng nhập
+		btnLogin.addActionListener(e -> handleLogin());
 
-							if (username.isEmpty() || password.isEmpty()) {
-								JOptionPane.showMessageDialog(this, "Vui lòng nhập đầy đủ thông tin!", "Lỗi",
-										JOptionPane.WARNING_MESSAGE);
-								return;
-							}
+		// Xử lý nút Quên mật khẩu
+		btnForgot.addActionListener(e -> {
+			ResetPasswordDialog dialog = new ResetPasswordDialog(this);
+			dialog.setVisible(true);
+		});
 
-							// TODO: Gọi API login
-							JOptionPane.showMessageDialog(this, "Đăng nhập thành công!\n " + username, "Thành công",
-									JOptionPane.INFORMATION_MESSAGE);
-							// new MainFrame().setVisible(true);
-							// dispose();
-						});
-						break;
-					}
-				}
+	}
+
+		// Hàm xử lý Logic Đăng nhập
+		private void handleLogin() {
+			String username = txtUsername.getText().trim();
+			String password = new String(txtPassword.getPassword()).trim();
+
+			if (username.isEmpty() || password.isEmpty()) {
+				JOptionPane.showMessageDialog(this, "Vui lòng nhập đầy đủ thông tin!", "Thông báo",
+						JOptionPane.WARNING_MESSAGE);
+				return;
+			}
+
+			// Hiển thị loading hoặc đổi cursor để người dùng không bấm liên tục
+			setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
+
+			try {
+				// Gọi nghiệp vụ từ AuthBUS
+				String token = authBUS.login(username, password);
+
+				JOptionPane.showMessageDialog(this, "Đăng nhập thành công!");
+
+				// Mở Form chính và đóng Form đăng nhập
+				new MainFrame().setVisible(true);
+				this.dispose();
+
+			} catch (RuntimeException ex) {
+				// Hiển thị các lỗi từ BUS (Tài khoản không tồn tại, sai mật khẩu, v.v.)
+				JOptionPane.showMessageDialog(this, ex.getMessage(), "Lỗi đăng nhập", JOptionPane.ERROR_MESSAGE);
+			} catch (Exception ex) {
+				JOptionPane.showMessageDialog(this, "Lỗi hệ thống: " + ex.getMessage(), "Lỗi", JOptionPane.ERROR_MESSAGE);
+			} finally {
+				setCursor(Cursor.getDefaultCursor());
 			}
 		}
-	}
 
 }

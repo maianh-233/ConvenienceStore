@@ -1,7 +1,11 @@
 package com.conveniencestore.gui.mainlayout;
 
 import javax.swing.*;
+
 import java.awt.*;
+
+import com.conveniencestore.bus.AuthBUS;
+import com.conveniencestore.gui.LoginFrame;
 import com.conveniencestore.gui.utils.AppColor;
 import com.conveniencestore.gui.utils.CustomButton;
 import com.conveniencestore.gui.utils.ImageUtil;
@@ -60,6 +64,31 @@ public class HeaderPanel extends JPanel {
 
         add(left, BorderLayout.WEST);
         add(right, BorderLayout.EAST);
-    }
 
+        // Action Listeners
+        btnLogout.addActionListener(e -> {
+            int choice = JOptionPane.showConfirmDialog(
+                    SwingUtilities.getWindowAncestor(this),
+                    "Bạn có chắc muốn đăng xuất không?",
+                    "Xác nhận đăng xuất",
+                    JOptionPane.YES_NO_OPTION);
+
+            if (choice == JOptionPane.YES_OPTION) {
+
+                // 1. Logout logic
+                AuthBUS authBUS = new AuthBUS();
+                authBUS.logout();
+
+                // 2. Đóng cửa sổ hiện tại (MainFrame)
+                Window window = SwingUtilities.getWindowAncestor(this);
+                window.dispose();
+
+                // 3. Mở lại LoginFrame
+                SwingUtilities.invokeLater(() -> {
+                    new LoginFrame().setVisible(true);
+                });
+            }
+        });
+
+    }
 }

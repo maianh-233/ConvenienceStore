@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(
@@ -22,11 +23,11 @@ public class ImportItem {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id; // ID chi tiết nhập
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "import_id", nullable = false)
     private Import importRecord; // Liên kết phiếu nhập
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "product_id", nullable = false)
     private Product product; // Sản phẩm nhập
 
@@ -38,4 +39,14 @@ public class ImportItem {
 
     @Column(name = "total_price", precision = 12, scale = 2, nullable = false)
     private BigDecimal totalPrice = BigDecimal.ZERO; // Tổng tiền = quantity * unitPrice
+
+    @Column(name="created_at")
+    private LocalDateTime createdAt;
+
+    @PrePersist
+    void onCreate() {
+        createdAt = LocalDateTime.now();
+       
+    }
+
 }

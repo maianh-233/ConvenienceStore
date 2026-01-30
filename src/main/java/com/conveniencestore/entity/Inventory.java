@@ -22,7 +22,7 @@ public class Inventory {
     private Long id; // ID inventory, tự tăng
 
     // ================== QUAN HỆ VỚI PRODUCT ==================
-    @OneToOne(fetch = FetchType.EAGER)
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "product_id", nullable = false)
     private Product product; // 1 product chỉ có 1 inventory
 
@@ -30,12 +30,16 @@ public class Inventory {
     private int quantity = 0; // Số lượng hiện tại
 
 
+    @Column(name="updated_at")
     private LocalDateTime updatedAt; // Thời điểm cập nhật tồn kho
+
+    @Column(name="created_at")
+    private LocalDateTime createdAt;
 
     // ================== TỰ ĐỘNG SET THỜI GIAN ==================
     @PrePersist
     void onCreate() {
-        updatedAt = LocalDateTime.now();
+        createdAt = LocalDateTime.now();
        
     }
 

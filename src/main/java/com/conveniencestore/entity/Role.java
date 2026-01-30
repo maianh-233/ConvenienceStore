@@ -16,4 +16,7 @@ public class Role {
 
     @Column(nullable = false, unique = true, length = 50)
     private String name; // Tên chức vụ 
+
+    @Column(name = "is_active", nullable = false)
+    private int isActive; // 1 = active, 0 = inactive
 }

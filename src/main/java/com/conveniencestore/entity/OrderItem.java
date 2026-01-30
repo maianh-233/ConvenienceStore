@@ -23,11 +23,11 @@ public class OrderItem {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id; // ID dòng sản phẩm trong order, tự tăng
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "order_id", nullable = false)
     private Order order; // Liên kết order
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "product_id", nullable = false)
     private Product product; // Liên kết product
 
@@ -40,6 +40,7 @@ public class OrderItem {
     @Column(name = "total_price", precision = 12, scale = 2, nullable = false)
     private BigDecimal totalPrice = BigDecimal.ZERO; // Tổng = quantity * unitPrice
 
+    @Column(name="created_at")
     private LocalDateTime createdAt;
 
     @PrePersist

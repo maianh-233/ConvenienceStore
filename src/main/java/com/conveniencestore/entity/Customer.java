@@ -1,13 +1,23 @@
 package com.conveniencestore.entity;
 
-import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
-
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import com.conveniencestore.constant.CustomerTier;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.PrePersist;
+import jakarta.persistence.PreUpdate;
+import jakarta.persistence.Table;
+import jakarta.persistence.UniqueConstraint;
+import lombok.Getter;
+import lombok.Setter;
 
 @Entity
 @Table(
@@ -23,46 +33,56 @@ public class Customer {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id; // ID khách hàng, tự tăng
+    private Long id;
 
     @Column(nullable = false, length = 150)
-    private String fullName; // Họ và tên khách hàng
+    private String fullName;
 
-    private LocalDate dateOfBirth; // Ngày sinh
+    private LocalDate dateOfBirth;
 
     @Column(length = 255, unique = true)
-    private String email; // Email liên hệ (duy nhất)
+    private String email;
 
     @Column(length = 50, unique = true)
-    private String phone; // Số điện thoại (duy nhất)
+    private String phone;
 
     @Column(length = 500)
-    private String address; // Địa chỉ đầy đủ
+    private String address;
 
-    private int gender; // Giới tính: 0=Nam, 1=Nữ
+    /**
+     * 0 = Nam
+     * 1 = Nữ
+     */
+    @Column(nullable = false)
+    private int gender;
 
-    /* =================== HẠNG VÀ ĐIỂM =================== */
+    /* =================== HẠNG & ĐIỂM =================== */
     @Enumerated(EnumType.STRING)
-    @Column(length = 20, nullable = false)
-    private CustomerTier tier = CustomerTier.REGULAR; // Hạng khách hàng
+    @Column(nullable = false, length = 20)
+    private CustomerTier tier = CustomerTier.REGULAR;
 
-    private int points = 0; // Điểm tích lũy
+    @Column(nullable = false)
+    private int points = 0;
 
     /* =================== MẬT KHẨU =================== */
-    @Column(length = 255, nullable = true)
-    private String password; // Mật khẩu (nên lưu hashed)
+    @Column(length = 255)
+    private String password;
 
-     /* =================== SOFT DELETE =================== */
-    @Column(nullable = false)
-    private int isDeleted = 1; // Đánh dấu khách hàng đã bị xóa (soft delete)
+    /* =================== SOFT DELETE =================== */
+    @Column(name = "is_deleted",nullable = false)
+    private int isDeleted = 1;
 
-    /* =================== THÔNG TIN AUDIT =================== */
-    private LocalDateTime createdAt; // Thời điểm thêm khách hàng
-    private LocalDateTime updatedAt; // Thời điểm cập nhật gần nhất
+    /* =================== AUDIT =================== */
+    @Column(name = "created_at")
+    private LocalDateTime createdAt;
+
+    @Column(name = "updated_at")
+    private LocalDateTime updatedAt;
 
     @PrePersist
     void onCreate() {
         createdAt = LocalDateTime.now();
+        updatedAt = LocalDateTime.now();
     }
 
     @PreUpdate

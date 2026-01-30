@@ -38,17 +38,17 @@ public class Product {
     private String productName;
 
     // Quan hệ với category
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "category_id")
     private Category category;
 
     // Quan hệ với supplier
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "supplier_id")
     private Supplier supplier;
 
     // Quan hệ với unit
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "unit_id")
     private Unit unit;
 
@@ -64,10 +64,17 @@ public class Product {
     @Column(length = 1024)
     private String imageUrl;
 
-    @Column(name = "is_active", nullable = false)
-    private int isActive = 1; // 1 = hoạt động, 0 = không hoạt động
+     // Thêm thuộc tính để có thể xóa file trên cloudinary
+    @Column(name = "img_urlID")
+    private String imgUrlID;
 
+    @Column(name = "is_active", nullable = false)
+    private int isActive = 1; 
+
+    @Column(name="created_at")
     private LocalDateTime createdAt;
+
+    @Column(name="updated_at")
     private LocalDateTime updatedAt;
 
     // =================== QUAN HỆ ===================
@@ -82,6 +89,11 @@ public class Product {
     // 1 product có thể xuất hiện trong nhiều chi tiết phiếu xuất kho
     @OneToMany(mappedBy = "product", fetch = FetchType.LAZY)
     private List<InventoryExportItem> exportItems;
+
+    // JOIN để lấy thông tin tồn kho
+    @OneToOne(mappedBy = "product", fetch = FetchType.LAZY)
+    private Inventory inventory;
+
 
 
     // =================== TỰ ĐỘNG SET THỜI GIAN ===================

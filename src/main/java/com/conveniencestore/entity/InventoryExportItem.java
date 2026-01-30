@@ -1,4 +1,6 @@
 package com.conveniencestore.entity;
+import java.time.LocalDateTime;
+
 import jakarta.persistence.*;
 
 import lombok.Getter;
@@ -41,4 +43,12 @@ public class InventoryExportItem {
     // ================== GHI CHÚ ==================
     @Column(length = 255)
     private String note;
+
+    @Column(name="created_at")
+    private LocalDateTime createdAt;
+
+    @PrePersist
+    void onCreate() {
+        createdAt = LocalDateTime.now();
+    }
 }

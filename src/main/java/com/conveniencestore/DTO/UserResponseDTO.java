@@ -18,6 +18,7 @@ public class UserResponseDTO {
     private String phone;
     private String address;
     private String imgUrl;
+    private String imgUrlID;
     private int gender;
     private Long roleId;
     private String roleName;
@@ -25,4 +26,6 @@ public class UserResponseDTO {
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
     private LocalDateTime lastLogin;
+
+   
 }

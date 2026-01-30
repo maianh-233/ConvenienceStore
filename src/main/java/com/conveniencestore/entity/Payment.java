@@ -26,7 +26,7 @@ public class Payment {
     private Long id; // ID thanh toán, tự tăng
 
     // ================== QUAN HỆ VỚI ORDER ==================
-    @OneToOne(fetch = FetchType.EAGER)
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "order_id", nullable = false)
     private Order order; // 1 order chỉ có 1 payment
 
@@ -44,6 +44,7 @@ public class Payment {
     @Enumerated(EnumType.STRING)
     private PaymentStatus status = PaymentStatus.PENDING; // Trạng thái thanh toán
 
+    @Column(name="created_at")
     private LocalDateTime createdAt;
 
     @PrePersist
