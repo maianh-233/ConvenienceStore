@@ -76,4 +76,8 @@ public class ProductResponseDTO {
         this.inventoryUpdatedAt = inventoryUpdatedAt;
     }
 
+    public ProductResponseDTO() {
+        
+    }
+
 }

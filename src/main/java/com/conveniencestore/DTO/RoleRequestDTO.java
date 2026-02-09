@@ -10,7 +10,8 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class RoleRequestDTO {
-
+    private Long id;
+    
     private String name;
 
     private int isActive;

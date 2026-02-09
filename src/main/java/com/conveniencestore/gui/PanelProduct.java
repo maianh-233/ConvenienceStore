@@ -194,7 +194,7 @@ public class PanelProduct extends JPanel {
 
                 dto.setDescription("Nước ngọt có gas Coca-Cola lon 330ml, giải khát tức thì.");
 
-                dto.setImageUrl("/icon/product.png");
+                dto.setImageUrl(null);
 
                 dto.setIsActive(1); // 1 = đang bán, 0 = ngưng bán
 

@@ -30,7 +30,7 @@ public class OrderItemMapper {
         // Extract productId and productName from relationship
         if (orderItem.getProduct() != null) {
             dto.setProductId(orderItem.getProduct().getId());
-            dto.setProductName(orderItem.getProduct().getName());
+            dto.setProductName(orderItem.getProduct().getProductName());
         }
 
         return dto;

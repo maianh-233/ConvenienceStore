@@ -41,7 +41,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 import com.conveniencestore.DTO.UserDTO;
 import com.conveniencestore.DTO.UserRequestDTO;
 import com.conveniencestore.bus.AuthBUS;
-import com.conveniencestore.bus.UserBUS;
+
 import com.conveniencestore.gui.utils.AppColor;
 import com.conveniencestore.gui.utils.ImageUtil;
 import com.conveniencestore.gui.utils.ModernScrollBarUI;

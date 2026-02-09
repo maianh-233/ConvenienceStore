@@ -3,7 +3,7 @@ package com.conveniencestore.gui.role;
 import javax.swing.*;
 import java.awt.*;
 import java.util.List;
-
+import com.conveniencestore.DTO.RoleResponseDTO;
 import com.conveniencestore.gui.utils.CustomButton;
 import com.conveniencestore.gui.utils.ModernScrollBarUI;
 
@@ -28,15 +28,18 @@ public class RoleDialog extends JDialog {
 
     /* ========== COMPONENT ========== */
     private JTextField txtRoleName;
+    private JLabel lblStatus;
     private JPanel permissionContainer;
 
     private CustomButton btnSave;
     private CustomButton btnClose;
 
+
     /* ========== CONSTRUCTOR ========== */
-    public RoleDialog(Frame owner, int mode) {
+    public RoleDialog(Frame owner, int mode, RoleResponseDTO dto) {
         super(owner, true);
         this.mode = mode;
+
 
         setTitle(getDialogTitle());
         setSize(620, 680);
@@ -47,6 +50,8 @@ public class RoleDialog extends JDialog {
         add(createHeader(), BorderLayout.NORTH);
         add(createFormScroll(), BorderLayout.CENTER);
         add(createButtons(), BorderLayout.SOUTH);
+        if ( dto!= null)
+            bindDTO(dto);
 
         applyMode();
         setVisible(true);
@@ -74,8 +79,10 @@ public class RoleDialog extends JDialog {
         form.setBorder(BorderFactory.createEmptyBorder(10, 16, 10, 16));
 
         txtRoleName = createTextField();
+        lblStatus = createStatusLabel();
 
         addRow(form, "Tên chức vụ", txtRoleName);
+        addRow(form, "Trạng thái", lblStatus);
 
         form.add(Box.createVerticalStrut(10));
         form.add(createPermissionSection());
@@ -125,6 +132,23 @@ public class RoleDialog extends JDialog {
                 BorderFactory.createEmptyBorder(0, 10, 0, 10)
         ));
         return txt;
+    }
+
+    private JLabel createStatusLabel() {
+        JLabel lbl = new JLabel("", SwingConstants.CENTER);
+        lbl.setFont(FIELD_FONT);
+        lbl.setOpaque(true);
+        lbl.setPreferredSize(new Dimension(120, 36));
+        lbl.setBorder(BorderFactory.createLineBorder(BORDER));
+        return lbl;
+    }
+
+    public void setIsDeleted(int value) {
+        boolean active = value == 1;
+
+        lblStatus.setText(active ? "Đang hoạt động" : "Ngưng hoạt động");
+        lblStatus.setForeground(active ? new Color(22, 101, 52) : new Color(153, 27, 27));
+        lblStatus.setBackground(active ? new Color(220, 252, 231) : new Color(254, 226, 226));
     }
 
 
@@ -206,5 +230,10 @@ public class RoleDialog extends JDialog {
             case MODE_EDIT -> "Sửa chức vụ";
             default        -> "Chi tiết chức vụ";
         };
+    }
+
+    private void bindDTO(RoleResponseDTO dto) {
+        txtRoleName.setText(dto.getName());
+        setIsDeleted(dto.getIsActive());
     }
 }

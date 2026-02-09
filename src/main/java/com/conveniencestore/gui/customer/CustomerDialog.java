@@ -1,16 +1,25 @@
 package com.conveniencestore.gui.customer;
 
+
+
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.Calendar;
 import com.conveniencestore.DTO.CustomerResponseDTO;
 import com.conveniencestore.constant.CustomerTier;
 import com.conveniencestore.gui.utils.ComboItem;
 import com.conveniencestore.gui.utils.CustomButton;
 import com.conveniencestore.gui.utils.ImageUtil;
 import com.conveniencestore.gui.utils.ModernScrollBarUI;
+import com.conveniencestore.util.ValidationUtil;
 import javax.swing.*;
 import java.awt.*;
 import java.time.format.DateTimeFormatter;
+import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.Map;
+import com.conveniencestore.DTO.CustomerRequestDTO;
+
 
 public class CustomerDialog extends JDialog {
 
@@ -22,9 +31,11 @@ public class CustomerDialog extends JDialog {
     private final int mode;
     private final CustomerResponseDTO dto;
 
+
     /* ========== COMPONENT ========== */
-    private JTextField txtId, txtFullName, txtDob, txtEmail, txtPhone;
+    private JTextField txtId, txtFullName, txtEmail, txtPhone;
     private JTextField txtAddress, txtPoints;
+    private JSpinner spDob;
     private JComboBox<ComboItem<Integer>> cbbGender;
     private JComboBox<ComboItem<CustomerTier>> cbbTier;
 
@@ -49,10 +60,14 @@ public class CustomerDialog extends JDialog {
     private final Map<String, JPanel> rows = new LinkedHashMap<>();
 
     /* ========== CONSTRUCTOR ========== */
-    public CustomerDialog(JFrame parent, int mode, CustomerResponseDTO dto) {
+    public CustomerDialog(
+            JFrame parent,
+            int mode,
+            CustomerResponseDTO dto) {
         super(parent, true);
         this.mode = mode;
         this.dto = dto;
+    
 
         setTitle(getTitleByMode());
         setSize(600, 650);
@@ -93,7 +108,17 @@ public class CustomerDialog extends JDialog {
 
         txtId = createTextField();
         txtFullName = createTextField();
-        txtDob = createTextField();
+
+        spDob = new JSpinner(new SpinnerDateModel(
+                new Date(),
+                null,
+                null,
+                Calendar.DAY_OF_MONTH));
+        JSpinner.DateEditor editor = new JSpinner.DateEditor(spDob, "dd/MM/yyyy");
+        spDob.setEditor(editor);
+        spDob.setFont(FIELD_FONT);
+        spDob.setPreferredSize(new Dimension(200, 36));
+
         txtEmail = createTextField();
         txtPhone = createTextField();
         txtAddress = createTextField();
@@ -108,7 +133,7 @@ public class CustomerDialog extends JDialog {
 
         addRow(form, "ID", txtId);
         addRow(form, "Họ tên", txtFullName);
-        addRow(form, "Ngày sinh", txtDob);
+        addRow(form, "Ngày sinh", spDob);
         addRow(form, "Email", txtEmail);
         addRow(form, "Số điện thoại", txtPhone);
         addRow(form, "Địa chỉ", txtAddress);
@@ -208,6 +233,10 @@ public class CustomerDialog extends JDialog {
             case MODE_EDIT -> {
                 hideRow("Ngày tạo");
                 hideRow("Ngày cập nhật");
+                // Không cho sửa điểm và hạng vì khi mua hàng sẽ cộng vào
+                txtPoints.setEnabled(false);
+                cbbTier.setEnabled(false);
+
                 txtId.setEnabled(false);
                 btnAdd.setVisible(false);
             }
@@ -215,8 +244,6 @@ public class CustomerDialog extends JDialog {
     }
 
     private void setViewOnly() {
-        cbbGender.setEnabled(false);
-        cbbTier.setEnabled(false);
         rows.values().forEach(r -> r.setEnabled(false));
 
     }
@@ -227,32 +254,41 @@ public class CustomerDialog extends JDialog {
             row.setVisible(false);
     }
 
+    private <T> void selectComboByValue(JComboBox<ComboItem<T>> combo, T value) {
+        if (value == null) {
+            combo.setSelectedIndex(0); // thường là "Tất cả"
+            return;
+        }
+
+        for (int i = 0; i < combo.getItemCount(); i++) {
+            ComboItem<T> item = combo.getItemAt(i);
+            if (item != null && value.equals(item.getValue())) {
+                combo.setSelectedIndex(i);
+                return;
+            }
+        }
+    }
+
     /* ================= DTO ================= */
     private void bindDTO(CustomerResponseDTO dto) {
         txtId.setText(dto.getId() == null ? "" : dto.getId().toString());
         txtFullName.setText(dto.getFullName());
-        txtDob.setText(dto.getDateOfBirth() == null ? "" : dto.getDateOfBirth().toString());
+        // Set date of birth
+        if (dto.getDateOfBirth() != null) {
+            Date dob = java.sql.Date.valueOf(dto.getDateOfBirth());
+            spDob.setValue(dob);
+        }
+
         txtEmail.setText(dto.getEmail());
         txtPhone.setText(dto.getPhone());
         txtAddress.setText(dto.getAddress());
 
-        for (int i = 0; i < cbbGender.getItemCount(); i++) {
-            if (cbbGender.getItemAt(i).getValue() == dto.getGender()) {
-                cbbGender.setSelectedIndex(i);
-                break;
-            }
-        }
+        selectComboByValue(cbbGender, dto.getGender());
 
         txtPoints.setText(String.valueOf(dto.getPoints()));
-        for (int i = 0; i < cbbTier.getItemCount(); i++) {
-            ComboItem<CustomerTier> item = cbbTier.getItemAt(i);
-            if (item.getValue() == dto.getTier()) {
-                cbbTier.setSelectedIndex(i);
-                break;
-            }
-        }
+        selectComboByValue(cbbTier, dto.getTier());
 
-        boolean active = dto.getIsDeleted() == 0;
+        boolean active = dto.getIsDeleted() == 1;
         lblIsDeleted.setText(active ? "Hoạt động" : "Đã xóa");
         lblIsDeleted.setForeground(active ? new Color(22, 101, 52) : new Color(153, 27, 27));
         lblIsDeleted.setBackground(active ? new Color(220, 252, 231) : new Color(254, 226, 226));
@@ -274,7 +310,6 @@ public class CustomerDialog extends JDialog {
 
         combo.addItem(new ComboItem<>(0, "Nam"));
         combo.addItem(new ComboItem<>(1, "Nữ"));
-        combo.addItem(new ComboItem<>(2, "Khác"));
 
         combo.setFont(FIELD_FONT);
         combo.setBorder(BorderFactory.createLineBorder(BORDER));
@@ -294,14 +329,5 @@ public class CustomerDialog extends JDialog {
         combo.setBorder(BorderFactory.createLineBorder(BORDER));
 
         return combo;
-    }
-
-    /* ================= GETTER BUTTON ================= */
-    public CustomButton getBtnAdd() {
-        return btnAdd;
-    }
-
-    public CustomButton getBtnEdit() {
-        return btnEdit;
     }
 }

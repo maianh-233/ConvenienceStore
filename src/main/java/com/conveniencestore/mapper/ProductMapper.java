@@ -43,7 +43,7 @@ public class ProductMapper {
 
         if(product.getInventory() !=null){
             dto.setQuantity(product.getInventory().getQuantity());
-            dto.setQuantityupdatedAt(product.getInventory().getUpdatedAt());
+            dto.setInventoryUpdatedAt(product.getInventory().getUpdatedAt());
         }
         
         dto.setPrice(product.getPrice());

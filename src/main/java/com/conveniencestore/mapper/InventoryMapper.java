@@ -19,7 +19,7 @@ public class InventoryMapper {
         inventory.setQuantity(dto.getQuantity());
 
         // thời điểm kiểm kê (nếu có)
-        inventory.setLastCheckedAt(dto.getLastCheckedAt());
+        inventory.setUpdatedAt(dto.getLastCheckedAt());
 
         return inventory;
     }
@@ -33,11 +33,11 @@ public class InventoryMapper {
         dto.setId(entity.getId());
         dto.setQuantity(entity.getQuantity());
         dto.setUpdatedAt(entity.getUpdatedAt());
-        dto.setLastCheckedAt(entity.getLastCheckedAt());
+        dto.setUpdatedAt(entity.getUpdatedAt());
 
         if (entity.getProduct() != null) {
             dto.setProductId(entity.getProduct().getId());
-            dto.setProductName(entity.getProduct().getName());
+            dto.setProductName(entity.getProduct().getProductName());
         }
 
         return dto;

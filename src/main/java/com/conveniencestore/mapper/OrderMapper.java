@@ -92,8 +92,8 @@ public class OrderMapper {
         Payment payment = order.getPayment();
         if (payment != null) {
             dto.setTransactionref(payment.getTransactionRef());
-            dto.setPaymentMethod(payment.getPaymentMethod());
-            dto.setPaymentStatus(payment.getPaymentStatus());
+            dto.setPaymentMethod(payment.getMethod());
+            dto.setPaymentStatus(payment.getStatus());
         }
 
         return dto;

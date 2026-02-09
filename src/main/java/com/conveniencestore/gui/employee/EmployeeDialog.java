@@ -1,15 +1,23 @@
 package com.conveniencestore.gui.employee;
 
+
 import com.conveniencestore.DTO.UserResponseDTO;
 import com.conveniencestore.gui.utils.ComboItem;
 import com.conveniencestore.gui.utils.CustomButton;
 import com.conveniencestore.gui.utils.ImageUtil;
 import com.conveniencestore.gui.utils.ModernScrollBarUI;
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
+import java.net.URL;
 import java.time.format.DateTimeFormatter;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.Map;
+
+
+
 
 public class EmployeeDialog extends JDialog {
 
@@ -20,12 +28,14 @@ public class EmployeeDialog extends JDialog {
 
     private final int mode;
     private final UserResponseDTO dto;
+ 
 
     /* ========== COMPONENT ========== */
     private JLabel lblImg;
     private CustomButton btnChonAnh;
     private JTextField txtId, txtUsername, txtFullName;
-    private JTextField txtDob, txtEmail, txtPhone;
+    private JTextField txtEmail, txtPhone;
+    private JSpinner spDob;
     private JTextField txtCreatedAt, txtUpdatedAt;
     private JComboBox<ComboItem<Integer>> cbbGender;
     private JComboBox<ComboItem<Long>> cbbRole;
@@ -48,10 +58,14 @@ public class EmployeeDialog extends JDialog {
     private final Map<String, JPanel> rows = new LinkedHashMap<>();
 
     /* ========== CONSTRUCTOR ========== */
-    public EmployeeDialog(JFrame parent, int mode, UserResponseDTO dto) {
+    public EmployeeDialog(
+            JFrame parent,
+            int mode,
+            UserResponseDTO dto) {
         super(parent, true);
         this.mode = mode;
         this.dto = dto;
+
 
         setTitle(getTitleByMode());
         setSize(650, 720);
@@ -156,7 +170,15 @@ public class EmployeeDialog extends JDialog {
         txtId = createTextField();
         txtUsername = createTextField();
         txtFullName = createTextField();
-        txtDob = createTextField();
+        spDob = new JSpinner(new SpinnerDateModel(
+                new Date(),
+                null,
+                null,
+                Calendar.DAY_OF_MONTH));
+        JSpinner.DateEditor editor = new JSpinner.DateEditor(spDob, "dd/MM/yyyy");
+        spDob.setEditor(editor);
+        spDob.setFont(FIELD_FONT);
+        spDob.setPreferredSize(new Dimension(200, 36));
         txtEmail = createTextField();
         txtPhone = createTextField();
         txtCreatedAt = createTextField();
@@ -168,7 +190,7 @@ public class EmployeeDialog extends JDialog {
         addRow(form, "ID", txtId);
         addRow(form, "Username", txtUsername);
         addRow(form, "Họ tên", txtFullName);
-        addRow(form, "Ngày sinh", txtDob);
+        addRow(form, "Ngày sinh", spDob);
         addRow(form, "Email", txtEmail);
         addRow(form, "SĐT", txtPhone);
         addRow(form, "Giới tính", cbbGender);
@@ -217,37 +239,73 @@ public class EmployeeDialog extends JDialog {
     }
 
     private JComboBox<ComboItem<Integer>> createGenderCombo() {
+        
         JComboBox<ComboItem<Integer>> combo = new JComboBox<>();
         combo.addItem(new ComboItem<>(0, "Nam"));
         combo.addItem(new ComboItem<>(1, "Nữ"));
         combo.addItem(new ComboItem<>(2, "Khác"));
+
         return combo;
     }
 
     private JComboBox<ComboItem<Long>> createRoleCombo() {
         JComboBox<ComboItem<Long>> combo = new JComboBox<>();
-
-        combo.addItem(new ComboItem<>(1L, "Quản lý"));
-        combo.addItem(new ComboItem<>(2L, "Nhân viên"));
-        combo.addItem(new ComboItem<>(3L, "Thu ngân"));
+        
 
         return combo;
     }
+
+    private <T> void selectComboByValue(JComboBox<ComboItem<T>> combo, T value) {
+        if (value == null) {
+            combo.setSelectedIndex(0); 
+            return;
+        }
+
+        for (int i = 0; i < combo.getItemCount(); i++) {
+            ComboItem<T> item = combo.getItemAt(i);
+            if (item != null && value.equals(item.getValue())) {
+                combo.setSelectedIndex(i);
+                return;
+            }
+        }
+    }
+
+
 
     /* ================= DTO ================= */
     private void bindDTO(UserResponseDTO dto) {
         txtId.setText(String.valueOf(dto.getId()));
         txtUsername.setText(dto.getUsername());
         txtFullName.setText(dto.getFullName());
-        txtDob.setText(dto.getDateOfBirth() == null ? "" : dto.getDateOfBirth().toString());
+        // Set date of birth
+        if (dto.getDateOfBirth() != null) {
+            Date dob = java.sql.Date.valueOf(dto.getDateOfBirth());
+            spDob.setValue(dob);
+        }
         txtEmail.setText(dto.getEmail());
         txtPhone.setText(dto.getPhone());
+        selectComboByValue(cbbGender, dto.getGender());
+        selectComboByValue(cbbRole, dto.getRoleId());
 
-        for (int i = 0; i < cbbGender.getItemCount(); i++) {
-            if (cbbGender.getItemAt(i).getValue() == dto.getGender()) {
-                cbbGender.setSelectedIndex(i);
-                break;
+ 
+
+        // Set avatar image
+        if (dto.getImgUrl() != null && !dto.getImgUrl().isEmpty()) {
+            try {
+                URL imageUrl = new URL(dto.getImgUrl());
+                Image image = ImageIO.read(imageUrl);
+
+                if (image != null) {
+                    Image scaled = image.getScaledInstance(
+                            150, 150, Image.SCALE_SMOOTH);
+                    lblImg.setIcon(new ImageIcon(scaled));
+                } else {
+                    System.out.println("ImageIO đọc ảnh = null");
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
             }
+
         }
 
         lblActive.setText(dto.getActive() == 1 ? "Hoạt động" : "Ngưng hoạt động");
@@ -278,6 +336,7 @@ public class EmployeeDialog extends JDialog {
             case MODE_EDIT -> {
                 hideRow("Ngày tạo");
                 hideRow("Ngày cập nhật");
+                txtUsername.setEnabled(false);
                 txtId.setEnabled(false);
                 btnAdd.setVisible(false);
             }

@@ -1,17 +1,30 @@
 package com.conveniencestore.gui.promotion;
 
 import com.conveniencestore.DTO.PromotionResponseDTO;
+import com.conveniencestore.DTO.UserRequestDTO;
+import com.conveniencestore.DTO.UserResponseDTO;
 import com.conveniencestore.constant.CustomerTier;
+import com.conveniencestore.constant.OrderStatus;
+import com.conveniencestore.constant.PromotionType;
 import com.conveniencestore.gui.utils.ComboItem;
 import com.conveniencestore.gui.utils.CustomButton;
 import com.conveniencestore.gui.utils.ImageUtil;
 import com.conveniencestore.gui.utils.ModernScrollBarUI;
-
+import com.conveniencestore.util.ValidationUtil;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import javax.swing.*;
 import java.awt.*;
+import java.math.BigDecimal;
 import java.time.format.DateTimeFormatter;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.Map;
+
+import com.conveniencestore.DTO.PromotionRequestDTO;
+
 
 public class PromotionDialog extends JDialog {
 
@@ -25,11 +38,12 @@ public class PromotionDialog extends JDialog {
 
     /* ========== COMPONENT ========== */
     private JTextField txtId, txtName, txtValue, txtCode;
-    private JTextField txtStartAt, txtEndAt;
+
+    private JSpinner spStartAt, spEndAt;
     private JTextField txtMaxUses, txtMinOrderAmount;
     private JTextField txtCreatedAt, txtUpdatedAt;
 
-    private JComboBox<String> cbbType;
+    private JComboBox<ComboItem<PromotionType>> cbbType;
     private JComboBox<ComboItem<CustomerTier>> cbbCustomerTier;
 
     private JTextArea txtNote;
@@ -51,9 +65,13 @@ public class PromotionDialog extends JDialog {
 
     /* ========== ROW MAP ========== */
     private final Map<String, JPanel> rows = new LinkedHashMap<>();
+   
 
     /* ========== CONSTRUCTOR ========== */
-    public PromotionDialog(JFrame parent, int mode, PromotionResponseDTO dto) {
+    public PromotionDialog(
+            JFrame parent,
+            int mode,
+            PromotionResponseDTO dto) {
         super(parent, true);
         this.mode = mode;
         this.dto = dto;
@@ -71,6 +89,7 @@ public class PromotionDialog extends JDialog {
         if (dto != null)
             bindDTO(dto);
         applyMode();
+
         setVisible(true);
     }
 
@@ -99,9 +118,28 @@ public class PromotionDialog extends JDialog {
         txtCode = createTextField();
         txtName = createTextField();
         txtValue = createTextField();
-        cbbType = createCombo(new String[] { "PERCENT", "FIXED", "FREESHIP" });
-        txtStartAt = createTextField();
-        txtEndAt = createTextField();
+        cbbType = createPromotionCombo();
+
+        spStartAt = new JSpinner(new SpinnerDateModel(
+                new Date(),
+                null,
+                null,
+                Calendar.DAY_OF_MONTH));
+        JSpinner.DateEditor editor1 = new JSpinner.DateEditor(spStartAt, "dd/MM/yyyy");
+        spStartAt.setEditor(editor1);
+        spStartAt.setFont(FIELD_FONT);
+        spStartAt.setPreferredSize(new Dimension(200, 36));
+
+        spEndAt = new JSpinner(new SpinnerDateModel(
+                new Date(),
+                null,
+                null,
+                Calendar.DAY_OF_MONTH));
+        JSpinner.DateEditor editor2 = new JSpinner.DateEditor(spEndAt, "dd/MM/yyyy");
+        spEndAt.setEditor(editor2);
+        spEndAt.setFont(FIELD_FONT);
+        spEndAt.setPreferredSize(new Dimension(200, 36));
+
         lblStatus = createStatusLabel();
         cbbCustomerTier = createCustomerTierCombo();
         txtMaxUses = createTextField();
@@ -115,8 +153,8 @@ public class PromotionDialog extends JDialog {
         addRow(form, "Tên khuyến mãi", txtName);
         addRow(form, "Loại", cbbType);
         addRow(form, "Giá trị", txtValue);
-        addRow(form, "Bắt đầu", txtStartAt);
-        addRow(form, "Kết thúc", txtEndAt);
+        addRow(form, "Bắt đầu", spStartAt);
+        addRow(form, "Kết thúc", spEndAt);
         addRow(form, "Trạng thái", lblStatus);
         addRow(form, "Hạng KH áp dụng", cbbCustomerTier);
         addRow(form, "Số lượt tối đa", txtMaxUses);
@@ -178,13 +216,6 @@ public class PromotionDialog extends JDialog {
         return area;
     }
 
-    private JComboBox<String> createCombo(String[] items) {
-        JComboBox<String> cbb = new JComboBox<>(items);
-        cbb.setFont(FIELD_FONT);
-        cbb.setBorder(BorderFactory.createLineBorder(BORDER));
-        return cbb;
-    }
-
     private JLabel createStatusLabel() {
         JLabel lbl = new JLabel("", SwingConstants.CENTER);
         lbl.setFont(FIELD_FONT);
@@ -235,6 +266,7 @@ public class PromotionDialog extends JDialog {
                 hideRow("Ngày tạo");
                 hideRow("Ngày cập nhật");
                 txtId.setEnabled(false);
+                txtCode.setEnabled(false);
                 btnAdd.setVisible(false);
             }
         }
@@ -253,23 +285,59 @@ public class PromotionDialog extends JDialog {
             row.setVisible(false);
     }
 
+    private <T> void selectComboByValue(JComboBox<ComboItem<T>> combo, T value) {
+        if (value == null) {
+            combo.setSelectedIndex(0); // thường là "Tất cả"
+            return;
+        }
+
+        for (int i = 0; i < combo.getItemCount(); i++) {
+            ComboItem<T> item = combo.getItemAt(i);
+            if (item != null && value.equals(item.getValue())) {
+                combo.setSelectedIndex(i);
+                return;
+            }
+        }
+    }
+
+
     /* ================= DTO ================= */
     private void bindDTO(PromotionResponseDTO dto) {
         txtId.setText(dto.getId() == null ? "" : dto.getId().toString());
         txtCode.setText(dto.getCode());
         txtName.setText(dto.getName());
-        cbbType.setSelectedItem(dto.getType());
+
+        // FIX ComboBox
+        selectComboByValue(cbbType, dto.getType());
+        selectComboByValue(cbbCustomerTier, dto.getCustomerTier());
+
         txtValue.setText(dto.getValue() == null ? "" : dto.getValue().toString());
-        txtStartAt.setText(dto.getStartAt() == null ? "" : dto.getStartAt().format(UI_DATE));
-        txtEndAt.setText(dto.getEndAt() == null ? "" : dto.getEndAt().format(UI_DATE));
-        cbbCustomerTier.setSelectedItem(dto.getCustomerTier());
+
+        if (dto.getStartAt() != null) {
+            Date startDate = Date.from(
+                    dto.getStartAt()
+                            .atZone(ZoneId.systemDefault())
+                            .toInstant());
+            spStartAt.setValue(startDate);
+        }
+
+        if (dto.getEndAt() != null) {
+            Date endDate = Date.from(
+                    dto.getEndAt()
+                            .atZone(ZoneId.systemDefault())
+                            .toInstant());
+            spEndAt.setValue(endDate);
+        }
+
         txtMaxUses.setText(dto.getMaxUses() == null ? "" : dto.getMaxUses().toString());
         txtMinOrderAmount.setText(dto.getMinOrderAmount() == null ? "" : dto.getMinOrderAmount().toString());
         txtNote.setText(dto.getNote());
         txtCreatedAt.setText(dto.getCreatedAt() == null ? "" : dto.getCreatedAt().format(UI_DATE));
         txtUpdatedAt.setText(dto.getUpdatedAt() == null ? "" : dto.getUpdatedAt().format(UI_DATE));
+
         setStatus(dto);
     }
+
 
     private void setStatus(PromotionResponseDTO dto) {
         boolean active = dto.getIsActive() == 1
@@ -294,6 +362,17 @@ public class PromotionDialog extends JDialog {
         combo.addItem(new ComboItem<>(null, "Tất cả"));
 
         for (CustomerTier status : CustomerTier.values()) {
+            combo.addItem(
+                    new ComboItem<>(status, status.getDisplayName()));
+        }
+
+        return combo;
+    }
+
+    private JComboBox<ComboItem<PromotionType>> createPromotionCombo() {
+        JComboBox<ComboItem<PromotionType>> combo = new JComboBox<>();
+
+        for (PromotionType status : PromotionType.values()) {
             combo.addItem(
                     new ComboItem<>(status, status.getDisplayName()));
         }

@@ -69,8 +69,7 @@ public class PanelRole extends JPanel {
                 btnAdd = new CustomButton("Thêm", loadIcon("plus"));
                 btnDelete = new CustomButton("Xóa", loadIcon("delete"));
                 btnEdit = new CustomButton("Sửa", loadIcon("edit"));
-                btnRestore = btnRestore = new CustomButton("Restore", loadIcon("restore"));
-                ;
+                btnRestore = new CustomButton("Restore", loadIcon("restore"));
 
                 // ===== TABLE =====
                 table = new JTable();
@@ -151,21 +150,21 @@ public class PanelRole extends JPanel {
                 btnAdd.addActionListener(e -> {
                         new RoleDialog(
                                         parentFrame,
-                                        RoleDialog.MODE_ADD);
+                                        RoleDialog.MODE_ADD,null);
                 });
 
                 // TEST EDIT
                 btnEdit.addActionListener(e -> {
                         new RoleDialog(
                                         parentFrame,
-                                        RoleDialog.MODE_EDIT);
+                                        RoleDialog.MODE_EDIT,null);
                 });
 
                 // TEST VIEW
                 btnView.addActionListener(e -> {
                         new RoleDialog(
                                         parentFrame,
-                                        RoleDialog.MODE_VIEW);
+                                        RoleDialog.MODE_VIEW,null);
                 });
         }
 }

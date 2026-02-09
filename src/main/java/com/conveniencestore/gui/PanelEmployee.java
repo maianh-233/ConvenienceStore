@@ -183,7 +183,7 @@ public class PanelEmployee extends JPanel {
                 dto.setEmail("tranthib@gmail.com");
                 dto.setPhone("0909123456");
                 dto.setAddress("456 Nguyễn Trãi, Quận 5, TP.HCM");
-                dto.setImgUrl("/icon/user.png"); // hoặc null để test ảnh mặc định
+                dto.setImgUrl(null); // hoặc null để test ảnh mặc định
                 dto.setGender(1); // 0 = Nam, 1 = Nữ, 2 = Khác
                 dto.setRoleId(2L);
                 dto.setActive(1); // 1 = hoạt động, 0 = ngưng

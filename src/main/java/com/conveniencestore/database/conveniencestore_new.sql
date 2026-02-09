@@ -2,10 +2,10 @@
 -- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th1 30, 2026 lúc 06:07 PM
--- Phiên bản máy phục vụ: 10.4.32-MariaDB
--- Phiên bản PHP: 8.0.30
+-- Host: 127.0.0.1
+-- Generation Time: Feb 09, 2026 at 05:52 PM
+-- Server version: 10.4.32-MariaDB
+-- PHP Version: 8.0.30
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,13 +18,13 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Cơ sở dữ liệu: `conveniencestore`
+-- Database: `conveniencestore`
 --
 
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `categories`
+-- Table structure for table `categories`
 --
 
 CREATE TABLE `categories` (
@@ -37,7 +37,7 @@ CREATE TABLE `categories` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='Bảng lưu các danh mục sản phẩm';
 
 --
--- Đang đổ dữ liệu cho bảng `categories`
+-- Dumping data for table `categories`
 --
 
 INSERT INTO `categories` (`id`, `name`, `description`, `created_at`, `updated_at`, `is_deleted`) VALUES
@@ -61,7 +61,7 @@ INSERT INTO `categories` (`id`, `name`, `description`, `created_at`, `updated_at
 (18, 'Thực phẩm chay', 'Mì chay, đồ chay đóng gói', '2026-01-22 10:30:00', '2026-01-30 23:57:30', 1),
 (19, 'Đồ dùng gia đình', 'Ly, chén, dao kéo, hộp nhựa', '2026-01-22 10:30:00', '2026-01-30 23:57:30', 1),
 (20, 'Thẻ cào & dịch vụ', 'Thẻ điện thoại, thẻ game, thanh toán', '2026-01-22 10:30:00', '2026-01-30 23:57:30', 1),
-(21, 'Bánh mì & bánh ngọt', 'Bánh mì, bánh ngọt, bánh kem mini', '2026-01-22 10:40:00', '2026-01-30 23:57:30', 1),
+(21, 'Bánh mì & bánh ngọt ', 'Bánh mì, bánh ngọt, bánh kem mini', '2026-01-22 10:40:00', '2026-02-01 13:57:30', 1),
 (22, 'Thực phẩm chế biến sẵn', 'Cơm hộp, mì trộn, thức ăn sẵn', '2026-01-22 10:40:00', '2026-01-30 23:57:30', 1),
 (23, 'Đồ uống pha sẵn', 'Trà sữa, cà phê pha sẵn', '2026-01-22 10:40:00', '2026-01-30 23:57:30', 1),
 (24, 'Kem & tráng miệng lạnh', 'Kem cây, kem hộp, tráng miệng đông lạnh', '2026-01-22 10:40:00', '2026-01-30 23:57:30', 1),
@@ -85,7 +85,7 @@ INSERT INTO `categories` (`id`, `name`, `description`, `created_at`, `updated_at
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `customers`
+-- Table structure for table `customers`
 --
 
 CREATE TABLE `customers` (
@@ -105,7 +105,7 @@ CREATE TABLE `customers` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='Bảng lưu thông tin khách hàng';
 
 --
--- Đang đổ dữ liệu cho bảng `customers`
+-- Dumping data for table `customers`
 --
 
 INSERT INTO `customers` (`id`, `fullName`, `dateOfBirth`, `email`, `phone`, `address`, `gender`, `tier`, `points`, `password`, `created_at`, `updated_at`, `is_deleted`) VALUES
@@ -178,12 +178,12 @@ INSERT INTO `customers` (`id`, `fullName`, `dateOfBirth`, `email`, `phone`, `add
 (67, 'Đặng Văn Trung', '1992-02-14', 'trung.dang67@gmail.com', '0902000067', 'Bình Thạnh, TP.HCM', 0, 'VIP', 2600, NULL, '2025-03-09 00:00:00', '2026-01-30 23:57:55', 1),
 (68, 'Nguyễn Thị Hòa', '2000-07-19', 'hoa.nguyen68@gmail.com', '0902000068', 'Gò Vấp, TP.HCM', 0, 'REGULAR', 140, NULL, '2025-03-10 00:00:00', '2026-01-30 23:57:55', 1),
 (69, 'Bùi Văn Tài', '1983-05-02', 'tai.bui69@gmail.com', '0902000069', 'Q12, TP.HCM', 0, 'PREMIUM', 6900, NULL, '2025-03-11 00:00:00', '2026-01-30 23:57:55', 1),
-(70, 'Trịnh Thị Mai', '1996-10-08', 'mai.trinh70@gmail.com', '0902000070', 'Q4, TP.HCM', 0, 'REGULAR', 260, NULL, '2025-03-12 00:00:00', '2026-01-30 23:57:55', 1);
+(70, 'Trịnh Thị Ánh Mai', '1996-10-08', 'mai.trinh70@gmail.com', '0902000070', 'Q4, TP.HCM', 0, 'REGULAR', 260, NULL, '2025-03-12 00:00:00', '2026-02-03 10:59:55', 1);
 
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `imports`
+-- Table structure for table `imports`
 --
 
 CREATE TABLE `imports` (
@@ -202,7 +202,7 @@ CREATE TABLE `imports` (
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `import_items`
+-- Table structure for table `import_items`
 --
 
 CREATE TABLE `import_items` (
@@ -218,7 +218,7 @@ CREATE TABLE `import_items` (
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `inventory`
+-- Table structure for table `inventory`
 --
 
 CREATE TABLE `inventory` (
@@ -230,7 +230,7 @@ CREATE TABLE `inventory` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='Bảng lưu tồn kho của từng sản phẩm';
 
 --
--- Đang đổ dữ liệu cho bảng `inventory`
+-- Dumping data for table `inventory`
 --
 
 INSERT INTO `inventory` (`id`, `product_id`, `quantity`, `updated_at`, `created_at`) VALUES
@@ -438,7 +438,7 @@ INSERT INTO `inventory` (`id`, `product_id`, `quantity`, `updated_at`, `created_
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `inventory_exports`
+-- Table structure for table `inventory_exports`
 --
 
 CREATE TABLE `inventory_exports` (
@@ -456,7 +456,7 @@ CREATE TABLE `inventory_exports` (
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `inventory_export_items`
+-- Table structure for table `inventory_export_items`
 --
 
 CREATE TABLE `inventory_export_items` (
@@ -471,7 +471,7 @@ CREATE TABLE `inventory_export_items` (
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `orders`
+-- Table structure for table `orders`
 --
 
 CREATE TABLE `orders` (
@@ -495,7 +495,7 @@ CREATE TABLE `orders` (
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `order_items`
+-- Table structure for table `order_items`
 --
 
 CREATE TABLE `order_items` (
@@ -511,7 +511,7 @@ CREATE TABLE `order_items` (
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `payments`
+-- Table structure for table `payments`
 --
 
 CREATE TABLE `payments` (
@@ -527,7 +527,7 @@ CREATE TABLE `payments` (
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `permissions`
+-- Table structure for table `permissions`
 --
 
 CREATE TABLE `permissions` (
@@ -541,7 +541,7 @@ CREATE TABLE `permissions` (
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `permission_groups`
+-- Table structure for table `permission_groups`
 --
 
 CREATE TABLE `permission_groups` (
@@ -553,7 +553,7 @@ CREATE TABLE `permission_groups` (
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `products`
+-- Table structure for table `products`
 --
 
 CREATE TABLE `products` (
@@ -575,7 +575,7 @@ CREATE TABLE `products` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='Bảng lưu thông tin sản phẩm của cửa hàng';
 
 --
--- Đang đổ dữ liệu cho bảng `products`
+-- Dumping data for table `products`
 --
 
 INSERT INTO `products` (`id`, `sku`, `product_name`, `category_id`, `supplier_id`, `unit_id`, `price`, `cost`, `description`, `is_active`, `created_at`, `updated_at`, `barcode`, `imageUrl`, `img_urlID`) VALUES
@@ -603,7 +603,7 @@ INSERT INTO `products` (`id`, `sku`, `product_name`, `category_id`, `supplier_id
 (22, 'SKU0022', 'Sản phẩm test 22', 6, 24, 15, 12487.00, 42558.00, 'Sản phẩm dùng để test phân trang', 1, '2026-01-23 00:03:54', '2026-01-30 23:56:13', '8930000000022', NULL, NULL),
 (23, 'SKU0023', 'Sản phẩm test 23', 19, 7, 23, 98955.00, 43656.00, 'Sản phẩm dùng để test phân trang', 1, '2026-01-23 00:03:54', '2026-01-30 23:56:13', '8930000000023', NULL, NULL),
 (24, 'SKU0024', 'Sản phẩm test 24', 29, 10, 13, 24559.00, 35306.00, 'Sản phẩm dùng để test phân trang', 1, '2026-01-23 00:03:54', '2026-01-30 23:56:13', '8930000000024', NULL, NULL),
-(25, 'SKU0025', 'Sản phẩm test 25', 14, 1, 4, 49622.00, 51318.00, 'Sản phẩm dùng để test phân trang', 1, '2026-01-23 00:03:54', '2026-01-30 23:56:13', '8930000000025', NULL, NULL),
+(25, 'SKU0025', 'Sản', 14, 1, 4, 49622.00, 40318.00, 'Sản phẩm dùng để test phân trang', 1, '2026-01-23 00:03:54', '2026-02-05 13:53:23', '8930000000025', NULL, NULL),
 (26, 'SKU0026', 'Sản phẩm test 26', 5, 27, 5, 14693.00, 47806.00, 'Sản phẩm dùng để test phân trang', 1, '2026-01-23 00:03:54', '2026-01-30 23:56:13', '8930000000026', NULL, NULL),
 (27, 'SKU0027', 'Sản phẩm test 27', 37, 6, 3, 94128.00, 27111.00, 'Sản phẩm dùng để test phân trang', 1, '2026-01-23 00:03:54', '2026-01-30 23:56:13', '8930000000027', NULL, NULL),
 (28, 'SKU0028', 'Sản phẩm test 28', 9, 25, 16, 19116.00, 54814.00, 'Sản phẩm dùng để test phân trang', 1, '2026-01-23 00:03:54', '2026-01-30 23:56:13', '8930000000028', NULL, NULL),
@@ -717,7 +717,7 @@ INSERT INTO `products` (`id`, `sku`, `product_name`, `category_id`, `supplier_id
 (136, 'SKU0136', 'Sản phẩm test 136', 8, 26, 20, 72939.00, 35293.00, 'Sản phẩm dùng để test phân trang', 1, '2026-01-23 00:03:54', '2026-01-30 23:56:13', '8930000000136', NULL, NULL),
 (137, 'SKU0137', 'Sản phẩm test 137', 30, 29, 19, 21934.00, 49841.00, 'Sản phẩm dùng để test phân trang', 1, '2026-01-23 00:03:54', '2026-01-30 23:56:13', '8930000000137', NULL, NULL),
 (138, 'SKU0138', 'Sản phẩm test 138', 36, 26, 20, 68720.00, 23026.00, 'Sản phẩm dùng để test phân trang', 1, '2026-01-23 00:03:54', '2026-01-30 23:56:13', '8930000000138', NULL, NULL),
-(139, 'SKU0139', 'Sản phẩm test 139', 26, 8, 12, 23028.00, 35023.00, 'Sản phẩm dùng để test phân trang', 1, '2026-01-23 00:03:54', '2026-01-30 23:56:13', '8930000000139', NULL, NULL),
+(139, 'SKU0139', 'Sản phẩm test 139 MA', 26, 8, 12, 23028.00, 20023.00, 'Sản phẩm dùng để test phân trang', 1, '2026-01-23 00:03:54', '2026-02-05 13:49:53', '8930000000139', NULL, NULL),
 (140, 'SKU0140', 'Sản phẩm test 140', 15, 5, 21, 97896.00, 47548.00, 'Sản phẩm dùng để test phân trang', 1, '2026-01-23 00:03:54', '2026-01-30 23:56:13', '8930000000140', NULL, NULL),
 (141, 'SKU0141', 'Sản phẩm test 141', 5, 6, 18, 41284.00, 56201.00, 'Sản phẩm dùng để test phân trang', 1, '2026-01-23 00:03:54', '2026-01-30 23:56:13', '8930000000141', NULL, NULL),
 (142, 'SKU0142', 'Sản phẩm test 142', 36, 14, 17, 45748.00, 25291.00, 'Sản phẩm dùng để test phân trang', 1, '2026-01-23 00:03:54', '2026-01-30 23:56:13', '8930000000142', NULL, NULL),
@@ -783,7 +783,7 @@ INSERT INTO `products` (`id`, `sku`, `product_name`, `category_id`, `supplier_id
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `promotions`
+-- Table structure for table `promotions`
 --
 
 CREATE TABLE `promotions` (
@@ -804,7 +804,7 @@ CREATE TABLE `promotions` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Đang đổ dữ liệu cho bảng `promotions`
+-- Dumping data for table `promotions`
 --
 
 INSERT INTO `promotions` (`id`, `code`, `name`, `type`, `value`, `start_at`, `end_at`, `is_active`, `max_uses`, `min_order_amount`, `note`, `created_at`, `updated_at`, `customerTier`) VALUES
@@ -833,7 +833,7 @@ INSERT INTO `promotions` (`id`, `code`, `name`, `type`, `value`, `start_at`, `en
 (23, 'SALE22', 'Giảm 22%', 'PERCENT', 22.00, '2026-07-01 00:00:00', '2026-07-31 00:00:00', 1, 100, 400000.00, 'Tháng 7', '2026-06-15 00:00:00', '2026-06-15 00:00:00', 'VIP'),
 (24, 'AMOUNT90K', 'Giảm 90K', 'AMOUNT', 90000.00, '2026-08-01 00:00:00', '2026-08-31 00:00:00', 1, 80, 500000.00, 'Tháng 8', '2026-07-15 00:00:00', '2026-07-15 00:00:00', 'PREMIUM'),
 (25, 'SALE35', 'Giảm 35%', 'PERCENT', 35.00, '2026-09-01 00:00:00', '2026-09-30 00:00:00', 1, 50, 700000.00, 'Sale lớn', '2026-08-15 00:00:00', '2026-08-15 00:00:00', 'PREMIUM'),
-(26, 'SALE40', 'Giảm 40%', 'PERCENT', 40.00, '2026-10-01 00:00:00', '2026-10-31 00:00:00', 1, 30, 800000.00, 'Sale mạnh', '2026-09-15 00:00:00', '2026-09-15 00:00:00', 'PREMIUM'),
+(26, 'SALE40', 'Giảm 40% MA', 'PERCENT', 40.00, '2026-10-01 00:00:00', '2026-10-31 00:00:00', 1, 30, 800000.00, 'Sale mạnh', '2026-09-15 00:00:00', '2026-02-05 08:16:04', NULL),
 (27, 'AMOUNT150K', 'Giảm 150K', 'AMOUNT', 150000.00, '2026-11-01 00:00:00', '2026-11-30 00:00:00', 1, 20, 1000000.00, 'Cuối năm', '2026-10-15 00:00:00', '2026-10-15 00:00:00', 'PREMIUM'),
 (28, 'SALE50_END', 'Sale 50% cuối năm', 'PERCENT', 50.00, '2026-12-01 00:00:00', '2026-12-31 00:00:00', 1, 10, 1500000.00, 'Cuối năm', '2026-11-15 00:00:00', '2026-11-15 00:00:00', 'PREMIUM'),
 (29, 'SALE8', 'Giảm 8%', 'PERCENT', 8.00, '2026-01-01 00:00:00', '2026-01-15 00:00:00', 1, 500, 80000.00, 'Đơn nhỏ', '2025-12-28 00:00:00', '2026-01-01 00:00:00', 'REGULAR'),
@@ -857,7 +857,7 @@ INSERT INTO `promotions` (`id`, `code`, `name`, `type`, `value`, `start_at`, `en
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `roles`
+-- Table structure for table `roles`
 --
 
 CREATE TABLE `roles` (
@@ -867,7 +867,7 @@ CREATE TABLE `roles` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='Bảng lưu các quyền người dùng';
 
 --
--- Đang đổ dữ liệu cho bảng `roles`
+-- Dumping data for table `roles`
 --
 
 INSERT INTO `roles` (`id`, `name`, `is_active`) VALUES
@@ -879,7 +879,7 @@ INSERT INTO `roles` (`id`, `name`, `is_active`) VALUES
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `role_permissions`
+-- Table structure for table `role_permissions`
 --
 
 CREATE TABLE `role_permissions` (
@@ -891,7 +891,7 @@ CREATE TABLE `role_permissions` (
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `suppliers`
+-- Table structure for table `suppliers`
 --
 
 CREATE TABLE `suppliers` (
@@ -907,7 +907,7 @@ CREATE TABLE `suppliers` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='Bảng lưu thông tin nhà cung cấp';
 
 --
--- Đang đổ dữ liệu cho bảng `suppliers`
+-- Dumping data for table `suppliers`
 --
 
 INSERT INTO `suppliers` (`id`, `name`, `email`, `phone`, `address`, `note`, `created_at`, `updated_at`, `is_deleted`) VALUES
@@ -945,7 +945,7 @@ INSERT INTO `suppliers` (`id`, `name`, `email`, `phone`, `address`, `note`, `cre
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `units`
+-- Table structure for table `units`
 --
 
 CREATE TABLE `units` (
@@ -958,7 +958,7 @@ CREATE TABLE `units` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='Bảng lưu các đơn vị sản phẩm';
 
 --
--- Đang đổ dữ liệu cho bảng `units`
+-- Dumping data for table `units`
 --
 
 INSERT INTO `units` (`id`, `name`, `description`, `created_at`, `updated_at`, `is_deleted`) VALUES
@@ -996,7 +996,7 @@ INSERT INTO `units` (`id`, `name`, `description`, `created_at`, `updated_at`, `i
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `users`
+-- Table structure for table `users`
 --
 
 CREATE TABLE `users` (
@@ -1023,18 +1023,18 @@ CREATE TABLE `users` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='Bảng lưu thông tin người dùng';
 
 --
--- Đang đổ dữ liệu cho bảng `users`
+-- Dumping data for table `users`
 --
 
 INSERT INTO `users` (`id`, `username`, `password_hash`, `fullName`, `dateOfBirth`, `email`, `phone`, `address`, `gender`, `role_id`, `active`, `createdAt`, `updatedAt`, `lastLogin`, `refresh_token_hash`, `refreshTokenExpiry`, `reset_password_token_hash`, `resetPasswordTokenExpiry`, `img_url`, `img_urlID`) VALUES
-(1, 'admin', '$2a$10$z3B/HszO41oskpHr.zinXO7bihEewXV6/q2J1eFMIUFnE.djlw/ue', 'Đỗ Mai Anh', '2004-03-23', 'domaianhh20@gmail.com', '0899463504', 'D10/7L Đường Nữ Dân Công Huyện Bình Chánh Thành Phố HCM', 1, 1, 1, '2026-01-16 23:56:42', '2026-01-30 16:44:59', '2026-01-27 17:08:27', 'f292b63e8ea46379d507821f885457db38e9a289ca2fdabd7557cbe1509dee90', '2026-02-03 17:08:27', NULL, NULL, 'https://res.cloudinary.com/dxy2gp1lg/image/upload/v1769703586/FreshMart/sqa53w2zuw2dtmy68vbo.jpg', 'FreshMart/sqa53w2zuw2dtmy68vbo');
+(1, 'admin', '$2a$11$B5Pre4vLwlsfDIMg/gXXjuH/CyqianiPXHXSXikWE5R0djN/9Tf7.', 'Đỗ Mai Anh', '2004-03-23', 'domaianhh20@gmail.com', '0899463504', NULL, 1, 1, 1, '2026-01-16 23:56:42', '2026-02-09 16:52:16', '2026-02-09 16:51:43', NULL, NULL, NULL, NULL, 'https://res.cloudinary.com/dxy2gp1lg/image/upload/v1769703586/FreshMart/sqa53w2zuw2dtmy68vbo.jpg', 'FreshMart/sqa53w2zuw2dtmy68vbo');
 
 --
--- Chỉ mục cho các bảng đã đổ
+-- Indexes for dumped tables
 --
 
 --
--- Chỉ mục cho bảng `categories`
+-- Indexes for table `categories`
 --
 ALTER TABLE `categories`
   ADD PRIMARY KEY (`id`),
@@ -1042,7 +1042,7 @@ ALTER TABLE `categories`
   ADD UNIQUE KEY `ux_categories_name` (`name`);
 
 --
--- Chỉ mục cho bảng `customers`
+-- Indexes for table `customers`
 --
 ALTER TABLE `customers`
   ADD PRIMARY KEY (`id`),
@@ -1052,7 +1052,7 @@ ALTER TABLE `customers`
   ADD UNIQUE KEY `ux_customers_phone` (`phone`);
 
 --
--- Chỉ mục cho bảng `imports`
+-- Indexes for table `imports`
 --
 ALTER TABLE `imports`
   ADD PRIMARY KEY (`id`),
@@ -1062,7 +1062,7 @@ ALTER TABLE `imports`
   ADD KEY `idx_imports_is_deleted` (`is_deleted`);
 
 --
--- Chỉ mục cho bảng `import_items`
+-- Indexes for table `import_items`
 --
 ALTER TABLE `import_items`
   ADD PRIMARY KEY (`id`),
@@ -1070,14 +1070,14 @@ ALTER TABLE `import_items`
   ADD KEY `idx_import_item_product` (`product_id`);
 
 --
--- Chỉ mục cho bảng `inventory`
+-- Indexes for table `inventory`
 --
 ALTER TABLE `inventory`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `ux_inventory_product` (`product_id`);
 
 --
--- Chỉ mục cho bảng `inventory_exports`
+-- Indexes for table `inventory_exports`
 --
 ALTER TABLE `inventory_exports`
   ADD PRIMARY KEY (`id`),
@@ -1087,7 +1087,7 @@ ALTER TABLE `inventory_exports`
   ADD KEY `fk_export_user` (`created_by`);
 
 --
--- Chỉ mục cho bảng `inventory_export_items`
+-- Indexes for table `inventory_export_items`
 --
 ALTER TABLE `inventory_export_items`
   ADD PRIMARY KEY (`id`),
@@ -1096,7 +1096,7 @@ ALTER TABLE `inventory_export_items`
   ADD KEY `idx_export_items_product` (`product_id`);
 
 --
--- Chỉ mục cho bảng `orders`
+-- Indexes for table `orders`
 --
 ALTER TABLE `orders`
   ADD PRIMARY KEY (`id`),
@@ -1109,7 +1109,7 @@ ALTER TABLE `orders`
   ADD KEY `fk_orders_promotion` (`promotion_id`);
 
 --
--- Chỉ mục cho bảng `order_items`
+-- Indexes for table `order_items`
 --
 ALTER TABLE `order_items`
   ADD PRIMARY KEY (`id`),
@@ -1117,14 +1117,14 @@ ALTER TABLE `order_items`
   ADD KEY `idx_oi_product` (`product_id`);
 
 --
--- Chỉ mục cho bảng `payments`
+-- Indexes for table `payments`
 --
 ALTER TABLE `payments`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `idx_payments_order` (`order_id`);
 
 --
--- Chỉ mục cho bảng `permissions`
+-- Indexes for table `permissions`
 --
 ALTER TABLE `permissions`
   ADD PRIMARY KEY (`id`),
@@ -1133,14 +1133,14 @@ ALTER TABLE `permissions`
   ADD KEY `idx_permissions_group_id` (`group_id`);
 
 --
--- Chỉ mục cho bảng `permission_groups`
+-- Indexes for table `permission_groups`
 --
 ALTER TABLE `permission_groups`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `ux_permission_groups_code` (`code`);
 
 --
--- Chỉ mục cho bảng `products`
+-- Indexes for table `products`
 --
 ALTER TABLE `products`
   ADD PRIMARY KEY (`id`),
@@ -1152,7 +1152,7 @@ ALTER TABLE `products`
   ADD KEY `idx_products_supplier` (`supplier_id`);
 
 --
--- Chỉ mục cho bảng `promotions`
+-- Indexes for table `promotions`
 --
 ALTER TABLE `promotions`
   ADD PRIMARY KEY (`id`),
@@ -1162,21 +1162,21 @@ ALTER TABLE `promotions`
   ADD KEY `idx_promotions_is_active` (`is_active`);
 
 --
--- Chỉ mục cho bảng `roles`
+-- Indexes for table `roles`
 --
 ALTER TABLE `roles`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `name` (`name`);
 
 --
--- Chỉ mục cho bảng `role_permissions`
+-- Indexes for table `role_permissions`
 --
 ALTER TABLE `role_permissions`
   ADD PRIMARY KEY (`role_id`,`permission_id`),
   ADD KEY `fk_rp_permission` (`permission_id`);
 
 --
--- Chỉ mục cho bảng `suppliers`
+-- Indexes for table `suppliers`
 --
 ALTER TABLE `suppliers`
   ADD PRIMARY KEY (`id`),
@@ -1186,7 +1186,7 @@ ALTER TABLE `suppliers`
   ADD UNIQUE KEY `ux_suppliers_phone` (`phone`);
 
 --
--- Chỉ mục cho bảng `units`
+-- Indexes for table `units`
 --
 ALTER TABLE `units`
   ADD PRIMARY KEY (`id`),
@@ -1194,7 +1194,7 @@ ALTER TABLE `units`
   ADD UNIQUE KEY `ux_units_name` (`name`);
 
 --
--- Chỉ mục cho bảng `users`
+-- Indexes for table `users`
 --
 ALTER TABLE `users`
   ADD PRIMARY KEY (`id`),
@@ -1208,156 +1208,156 @@ ALTER TABLE `users`
   ADD KEY `idx_users_role` (`role_id`);
 
 --
--- AUTO_INCREMENT cho các bảng đã đổ
+-- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT cho bảng `categories`
+-- AUTO_INCREMENT for table `categories`
 --
 ALTER TABLE `categories`
   MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT 'ID danh mục, tự tăng', AUTO_INCREMENT=41;
 
 --
--- AUTO_INCREMENT cho bảng `customers`
+-- AUTO_INCREMENT for table `customers`
 --
 ALTER TABLE `customers`
   MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT 'ID khách hàng, tự tăng', AUTO_INCREMENT=71;
 
 --
--- AUTO_INCREMENT cho bảng `imports`
+-- AUTO_INCREMENT for table `imports`
 --
 ALTER TABLE `imports`
   MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT 'ID phiếu nhập, tự tăng';
 
 --
--- AUTO_INCREMENT cho bảng `import_items`
+-- AUTO_INCREMENT for table `import_items`
 --
 ALTER TABLE `import_items`
   MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT 'ID chi tiết nhập';
 
 --
--- AUTO_INCREMENT cho bảng `inventory`
+-- AUTO_INCREMENT for table `inventory`
 --
 ALTER TABLE `inventory`
   MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT 'ID inventory, tự tăng', AUTO_INCREMENT=201;
 
 --
--- AUTO_INCREMENT cho bảng `inventory_exports`
+-- AUTO_INCREMENT for table `inventory_exports`
 --
 ALTER TABLE `inventory_exports`
   MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT cho bảng `inventory_export_items`
+-- AUTO_INCREMENT for table `inventory_export_items`
 --
 ALTER TABLE `inventory_export_items`
   MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT cho bảng `orders`
+-- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
   MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT 'ID đơn hàng, tự tăng';
 
 --
--- AUTO_INCREMENT cho bảng `order_items`
+-- AUTO_INCREMENT for table `order_items`
 --
 ALTER TABLE `order_items`
   MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT 'ID dòng sản phẩm trong order, tự tăng';
 
 --
--- AUTO_INCREMENT cho bảng `payments`
+-- AUTO_INCREMENT for table `payments`
 --
 ALTER TABLE `payments`
   MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT 'ID thanh toán, tự tăng';
 
 --
--- AUTO_INCREMENT cho bảng `permissions`
+-- AUTO_INCREMENT for table `permissions`
 --
 ALTER TABLE `permissions`
   MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT 'ID quyền, tự tăng';
 
 --
--- AUTO_INCREMENT cho bảng `permission_groups`
+-- AUTO_INCREMENT for table `permission_groups`
 --
 ALTER TABLE `permission_groups`
   MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT cho bảng `products`
+-- AUTO_INCREMENT for table `products`
 --
 ALTER TABLE `products`
   MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT 'ID sản phẩm, tự tăng', AUTO_INCREMENT=201;
 
 --
--- AUTO_INCREMENT cho bảng `promotions`
+-- AUTO_INCREMENT for table `promotions`
 --
 ALTER TABLE `promotions`
   MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT 'ID khuyến mãi, tự tăng', AUTO_INCREMENT=46;
 
 --
--- AUTO_INCREMENT cho bảng `roles`
+-- AUTO_INCREMENT for table `roles`
 --
 ALTER TABLE `roles`
   MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT 'ID quyền, tự tăng', AUTO_INCREMENT=5;
 
 --
--- AUTO_INCREMENT cho bảng `suppliers`
+-- AUTO_INCREMENT for table `suppliers`
 --
 ALTER TABLE `suppliers`
   MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT 'ID nhà cung cấp, tự tăng', AUTO_INCREMENT=31;
 
 --
--- AUTO_INCREMENT cho bảng `units`
+-- AUTO_INCREMENT for table `units`
 --
 ALTER TABLE `units`
   MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT 'ID đơn vị, tự tăng', AUTO_INCREMENT=31;
 
 --
--- AUTO_INCREMENT cho bảng `users`
+-- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
   MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT 'ID người dùng, tự tăng', AUTO_INCREMENT=2;
 
 --
--- Các ràng buộc cho các bảng đã đổ
+-- Constraints for dumped tables
 --
 
 --
--- Các ràng buộc cho bảng `imports`
+-- Constraints for table `imports`
 --
 ALTER TABLE `imports`
   ADD CONSTRAINT `fk_import_staff` FOREIGN KEY (`staff_id`) REFERENCES `users` (`id`),
   ADD CONSTRAINT `fk_import_supplier` FOREIGN KEY (`supplier_id`) REFERENCES `suppliers` (`id`);
 
 --
--- Các ràng buộc cho bảng `import_items`
+-- Constraints for table `import_items`
 --
 ALTER TABLE `import_items`
   ADD CONSTRAINT `fk_import_item_import` FOREIGN KEY (`import_id`) REFERENCES `imports` (`id`) ON DELETE CASCADE,
   ADD CONSTRAINT `fk_import_item_product` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`);
 
 --
--- Các ràng buộc cho bảng `inventory`
+-- Constraints for table `inventory`
 --
 ALTER TABLE `inventory`
   ADD CONSTRAINT `fk_inventory_product` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`) ON DELETE CASCADE;
 
 --
--- Các ràng buộc cho bảng `inventory_exports`
+-- Constraints for table `inventory_exports`
 --
 ALTER TABLE `inventory_exports`
   ADD CONSTRAINT `fk_export_user` FOREIGN KEY (`created_by`) REFERENCES `users` (`id`) ON DELETE SET NULL;
 
 --
--- Các ràng buộc cho bảng `inventory_export_items`
+-- Constraints for table `inventory_export_items`
 --
 ALTER TABLE `inventory_export_items`
   ADD CONSTRAINT `fk_export_item_export` FOREIGN KEY (`export_id`) REFERENCES `inventory_exports` (`id`) ON DELETE CASCADE,
   ADD CONSTRAINT `fk_export_item_product` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`);
 
 --
--- Các ràng buộc cho bảng `orders`
+-- Constraints for table `orders`
 --
 ALTER TABLE `orders`
   ADD CONSTRAINT `fk_orders_customer` FOREIGN KEY (`customer_id`) REFERENCES `customers` (`id`),
@@ -1365,26 +1365,26 @@ ALTER TABLE `orders`
   ADD CONSTRAINT `fk_orders_staff` FOREIGN KEY (`staff_id`) REFERENCES `users` (`id`);
 
 --
--- Các ràng buộc cho bảng `order_items`
+-- Constraints for table `order_items`
 --
 ALTER TABLE `order_items`
   ADD CONSTRAINT `fk_orderitem_order` FOREIGN KEY (`order_id`) REFERENCES `orders` (`id`) ON DELETE CASCADE,
   ADD CONSTRAINT `fk_orderitem_product` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`);
 
 --
--- Các ràng buộc cho bảng `payments`
+-- Constraints for table `payments`
 --
 ALTER TABLE `payments`
   ADD CONSTRAINT `fk_payments_order` FOREIGN KEY (`order_id`) REFERENCES `orders` (`id`) ON DELETE CASCADE;
 
 --
--- Các ràng buộc cho bảng `permissions`
+-- Constraints for table `permissions`
 --
 ALTER TABLE `permissions`
   ADD CONSTRAINT `fk_permissions_group` FOREIGN KEY (`group_id`) REFERENCES `permission_groups` (`id`) ON UPDATE CASCADE;
 
 --
--- Các ràng buộc cho bảng `products`
+-- Constraints for table `products`
 --
 ALTER TABLE `products`
   ADD CONSTRAINT `fk_products_category` FOREIGN KEY (`category_id`) REFERENCES `categories` (`id`),
@@ -1392,14 +1392,14 @@ ALTER TABLE `products`
   ADD CONSTRAINT `fk_products_unit` FOREIGN KEY (`unit_id`) REFERENCES `units` (`id`);
 
 --
--- Các ràng buộc cho bảng `role_permissions`
+-- Constraints for table `role_permissions`
 --
 ALTER TABLE `role_permissions`
   ADD CONSTRAINT `fk_rp_permission` FOREIGN KEY (`permission_id`) REFERENCES `permissions` (`id`) ON DELETE CASCADE,
   ADD CONSTRAINT `fk_rp_role` FOREIGN KEY (`role_id`) REFERENCES `roles` (`id`) ON DELETE CASCADE;
 
 --
--- Các ràng buộc cho bảng `users`
+-- Constraints for table `users`
 --
 ALTER TABLE `users`
   ADD CONSTRAINT `fk_users_role` FOREIGN KEY (`role_id`) REFERENCES `roles` (`id`) ON UPDATE CASCADE;

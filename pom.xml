@@ -1,17 +1,18 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" 
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd"> 
-    <modelVersion>4.0.0</modelVersion> 
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.conveniencestore</groupId> 
-    <artifactId>ConvenienceStoreVer2</artifactId> 
-    <version>1.0-SNAPSHOT</version> 
+    <groupId>com.conveniencestore</groupId>
+    <artifactId>ConvenienceStoreVer2</artifactId>
+    <version>1.0-SNAPSHOT</version>
 
-    <properties> 
-        <maven.compiler.source>17</maven.compiler.source> 
-        <maven.compiler.target>17</maven.compiler.target> 
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding> 
+    <properties>
+        <maven.compiler.source>21</maven.compiler.source>
+        <maven.compiler.target>21</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
+
 
     <dependencies>
 
@@ -51,13 +52,15 @@
             <version>2.0.9</version>
         </dependency>
 
+
         <!-- ================= LOMBOK ================= -->
-        <dependency>
+       <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <version>1.18.32</version>
             <scope>provided</scope>
         </dependency>
+
 
         <!-- ================= SECURITY ================= -->
         <dependency>
@@ -85,7 +88,7 @@
             <artifactId>poi-ooxml</artifactId>
             <version>5.4.0</version>
         </dependency>
-        
+
         <!-- ================= Chart ================= -->
         <dependency>
             <groupId>org.jfree</groupId>
@@ -125,22 +128,31 @@
         </dependency>
 
 
-
     </dependencies>
 
     <build>
         <plugins>
-            <!-- Cấu hình compiler Java 17 -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.11.0</version>
                 <configuration>
-                    <source>17</source>
-                    <target>17</target>
+                    <source>21</source>
+                    <target>21</target>
+
+                    <!-- BẮT BUỘC cho Lombok + JDK 21 -->
+                    <annotationProcessorPaths>
+                        <path>
+                            <groupId>org.projectlombok</groupId>
+                            <artifactId>lombok</artifactId>
+                            <version>1.18.32</version>
+                        </path>
+                    </annotationProcessorPaths>
+
                 </configuration>
             </plugin>
         </plugins>
     </build>
+
 
 </project>

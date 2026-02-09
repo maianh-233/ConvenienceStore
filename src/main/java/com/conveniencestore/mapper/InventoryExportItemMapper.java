@@ -44,8 +44,8 @@ public class InventoryExportItemMapper {
         // Product
         if (entity.getProduct() != null) {
             dto.setProductId(entity.getProduct().getId());
-            dto.setProductCode(entity.getProduct().getCode());
-            dto.setProductName(entity.getProduct().getName());
+            dto.setProductCode(entity.getProduct().getBarcode());
+            dto.setProductName(entity.getProduct().getProductName());
         }
 
         return dto;
